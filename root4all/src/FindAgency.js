@@ -27,7 +27,7 @@ function FindAgency() {
     const [result, setResult] = useState([]);
     return (
         <div>
-            <Input onChange={e => setInput(e.target.value)}/>
+            <Input onChange={e => setInput(e.target.value)} placeholder={"Please Enter PostCode/Suburb"}/>
             <Button onClick={() => callApi(input, setResult)}>Search</Button>
             <div>
                 <h3>Result:</h3>
