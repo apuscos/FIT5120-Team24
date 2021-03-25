@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
-
+import {API} from "aws-amplify"
 
 const Button = styled.button`
   background: transparent;
@@ -23,9 +23,23 @@ async function callApi(inputVal, callback) {
     callback("test")
 }
 
+async function callAPITest(){
+    try {
+        const data = await API.get("api01ab30b1", '/items')
+        console.log(data)
+    } catch (err) {
+        console.log("Error:", err)
+    }
+}
+
 function Home() {
     const [input, setInput] = useState("");
     const [result, setResult] = useState("");
+
+    useEffect(()=>{
+        callAPITest()
+    }, [])
+
     return (
         <div>
             This is home page

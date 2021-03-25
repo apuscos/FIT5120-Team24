@@ -30,7 +30,7 @@ app.use(function(req, res, next) {
  * Example get method *
  **********************/
 
-app.get('/item', function(req, res) {
+app.get('/items', function(req, res) {
   // Add your code here
   const example = [
     {name:"test1", age: 20},
