@@ -32,7 +32,12 @@ app.use(function(req, res, next) {
 
 app.get('/item', function(req, res) {
   // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
+  const example = [
+    {name:"test1", age: 20},
+    {name:"test2", age: 22},
+    {name:"test3", age: 23}
+  ]
+  res.json({success: 'get call succeed!', url: req.url, example});
 });
 
 app.get('/item/*', function(req, res) {
