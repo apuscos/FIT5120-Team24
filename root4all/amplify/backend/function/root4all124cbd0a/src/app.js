@@ -7,22 +7,20 @@ See the License for the specific language governing permissions and limitations 
 */
 
 
-
-
 var express = require('express')
 var bodyParser = require('body-parser')
 var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
-
+var mysql = require("mysql");
 // declare a new express app
 var app = express()
 app.use(bodyParser.json())
 app.use(awsServerlessExpressMiddleware.eventContext())
 
 // Enable CORS for all methods
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Headers", "*")
-  next()
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Headers", "*")
+    next()
 });
 
 
@@ -30,64 +28,104 @@ app.use(function(req, res, next) {
  * Example get method *
  **********************/
 
-app.get('/items', function(req, res) {
-  // Add your code here
-  const example = [
-    {name:"test1", age: 20},
-    {name:"test2", age: 22},
-    {name:"test3", age: 23}
-  ]
-  res.json({success: 'get call succeed!', url: req.url, example});
+app.get('/items', function (req, res) {
+    var connection = mysql.createConnection({
+        host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
+        user: "admin",
+        password: "12345678",
+        port: 3306,
+        database: "fit5120"
+    });
+    connection.connect(function(err) {
+        if (err) {
+            console.error('Database connection failed: ' + err.stack);
+            return;
+        }
+        console.log('Connected to database.');
+    });
+    var queryString = 'SELECT * from openingHours where placeID=135111';
+    connection.query(queryString, function (error, results, fields){
+        if (error){
+            console.error(error)
+        } else {
+            console.log(results)
+            res.json({success: 'get call succeed!', url: req.url, results});
+        }
+    });
+
+    connection.end();
+
+    // pool.getConnection(function (err, connection) {
+    //     connection.query('SELECT days from openingHours where placeID=135111', function (error, results) {
+    //         connection.release();
+    //         if (error) {
+    //             res.json({error: error});
+    //         }
+    //         else {
+    //             res.headers = {
+    //                 'Access-Control-Allow-Origin': '*'
+    //             };
+    //             res.json({results})
+    //         }
+    //     })
+    // });
+    // Add your code here
+    // const example = [
+    //     {name: "test1", age: 20},
+    //     {name: "test2", age: 22},
+    //     {name: "test3", age: 23}
+    // ]
+    // res.json({success: 'get call succeed!', url: req.url, example});
 });
 
-app.get('/item/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
+app.get('/item/*', function (req, res) {
+    // Add your code here
+    res.json({success: 'get call succeed!', url: req.url});
 });
 
 /****************************
-* Example post method *
-****************************/
+ * Example post method *
+ ****************************/
 
-app.post('/item', function(req, res) {
-  // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
+app.post('/item', function (req, res) {
+    // Add your code here
+    res.json({success: 'post call succeed!', url: req.url, body: req.body})
 });
 
-app.post('/item/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
-});
-
-/****************************
-* Example put method *
-****************************/
-
-app.put('/item', function(req, res) {
-  // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
-});
-
-app.put('/item/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
+app.post('/item/*', function (req, res) {
+    // Add your code here
+    res.json({success: 'post call succeed!', url: req.url, body: req.body})
 });
 
 /****************************
-* Example delete method *
-****************************/
+ * Example put method *
+ ****************************/
 
-app.delete('/item', function(req, res) {
-  // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
+app.put('/item', function (req, res) {
+    // Add your code here
+    res.json({success: 'put call succeed!', url: req.url, body: req.body})
 });
 
-app.delete('/item/*', function(req, res) {
-  // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
+app.put('/item/*', function (req, res) {
+    // Add your code here
+    res.json({success: 'put call succeed!', url: req.url, body: req.body})
 });
 
-app.listen(3000, function() {
+/****************************
+ * Example delete method *
+ ****************************/
+
+app.delete('/item', function (req, res) {
+    // Add your code here
+    res.json({success: 'delete call succeed!', url: req.url});
+});
+
+app.delete('/item/*', function (req, res) {
+    // Add your code here
+    res.json({success: 'delete call succeed!', url: req.url});
+});
+
+app.listen(3000, function () {
     console.log("App started")
 });
 
