@@ -2,38 +2,8 @@ import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import {API} from "aws-amplify"
 import { NavLink as Link } from 'react-router-dom';
-import FindAgency from "./FindAgency";
 import image1 from "./Image/homePageImage.jpg"
-import searchIcon from "./Image/search.png"
-
-const Button = styled.button`
-  background-image: url(${searchIcon});
-  background-size: 25px 25px;
-  background-repeat: no-repeat;
-  background-position: center;
-  border: none;
-  height: 75px;
-  width: 75px;
-  background-color: white;
-  filter: invert(100%);
-  cursor:pointer;
-  &:hover {
-    opacity: 0.75;
-  }
-`;
-
-const Input = styled.input`
-  line-height: 1;
-  width: 50%;
-  height: 75px;
-  border: none;
-  font-family: 'Lato', sans-serif;
-  font-size: 1.25em;
-  padding-left: 30px;
-  &:focus {
-    outline: none;
-  }
-`;
+import * as Search from "./SearchBar/searchBarComponents"
 
 const Slogan = styled.div`
   display: flex;
@@ -80,33 +50,6 @@ const SloganTextArea = styled.div`
   opacity: 1;
 `;
 
-const ValidAgencyArea = styled.div`
-  display: flex;
-  height: 250px;
-  align-items: center;
-  justify-content: center;
-  background: #e3e3e3;
-  flex-direction: column;
-`;
-
-const ValidAgencyAreaText = styled.div`
-  height: 75%;
-  width: 500px;
-  font-family: "Bebas Neue", cursive;
-  font-size: 2.5em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const SearchArea = styled.div`
-  height: 100px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-`;
 
 const ResultArea = styled.div`
   font-family: 'Lato', sans-serif;
@@ -155,14 +98,14 @@ function Home() {
                 <SloganTextArea>We support homeless people</SloganTextArea>
                 <FindAgencyArea to={"/findAgency"}>Find Agency</FindAgencyArea>
             </Slogan>
-            <ValidAgencyArea>
-                <ValidAgencyAreaText>Or Check agency Eligibility</ValidAgencyAreaText>
-                <SearchArea>
-                    <Input onChange={e => setInput(e.target.value)} placeholder={"Please Enter Agency name"}/>
-                    <Button onClick={() => callApi(input, setResult)}></Button>
-                </SearchArea>
+            <Search.Area>
+                <Search.TextArea>Or Check agency Eligibility</Search.TextArea>
+                <Search.SearchArea>
+                    <Search.InputArea onChange={e => setInput(e.target.value)} placeholder={"Please Enter Agency name"}/>
+                    <Search.SearchButton onClick={() => callApi(input, setResult)}></Search.SearchButton>
+                </Search.SearchArea>
                 <ResultArea>{result}</ResultArea>
-            </ValidAgencyArea>
+            </Search.Area>
         </div>
 );
 }
