@@ -1,11 +1,15 @@
 import { NavLink as Link } from 'react-router-dom';
 import styled from 'styled-components';
+import logo from "../Image/logo.png"
+import "../font/font.css"
+
 
 export const Nav = styled.nav`
-  background: #63D471;
+  background: white;
   height: 85px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0.2rem calc((100vw - 1000px) / 2);
   z-index: 12;
   /* Third Nav */
@@ -13,16 +17,25 @@ export const Nav = styled.nav`
 `;
 
 export const NavLink = styled(Link)`
-  color: #808080;
   display: flex;
   align-items: center;
   text-decoration: none;
   padding: 0 1rem;
   height: 100%;
   cursor: pointer;
-  &.active {
-    color: #000000;
+  font-family: "Bebas Neue", cursive;
+  font-size: 1.25rem;
+  color: black;
+  &:hover{
+    text-decoration: underline;
   }
+`;
+export const Logo = styled.div`
+  background-image: url(${logo});
+  background-repeat: no-repeat;
+  background-size: auto;
+  height: 60px;
+  width: 175px;
 `;
 
 

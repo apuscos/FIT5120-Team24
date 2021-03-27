@@ -29,6 +29,7 @@ app.use(function (req, res, next) {
  **********************/
 
 app.get('/items', function (req, res) {
+
     var connection = mysql.createConnection({
         host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
         user: "admin",
@@ -44,16 +45,18 @@ app.get('/items', function (req, res) {
         console.log('Connected to database.');
     });
     var queryString = 'SELECT * from openingHours where placeID=135111';
+    console.log(req.query)
     connection.query(queryString, function (error, results, fields){
         if (error){
             console.error(error)
         } else {
             console.log(results)
             res.json({success: 'get call succeed!', url: req.url, results});
+            connection.end();
         }
     });
 
-    connection.end();
+
 
     // pool.getConnection(function (err, connection) {
     //     connection.query('SELECT days from openingHours where placeID=135111', function (error, results) {
