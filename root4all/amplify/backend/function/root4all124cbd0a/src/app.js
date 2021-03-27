@@ -52,7 +52,7 @@ app.get('/items', function (req, res) {
         } else {
             console.log(results)
             res.json({success: 'get call succeed!', url: req.url, results});
-            connection.end();
+            connection.destroy();
         }
     });
 
