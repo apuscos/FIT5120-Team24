@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import * as Search from "./SearchBar/searchBarComponents"
-import { Table, Tr } from 'styled-table-component';
-const Button =  styled.div`
+import {Table, Tr} from 'styled-table-component';
+
+const Button = styled.div`
   width: 400px;
   height: 75px;
   background-color: black;
@@ -15,7 +16,8 @@ const Button =  styled.div`
   color: white;
   opacity: 1;
   cursor: pointer;
-  &:hover{
+
+  &:hover {
     text-decoration: underline;
   }
 `;
@@ -30,14 +32,14 @@ const TableTitle = styled.div`
 `;
 
 const TableWrapper = styled.div`
-    width: 70%;
-    text-align: center;
-    margin-left: 15%;
+  width: 70%;
+  text-align: center;
+  margin-left: 15%;
 `;
 
 
-
 async function callApi(inputVal, callback) {
+    checkInputValid(inputVal)
     console.log(inputVal)
     callback([
         {agencyName: "test1", agencyAddress: "Address1", agencyPhone: 123},
@@ -46,6 +48,17 @@ async function callApi(inputVal, callback) {
     ])
 }
 
+function checkInputValid(inputVal) {
+    var numberReg = /^[0-9]*$/
+    var characterReg = /^[a-zA-Z]*$/
+    var digitalOnly = numberReg.test(inputVal);
+    var characterOnly = characterReg.test(inputVal);
+    if ((digitalOnly === true && characterOnly === true) || (digitalOnly === false && characterOnly === false)) {
+        console.log("Invalid input, please enter only postcode or suburb name")
+    } else {
+        console.log("Valid input")
+    }
+}
 
 function FindAgency() {
     const [input, setInput] = useState("");
@@ -53,9 +66,10 @@ function FindAgency() {
     return (
         <div>
             <Search.Area>
-                <Search.TextArea >Search agency by Postcode or Suburb name</Search.TextArea>
+                <Search.TextArea>Search agency by Postcode or Suburb name</Search.TextArea>
                 <Search.SearchArea>
-                    <Search.InputArea onChange={e => setInput(e.target.value)} placeholder={"Please Enter PostCode/Suburb"}/>
+                    <Search.InputArea onChange={e => setInput(e.target.value)}
+                                      placeholder={"Please Enter PostCode/Suburb"}/>
                     <Search.SearchButton onClick={() => callApi(input, setResult)}></Search.SearchButton>
                 </Search.SearchArea>
             </Search.Area>
@@ -67,7 +81,7 @@ function FindAgency() {
             </Search.Area>
             <TableTitle>Agency Information</TableTitle>
             <TableWrapper>
-                <Table responsiveMd theadDark >
+                <Table responsiveMd theadDark>
                     <thead>
                     <tr>
                         <th scope="col">Agency Name</th>
@@ -76,20 +90,20 @@ function FindAgency() {
                     </tr>
                     </thead>
                     <tbody>
-                       {result.map((x, i) => {
-                           return (
-                           <Tr>
-                               <td>{x["agencyName"]}</td>
-                               <td>{x["agencyAddress"]}</td>
-                               <td>{x["agencyPhone"]}</td>
-                           </Tr>
-                           )
-                       })}
-                    </tbody>
-                </Table>
-            </TableWrapper>
-        </div>
-    )
-}
+                    {result.map((x, i) => {
+                        return (
+                            <Tr key={i}>
+                                <td>{x["agencyName"]}</td>
+                                <td>{x["agencyAddress"]}</td>
+                                <td>{x["agencyPhone"]}</td>
+                            </Tr>
+                        )
+                    })}
+                        </tbody>
+                        </Table>
+                        </TableWrapper>
+                        </div>
+                        )
+                    }
 
 export default FindAgency;
