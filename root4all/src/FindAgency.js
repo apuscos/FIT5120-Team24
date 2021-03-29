@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from "styled-components";
 import * as Search from "./SearchBar/searchBarComponents"
 import {Table, Tr} from 'styled-table-component';
+import {API} from "aws-amplify";
 
 const Button = styled.div`
   width: 400px;
@@ -41,11 +42,15 @@ const TableWrapper = styled.div`
 async function callApi(inputVal, callback) {
     checkInputValid(inputVal)
     console.log(inputVal)
-    callback([
-        {agencyName: "test1", agencyAddress: "Address1", agencyPhone: 123},
-        {agencyName: "test2", agencyAddress: "Address2", agencyPhone: 1234},
-        {agencyName: "test3", agencyAddress: "Address3", agencyPhone: 1235}
-    ])
+}
+
+async function getAgencyNearHospital(callback){
+    try {
+        const data = await API.get("roof4all", '/checkagencynearhospital');
+        callback(data["results"])
+    } catch (err) {
+        console.log("Error:", err)
+    }
 }
 
 function checkInputValid(inputVal) {
@@ -77,7 +82,7 @@ function FindAgency() {
                 <Search.SearchArea>
                     <Search.TextArea>Or you can</Search.TextArea>
                 </Search.SearchArea>
-                <Button>Find agency near hospital</Button>
+                <Button onClick={()=> getAgencyNearHospital(setResult)}>Find agency near hospital</Button>
             </Search.Area>
             <TableTitle>Agency Information</TableTitle>
             <TableWrapper>
@@ -85,17 +90,19 @@ function FindAgency() {
                     <thead>
                     <tr>
                         <th scope="col">Agency Name</th>
-                        <th scope="col">Agency Address</th>
-                        <th scope="col">Agency Phonenumber</th>
+                        <th scope="col">Agency Suburb</th>
+                        <th scope="col">Agency Postcode</th>
+                        <th scope="col">Agency Register Date</th>
                     </tr>
                     </thead>
                     <tbody>
                     {result.map((x, i) => {
                         return (
                             <Tr key={i}>
-                                <td>{x["agencyName"]}</td>
-                                <td>{x["agencyAddress"]}</td>
-                                <td>{x["agencyPhone"]}</td>
+                                <td>{x["Agency_Name"]}</td>
+                                <td>{x["Agency_Suburb"]}</td>
+                                <td>{x["Agency_Postcode"]}</td>
+                                <td>{x["Agency_Reg_Date"]}</td>
                             </Tr>
                         )
                     })}

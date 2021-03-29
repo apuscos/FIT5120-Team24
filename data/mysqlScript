@@ -29,15 +29,18 @@ create table preferred_location(
 LOAD DATA LOCAL INFILE 'Agencies.csv'
 INTO TABLE agencies
 FIELDS TERMINATED BY ','
-LINES TERMINATED BY '\n'
+LINES TERMINATED BY '\r\n'
 IGNORE 1 ROWS;
 
 LOAD DATA LOCAL INFILE 'Hospital.csv'
 INTO TABLE hospital
 FIELDS TERMINATED BY ','
 OPTIONALLY ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS
+(ID, Formal_Name, Location_Address, Suburb, Postcode, Category, @Pref_loc)
+SET Pref_loc = IF(@Pref_loc = "", NULL, @Pref_loc)
+;
 
 LOAD DATA LOCAL INFILE 'Preferred_location.csv'
 INTO TABLE preferred_location

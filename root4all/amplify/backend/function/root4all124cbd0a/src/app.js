@@ -24,65 +24,6 @@ app.use(function (req, res, next) {
 });
 
 
-/**********************
- * Example get method *
- **********************/
-
-
-
-app.get('/items', function (req, res) {
-
-    var connection = mysql.createConnection({
-        host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
-        user: "admin",
-        password: "12345678",
-        port: 3306,
-        database: "fit5120"
-    });
-    connection.connect(function(err) {
-        if (err) {
-            console.error('Database connection failed: ' + err.stack);
-            return;
-        }
-        console.log('Connected to database.');
-    });
-    var queryString = 'SELECT * from openingHours where placeID=135111';
-    console.log(req.query)
-    connection.query(queryString, function (error, results, fields){
-        if (error){
-            console.error(error)
-        } else {
-            console.log(results)
-            res.json({success: 'get call succeed!', url: req.url, results});
-            connection.destroy();
-        }
-    });
-
-
-
-    // pool.getConnection(function (err, connection) {
-    //     connection.query('SELECT days from openingHours where placeID=135111', function (error, results) {
-    //         connection.release();
-    //         if (error) {
-    //             res.json({error: error});
-    //         }
-    //         else {
-    //             res.headers = {
-    //                 'Access-Control-Allow-Origin': '*'
-    //             };
-    //             res.json({results})
-    //         }
-    //     })
-    // });
-    // Add your code here
-    // const example = [
-    //     {name: "test1", age: 20},
-    //     {name: "test2", age: 22},
-    //     {name: "test3", age: 23}
-    // ]
-    // res.json({success: 'get call succeed!', url: req.url, example});
-});
-
 app.get('/checkAgency', function (req, res) {
     // Add your code here
     var connection = mysql.createConnection({
@@ -106,6 +47,7 @@ app.get('/checkAgency', function (req, res) {
         if (error){
             console.error(error)
         } else {
+            console.log(results);
             var num_agency = results[0].num_agency;
             if (num_agency > 0 ){
                 res.json({success: 'get call succeed!', found: true});
@@ -117,46 +59,51 @@ app.get('/checkAgency', function (req, res) {
     });
 });
 
-/****************************
- * Example post method *
- ****************************/
 
-app.post('/item', function (req, res) {
+app.get('/checkagencynearhospital', function (req, res) {
     // Add your code here
-    res.json({success: 'post call succeed!', url: req.url, body: req.body})
-});
+    var connection = mysql.createConnection({
+        host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
+        user: "admin",
+        password: "12345678",
+        port: 3306,
+        database: "fit5120"
+    });
+    connection.connect(function(err) {
+        if (err) {
+            console.error('Database connection failed: ' + err.stack);
+            return;
+        }
+        console.log('Connected to database.');
+    });
 
-app.post('/item/*', function (req, res) {
-    // Add your code here
-    res.json({success: 'post call succeed!', url: req.url, body: req.body})
-});
+    var queryString = `SELECT DISTINCT(Pref_loc) FROM hospital WHERE Pref_loc IS NOT NULL`;
+    connection.query(queryString, function (error, results, fields){
+        if (error){
+            console.error(error)
+        } else {
+            var hospital_loc = "(";
+            for (let i = 0; i < results.length; i++){
+                hospital_loc = hospital_loc + `'${results[i]["Pref_loc"]}'`;
+                if (i != results.length - 1){
+                    hospital_loc = hospital_loc + ` , `;
+                }
+            }
+            hospital_loc = hospital_loc + `)`;
+            queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date FROM agencies WHERE Pref_loc IN ${hospital_loc}`;
+            console.log("process complete");
+            connection.query(queryString, function (error, results, fields){
+                if (error){
+                    console.error(error)
+                } else {
+                    console.log(results);
+                    res.json({success: 'get call succeed!', results});
+                    connection.destroy();
+                }
+            });
 
-/****************************
- * Example put method *
- ****************************/
-
-app.put('/item', function (req, res) {
-    // Add your code here
-    res.json({success: 'put call succeed!', url: req.url, body: req.body})
-});
-
-app.put('/item/*', function (req, res) {
-    // Add your code here
-    res.json({success: 'put call succeed!', url: req.url, body: req.body})
-});
-
-/****************************
- * Example delete method *
- ****************************/
-
-app.delete('/item', function (req, res) {
-    // Add your code here
-    res.json({success: 'delete call succeed!', url: req.url});
-});
-
-app.delete('/item/*', function (req, res) {
-    // Add your code here
-    res.json({success: 'delete call succeed!', url: req.url});
+        }
+    })
 });
 
 app.listen(3000, function () {
