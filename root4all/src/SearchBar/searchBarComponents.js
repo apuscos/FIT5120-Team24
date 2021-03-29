@@ -13,7 +13,7 @@ export const Area = styled.div`
 `;
 
 export const TextArea = styled.div`
-  height: 75%;
+  height: 40%;
   width: 500px;
   font-family: "Bebas Neue", cursive;
   font-size: 2.5em;
@@ -28,7 +28,7 @@ export const SearchArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  
+  margin-top: -20px;
 `;
 
 export const SearchButton = styled.button`

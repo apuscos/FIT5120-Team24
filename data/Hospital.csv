@@ -1,0 +1,270 @@
+ID,Formal_Name,Location_Address,Suburb,Postcode,Category,Pref_loc
+0,Albert Road Clinic,31-33 Albert Road,South Melbourne,3205,PRIVATE,Inner Metro South
+1,Albury Wodonga Health,69 Vermont Street,Wodonga,3690,PUBLIC,Wodonga
+2,"Albury Wodonga Health, Albury Campus",Borella,Albury,2640,PUBLIC,
+3,Alexandra District Health,20 Cooper Street,Alexandra,3714,PUBLIC,
+4,Alfred Health,Commercial Road,Melbourne,3004,PUBLIC,Inner Metro South
+5,Alpine Health,30 O'Donnell Avenue,Myrtleford,3737,PUBLIC,Myrtleford
+6,Angliss Hospital,Albert Street,Upper Ferntree Gully,3156,PUBLIC,Knox
+7,Appearance Medical Centre,57 Garsed Street,Bendigo,3550,PRIVATE,Bendigo
+8,Austin Health,145 Studley Road,Heidelberg,3084,PUBLIC,Heidelberg
+9,Austin Health - Austin Hospital,145 Studley Road,Heidelberg,3084,PUBLIC,Heidelberg
+10,Austin Health - Heidelberg Repatriation Hospital,300 Waterdale Road,Heidelberg Heights,3081,PUBLIC,Heidelberg
+11,Bairnsdale Regional Health Service,122 Day St,Bairnsdale,3875,PUBLIC,Bairnsdale
+12,Ballan District Health and Care,33 Cowie Street,Ballan,3342,PRIVATE,Ballan
+13,Ballarat Day Procedure Centre,1119/1123 Howitt Street,Ballarat,3355,PRIVATE,
+14,Ballarat Health Services,Drummond Street North,Ballarat,3353,PUBLIC,
+15,Barwon Health,272-322 Ryrie Street,Geelong,3220,PUBLIC,Geelong North
+16,Bass Coast Health,235 Graham Street,Wonthaggi,3995,PUBLIC,Wonthaggi
+17,Bayside Day Procedure and Specialist Centre,141 Cranbourne Road,Frankston,3199,PRIVATE,Frankston
+18,Bayside Endoscopy Day Hospital,441 South Road,Moorabbin,3189,PRIVATE,Cheltenham South
+19,Bayswater Day Procedure and Specialist Centre,664 Mountain Highway,Bayswater,3153,PRIVATE,Knox
+20,Beaufort and Skipton Health Service,28 Havelock Street,Beaufort,3373,PUBLIC,Beaufort
+21,Beechworth Health Service,52 Sydney Road,Beechworth,3747,PUBLIC,Beechworth
+22,Beleura Private Hospital,925 Nepean Highway,Mornington,3931,PRIVATE,Mornington Peninsula
+23,Bellbird Private Hospital,198 Canterbury Road,Blackburn,3130,PRIVATE,Box Hill
+24,Benalla Health,45-63 Coster Street,Benalla,3672,PUBLIC,Benalla
+25,Bendigo Day Surgery,1-7 Chum Street,Bendigo,3550,PRIVATE,Bendigo
+26,Bendigo Health,62 Lucan St ,Bendigo,3550,PUBLIC,Bendigo
+27,Bentleigh Surgicentre,155 Jasper Road,Bentleigh,3204,PRIVATE,Cheltenham North
+28,Berwick Surgicentre,22 Langmore Lane,Berwick,3806,PRIVATE,Berwick and Pakenham
+29,Boort District Health,31 Kiniry Street,Boort,3537,PUBLIC,
+30,Box Hill Hospital,51 Nelson Road ,Box Hill,3128,PUBLIC,Box Hill
+31,Brighton Plastic Surgery Centre,206 New Street,Brighton,3186,PRIVATE,Sandringham
+32,Broadmeadows Health Service,35 Johnstone St,Broadmeadows,3047,PUBLIC,Broadmeadows
+33,Brunswick Private Hospital,82 Moreland Road,Brunswick,3056,PRIVATE,Inner Metro North
+34,Bundoora Extended Care Centre,1231 Plenty Road,Bundoora,3083,PUBLIC,Preston
+35,Cabrini Brighton,243 New Street,Brighton,3186,PRIVATE,Sandringham
+36,Cabrini Health Elsternwick Rehabilitation Service,494 Glenhuntly Road,Elsternwick,3185,PRIVATE,Sandringham
+37,Cabrini Hopetoun Rehabilitation,2-4 Hopetoun Street,Elsternwick,3185,PRIVATE,Sandringham
+38,Cabrini Malvern,181-183 Wattletree Road,Malvern,3144,PRIVATE,Cheltenham North
+39,Cabrini Prahran,646 High Street,Prahran East,3181,PRIVATE,
+40,Calvary Health Care Bethlehem Ltd.,476 Kooyong Road,Caulfield,3162,PUBLIC,Cheltenham North
+41,Caritas Christi Hospice Ltd,104 Studley Park Road,Kew,3101,PUBLIC,Box Hill
+42,Casey Hospital,52 Kangan Drive,Berwick,3806,PUBLIC,Berwick and Pakenham
+43,Casterton Memorial Hospital,63-69 Russell Street,Casterton,3311,PUBLIC,
+44,Castlemaine Health,142 Cornish Street,Castlemaine,3450,PUBLIC,Castlemaine
+45,Caulfield Hospital,260 Kooyong Road,Caulfield,3162,PUBLIC,Cheltenham North
+46,Central Gippsland Health Service,155 Guthridge Parade,Sale,3850,PUBLIC,
+47,Central Highlands Rural Health,13 Hospital Street,Daylesford,3460,PUBLIC,Daylesford
+48,Chesterville Day Hospital,28 Chesterville Road,Cheltenham,3192,PRIVATE,Cheltenham South
+49,Cobden District Health Service Inc.,5 Victoria Street,Cobden,3266,PRIVATE,
+50,Coburg Endoscopy Centre,15 Munro Street,Coburg,3058,PRIVATE,Broadmeadows
+51,Cohuna District Hospital,144-158 King George Street,Cohuna,3568,PUBLIC,
+52,Colac Area Health,2-28 Conner St,Colac,3250,PUBLIC,Colac
+53,Corryong Health,20 Kiell Street,Corryong,3707,PUBLIC,
+54,Corymbia House,92-94 David Street,Dandenong,3175,PRIVATE,Dandenong
+55,Cotham Private Hospital,209 Cotham Road,Kew,3101,PRIVATE,Box Hill
+56,Craigieburn Health Service,350 Craigieburn Road West,Craigieburn,3064,PUBLIC,Broadmeadows
+57,Cranbourne Integrated Care Centre,140-154 Sladen Street,Cranbourne,3977,PUBLIC,Cranbourne
+58,Dandenong Eye Clinic,1-3 Falkiner Crescent,Dandenong,3175,PRIVATE,Dandenong
+59,Dandenong Hospital,105-135 David Street,Dandenong,3175,PUBLIC,Dandenong
+60,Darebin Endoscopy Services,42 Station Street,Fairfield,3078,PRIVATE,Inner Metro East
+61,Delmont Private Hospital,298 Warrigal Road,Burwood,3125,PRIVATE,Box Hill
+62,Dental Health Services Victoria,720 Swanston Street,Carlton,3053,PUBLIC,Inner Metro North
+63,Diamond Valley Renal Care Centre,Grimshaw Street,Greensborough,3088,PRIVATE,Watsonia and Kinglake
+64,Digestive Health Centre,90 David Street,Dandenong,3175,PRIVATE,Dandenong
+65,Djerriwarrh Health Services,Lot 4 Grant Street,Bacchus Marsh,3340,PUBLIC,Bacchus Marsh
+66,Donvale Rehabilitation Hospital,1119-1121 Doncaster Road,Donvale,3111,PRIVATE,Box Hill
+67,Dorset Rehabilitation Centre,146 Derby Street,Pascoe Vale,3044,PRIVATE,Broadmeadows
+68,Dr Walters Vasectomy Centre,486 Burwood Highway,Vermont South,3133,PRIVATE,Maroondah
+69,East Grampians Health Service,Lot 5B Girdlestone Street ,Ararat,3377,PUBLIC,
+70,East Melbourne Day Procedure Centre,116 - 118 Wellington Parade,East Melbourne,3002,PRIVATE,Inner Metro North
+71,East Wimmera Health Service,52 North Western Road,St Arnaud,3478,PUBLIC,Stawell and St Arnaud
+72,Eastern Health,"Level 4, 5 Arnold Street",Box Hill,3128,PUBLIC,Box Hill
+73,Eastside Endoscopy Centre,33 Wantirna Road,Ringwood,3134,PRIVATE,Maroondah
+74,Echuca Regional Health,9-27 Frances Street,Echuca,3564,PUBLIC,
+75,Edenhope and District Hospital,128-134 Elizabeth Street,Edenhope,3318,PUBLIC,Edenhope and Apsley
+76,Epworth Cliveden,29 Simpson Street,East Melbourne,3002,PRIVATE,Inner Metro North
+77,Epworth Eastern Hospital,1 Arnold Street,Box Hill,3128,PRIVATE,Box Hill
+78,Epworth Freemasons,166 Clarendon Street,East Melbourne,3002,PRIVATE,Inner Metro North
+79,Epworth Rehabilitation Brighton,85-91 Wilson Street,Brighton,3186,PRIVATE,Sandringham
+80,Epworth Rehabilitation Camberwell,888 Toorak Road,Camberwell,3124,PRIVATE,Box Hill
+81,Epworth Richmond,89 Bridge Road,Richmond,3121,PRIVATE,Inner Metro East
+82,Essendon Day Procedure Centre,"Level 2, 665 Mount Alexander Road",Moonee Ponds,3039,PRIVATE,Flemington
+83,Essendon Private Clinic,33-35 Rosehill Road,Essendon,3040,PRIVATE,Flemington
+84,Euroa Health Inc,36 Kennedy Street,Euroa,3666,PRIVATE,Benalla
+85,Footscray Hospital,160 Gordon Street,Footscray,3011,PUBLIC,Altona
+86,Forest Hill Dialysis Centre,"Shops 26 & 27 Forest Hill Chase, 69 Mahoneys ",Forest Hill,3131,PRIVATE,Maroondah
+87,Frances Perry House,Levels 6 & 7 Cnr Grattan St & Flemington Rd,Parkville,3052,PRIVATE,Inner Metro North
+88,Frankston Hospital,Hastings Rd,Frankston,3199,PUBLIC,Frankston
+89,Geelong Private Hospital,272 Ryrie St,Geelong,3220,PRIVATE,Geelong North
+90,Gippsland Southern Health Service,66 Koonwarra Road,Leongatha,3953,PUBLIC,Leongatha
+91,Glen Eira Day Surgery,554 Hawthorn Road,Caulfield South,3162,PRIVATE,Cheltenham North
+92,Glenferrie Private Hospital,25 Linda Crescent,Hawthorn,3122,PRIVATE,Box Hill
+93,Goulburn Valley Health,2 Graham Street,Shepparton,3630,PUBLIC,Shepparton
+94,Hawthorn Birth and Development Centre,144 Barkers Road,Hawthorn,3122,PRIVATE,Box Hill
+95,Healesville and District Hospital,377 Maroondah Highway,Healesville,3777,PUBLIC,Yarra Ranges Rural
+96,Heathcote Health,39 Hospital Street,Heathcote,3523,PUBLIC,
+97,Heidelberg Endoscopy and Day Surgery Centre,177-179 Northern Road,Heidelberg,3081,PRIVATE,Heidelberg
+98,Hesse Rural Health Service,8 Gosney Street,Winchelsea,3241,PUBLIC,Winchelsea
+99,Heyfield Hospital Inc.,21 Tyson Road,Heyfield,3858,PRIVATE,
+100,Heywood Rural Health,21 Barclay Street,Heywood,3304,PUBLIC,
+101,Hobsons Bay Endoscopy Centre,5 Sargood Street,Altona,3018,PRIVATE,Altona
+102,Hobson's Bay Werribee Endoscopy Centre,179 Princes Highway,Werribee,3030,PRIVATE,Werribee
+103,Hyperbaric Health Wound Centre Berwick,3 Gibb Street,Berwick,3806,PRIVATE,Berwick and Pakenham
+104,Inglewood and District Health Service,3 Hospital Street,Inglewood,3517,PUBLIC,Inglewood
+105,Ivanhoe Endoscopy and Day Procedure Centre,2/226 Upper Heidelberg Road,Ivanhoe,3079,PRIVATE,Heidelberg
+106,Jessie McPherson Private Hospital,246 Clayton Road,Clayton,3168,PRIVATE,Monash
+107,John Fawkner Private Hospital,275 Moreland Road,Coburg,3058,PRIVATE,Broadmeadows
+108,Jolimont Endoscopy,19/201 Wellington Parade South,East Melbourne,3002,PRIVATE,Inner Metro North
+109,Keilor Private,771 Old Calder Highway,Keilor,3036,PRIVATE,Keilor and St Albans
+110,Kerang District Health,13 Burgoyne Street,Kerang,3579,PUBLIC,Kerang
+111,Kew Endoscopy Centre,"Units 4/5, 828 High Street",Kew,3101,PRIVATE,Box Hill
+112,Kilmore District Health,Rutledge Street,Kilmore,3764,PUBLIC,Broadford
+113,Kingston Centre,400 Warrigal Rd ,Cheltenham,3192,PUBLIC,Cheltenham South
+114,Knox Private Hospital,262 Mountain Highway,Wantirna,3152,PRIVATE,Knox
+115,Kooweerup Regional Health Service,Rossiter Rd,Kooweerup,3981,PUBLIC,
+116,Kyabram District Health Service,88 Fenaughty Street,Kyabram,3620,PUBLIC,
+117,La Trobe Private Hospital,Cnr Plenty Road & Kingsbury Drive,Bundoora,3083,PRIVATE,Preston
+118,Latrobe Regional Hospital,Cnr Princes Highway & Village Avenue ,Traralgon West,3844,PUBLIC,
+119,Linacre Private Hospital,12-16 Linacre Road,Hampton,3188,PRIVATE,Sandringham
+120,Maldon Hospital,Chapel Street,Maldon,3463,PUBLIC,Castlemaine
+121,Mallee Track Health and Community Service,28 Britt Street,Ouyen,3490,PUBLIC,
+122,Malvern Dialysis Centre,"Ground Floor, 1133 Malvern Road",Malvern,3144,PRIVATE,Cheltenham North
+123,Malvern Private Hospital,3-9 Wilton Vale Crescent,Malvern East,3145,PRIVATE,Cheltenham North
+124,Manningham Day Procedure Centre,"Level 3, 200 High Street",Lower Templestowe,3107,PRIVATE,
+125,Mansfield District Hospital,53 Highett Street,Mansfield,3722,PUBLIC,
+126,Marie Stopes International East St Kilda,338 Dandenong Road,St Kilda East,3182,PRIVATE,Inner Metro South
+127,Marie Stopes International Maroondah,411 Dorset Road,Croydon,3136,PRIVATE,Maroondah
+128,Maroondah Hospital,1-15 Mt Dandenong Rd,East Ringwood,3135,PUBLIC,
+129,Maryborough District Health Service,75-87 Clarendon St,Maryborough,3465,PUBLIC,Maryborough
+130,Maryvale Private Hospital,McDonald Street,Morwell,3840,PRIVATE,
+131,Masada Private Hospital,26-28 Balaclava Road,East St Kilda,3183,PRIVATE,
+132,Melbourne Day Surgery,961 Glenhuntly Road,Caulfield,3162,PRIVATE,Cheltenham North
+133,Melbourne Endoscopy Group DPC,34/517 St Kilda Road,Melbourne,3000,PRIVATE,Inner Metro South
+134,Melbourne Endoscopy Monash Day Hospital (DPC),277 Clayton Road,Clayton,3168,PRIVATE,Monash
+135,Melbourne Health,"Level 8 South, RMH, 300 Grattan Street",Parkville,3050,PUBLIC,Inner Metro North
+136,Melbourne Oral and Facial Surgery Pty Ltd,"Level 12, 63 Exhibition Street",Melbourne,3000,PRIVATE,Inner Metro South
+137,Melbourne Private Hospital,1f Royal Parade ,Parkville,3050,PRIVATE,Inner Metro North
+138,Melton Health,195-209 Barries Road,Melton,3337,PUBLIC,Melton
+139,Mercy Health - O'Connell Family Centre,6 Mont Albert Road,Canterbury,3126,PUBLIC,Box Hill
+140,Mercy Hospital for Women,163 Studley Road,Heidelberg,3084,PUBLIC,Heidelberg
+141,Mercy Hospitals Victoria Limited,Shelley Street,Richmond,3121,PUBLIC,Inner Metro East
+142,Mildura Private Hospital,220 Thirteenth Street,Mildura,3500,PRIVATE,
+143,Mitcham Private Hospital,27 Doncaster East Road,Mitcham,3132,PRIVATE,Maroondah
+144,Monash Health,246 Clayton Road,Clayton,3168,PUBLIC,Monash
+145,Monash IVF Clinic,142 Little Ryrie Street,Geelong,3220,PRIVATE,Geelong North
+146,"Monash Medical Centre, Clayton Campus",246 Clayton Road,Clayton,3168,PUBLIC,Monash
+147,"Monash Medical Centre, Moorabbin Campus",865 Centre Road,East Bentleigh,3165,PUBLIC,
+148,Monash Surgical Private Hospital,252-254 Clayton Road,Clayton,3168,PRIVATE,Monash
+149,"Mount Eliza Rehabilitation, Aged and Palliative Care",33 Jacksons Rd,Mt Eliza,3930,PUBLIC,
+150,Moyne Health Services,Villiers Street,Port Fairy,3284,PUBLIC,
+151,Mulgrave Private Hospital,535-559 Police Road,Mulgrave,3170,PRIVATE,Monash
+152,Murray Valley Private Hospital,63 Pearce St ,Wodonga,3690,PRIVATE,Wodonga
+153,Nagambie HealthCare,22 Church Street,Nagambie,3608,PRIVATE,
+154,Neerim District Soldiers Memorial Hospital,29 Main Road,Neerim,3831,PRIVATE,
+155,Noble Park Endoscopy Centre,1304 Heatherton Road,Noble Park,3174,PRIVATE,Dandenong
+156,North Eastern Rehabilitation Centre,134-142 Ford Street,Ivanhoe,3079,PRIVATE,Heidelberg
+157,Northeast Health Wangaratta,35-47 Green Street,Wangaratta,3677,PUBLIC,Wangaratta
+158,Northern Health,201 Bell Street,Preston,3072,PUBLIC,Preston
+159,Northpark Private Hospital,10 Greenhills Road,Bundoora,3083,PRIVATE,Preston
+160,Northwest Day Hospital,221 Maribyrnong Road,Ascot Vale,3032,PRIVATE,Flemington
+161,Omeo District Health,12 Easton Street,Omeo,3898,PUBLIC,
+162,Orbost Regional Health,Boundary Road,Orbost,3888,PUBLIC,
+163,PANCH Health Service,300 Bell Street,Preston,3072,PUBLIC,Preston
+164,Peninsula Endoscopy Centre,17 Yuille Street,Frankston,3199,PRIVATE,Frankston
+165,Peninsula Health,"c/- Frankston Hospital, Hastings Road",Frankston,3199,PUBLIC,Frankston
+166,Peninsula Oncology Centre,24-28 Frankston-Flinders Road,Frankston,3199,PRIVATE,Frankston
+167,Peninsula Private Hospital,49 McClelland Drive,Frankston,3199,PRIVATE,Frankston
+168,"Peter James Centre, The",321-345 Burwood Hwy,Forest Hill,3131,PUBLIC,Maroondah
+169,Peter MacCallum Cancer Institute,305 Grattan Street,Melbourne,3000,PUBLIC,Inner Metro South
+170,Portland District Health,Bentinck Street,Portland,3305,PUBLIC,Portland
+171,Queen Elizabeth Centre,53 Thomas Street,Noble Park,3174,PUBLIC,Dandenong
+172,Reservoir Private Hospital,73-75 Pine Street,Reservoir,3073,PRIVATE,Preston
+173,Ringwood Private Hospital,36 Mount Dandenong Road,Ringwood,3135,PRIVATE,Maroondah
+174,Robinvale District Health Services,128-132 Latje Road,Robinvale,3549,PUBLIC,
+175,Rochester and Elmore District Health Service,1 Pascoe Street,Rochester,3561,PUBLIC,Rochester
+176,Rosebud Endoscopy,1537 Point Nepean Road,Rosebud West,3940,PRIVATE,Mornington Peninsula
+177,Rosebud Hospital,1527 Point Nepean Road,Rosebud,3939,PUBLIC,Mornington Peninsula
+178,Royal Melbourne Hospital - City Campus,300 Grattan Street,Parkville,3050,PUBLIC,Inner Metro North
+179,Royal Melbourne Hospital - Royal Park Campus,34-55 Poplar Road,Parkville,3052,PUBLIC,Inner Metro North
+180,Royal Talbot Rehabilitation Centre,1 Yarra Boulevard,Kew,3101,PUBLIC,Box Hill
+181,Rural Northwest Health,Lot 1 Dimboola Road,Warracknabeal,3393,PUBLIC,Warracknabeal
+182,Sandringham Hospital,193 Bluff Road,Sandringham,3191,PUBLIC,Sandringham
+183,Seymour Health,Lot 2 Bretonneux Street ,Seymour,3660,PUBLIC,Seymour
+184,Shepparton Private Hospital,20 Fitzgerald Street,Shepparton,3630,PRIVATE,Shepparton
+185,Sir John Monash Private Hospital,212-220 Clayton Road,Clayton,3168,PRIVATE,Monash
+186,South Eastern Private Hospital,313-329 Princes Highway,Noble Park,3174,PRIVATE,Dandenong
+187,South Gippsland Hospital,87 Station Road,Foster,3960,PUBLIC,
+188,South West Healthcare,Ryot Street,Warrnambool,3280,PUBLIC,Warrnambool
+189,"South West Healthcare, Camperdown Campus",9 Robinson Street,Camperdown,3260,PUBLIC,Camperdown
+190,"South West Healthcare, Warrnambool Campus",Ryot Street,Warrnambool,3280,PUBLIC,Warrnambool
+191,Southern Cross Specialist Centre Day Surgery,250 Childs Road,Mill Park,3082,PRIVATE,Preston
+192,"Southern Eye Centre, Day Surgery and Laser Centre",44 Cranbourne Road,Frankston,3199,PRIVATE,Frankston
+193,Specialist Surgicentre Docklands,"Tenancy 2, 22 Rakaia Way",Docklands,3008,PRIVATE,
+194,Specialist Surgicentre Geelong,200 Malop Street,Geelong,3220,PRIVATE,Geelong North
+195,Springvale Endoscopy Services,20 Balmoral Avenue,Springvale,3171,PRIVATE,Dandenong
+196,St Alban's Endoscopy Centre,328-330 Station Road,St Albans,3021,PRIVATE,Keilor and St Albans
+197,St George's Health Service,283 Cotham Road,Kew,3101,PUBLIC,Box Hill
+198,St John of God Frankston Rehabilitation Hospital,255 Cranbourne Road,Frankston,3199,PRIVATE,Frankston
+199,"St John of God Hospital Pinelodge Clinic, Dandenong",1480 Heatherton Road,Dandenong,3175,PRIVATE,Dandenong
+200,"St John of God Hospital, Ballarat",101 Drummond Street North,Ballarat,3350,PRIVATE,
+201,"St John of God Hospital, Bendigo",133-145 Lily Street ,Bendigo,3550,PRIVATE,Bendigo
+202,"St John of God Hospital, Berwick",44 Gloucester Avenue ,Berwick,3806,PRIVATE,Berwick and Pakenham
+203,"St John of God Hospital, Geelong",80 Myers Street,Geelong,3220,PRIVATE,Geelong North
+204,"St John of God Hospital, Warrnambool",136 Botanic Road,Warrnambool,3280,PRIVATE,Warrnambool
+205,St Kilda Day Hospital,26A Dickens Street,Elwood,3184,PRIVATE,Inner Metro South
+206,St Vincent's Health,41 Victoria Parade,Fitzroy,3065,PUBLIC,Inner Metro East
+207,St Vincent's Hospital (Melbourne) Ltd,41 Victoria Parade,Fitzroy,3065,PUBLIC,Inner Metro East
+208,St Vincent's Private Hospital East Melbourne,159 Grey Street,East Melbourne,3002,PRIVATE,Inner Metro North
+209,St Vincent's Private Hospital Fitzroy,59 Victoria Parade,Fitzroy,3065,PRIVATE,Inner Metro East
+210,St Vincent's Private Hospital Kew,5 Studley Avenue,Kew,3101,PRIVATE,Box Hill
+211,Stawell Regional Health,27-29 Sloane Street ,Stawell,3380,PUBLIC,Stawell and St Arnaud
+212,Stonnington Day Surgery,"Level 1, 253 Wattletree Road",Malvern,3144,PRIVATE,Cheltenham North
+213,Sunbury Day Hospital,Macedon,Sunbury,3429,PUBLIC,
+214,Sunshine Hospital,176 Furlong Road,St Albans,3021,PUBLIC,Keilor and St Albans
+215,Sunshine Private Day Surgery,145 Furlong Road,St Albans,3021,PRIVATE,Keilor and St Albans
+216,Swan Hill District Health,48 Splatt Street,Swan Hill,3585,PUBLIC,Swan Hill
+217,Tallangatta Health Service,Barree Street,Tallangatta,3700,PUBLIC,Tallangatta
+218,Tarietta Day Surgery,73 Kooyong Road,Caulfield North,3161,PRIVATE,Cheltenham North
+219,Terang and Mortlake Health Service,1 Austin Avenue,Terang,3264,PUBLIC,Camperdown
+220,The Alfred,Commercial Road ,Melbourne,3004,PUBLIC,Inner Metro South
+221,The Avenue Private Hospital,40 The Avenue,Windsor,3181,PRIVATE,Inner Metro South
+222,The Bays Hospital,262-268 Main Street,Mornington,3931,PRIVATE,Mornington Peninsula
+223,The Bays Hospital - Hastings,86 Victoria St,Hastings,3915,PRIVATE,Westernport
+224,The Geelong Clinic,98 Townsend Road,Whittington,3219,PRIVATE,Geelong South
+225,The Glen Endoscopy Centre,302 Springvale Road,Glen Waverley,3150,PRIVATE,Monash
+226,The Hampton Park Women's Health Care Centre,2 Warana Drive,Hampton Park,3976,PRIVATE,Cranbourne
+227,The Melbourne Clinic ,130 Church Street,Richmond,3121,PRIVATE,Inner Metro East
+228,The Melbourne Eastern Private Hospital,157 Scoresby Road,Boronia,3155,PRIVATE,Knox
+229,The Northern Hospital,185 Cooper Street ,Epping,3076,PUBLIC,Preston
+230,The Royal Children's Hospital,50 Flemington Road,Parkville,3052,PUBLIC,Inner Metro North
+231,The Royal Victorian Eye and Ear Hospital,32 Gisborne Street,East Melbourne,3002,PUBLIC,Inner Metro North
+232,The Royal Women's Hospital,Levels 6 & 7 Cnr Grattan St & Flemington Rd,Parkville,3052,PUBLIC,Inner Metro North
+233,The Victoria Clinic,324 Malvern Road,Prahran,3181,PRIVATE,Inner Metro South
+234,The Victorian Rehabilitation Centre,499 Springvale Road,Glen Waverley,3150,PRIVATE,Monash
+235,The Women's Clinic Day Surgical Centre,366 Church Street,Richmond,3121,PRIVATE,Inner Metro East
+236,Timboon and District Healthcare Service,21 Hospital Road,Timboon,3268,PUBLIC,
+237,Toorak Cosmetic Surgery Day Centre,109 Mathoura Rd ,Toorak,3142,PRIVATE,Inner Metro South
+238,Toorak-Malvern Day Surgery Centre,30-32 Glenferrie Road,Malvern,3144,PRIVATE,Cheltenham North
+239,Tweddle Child and Family Health Service,53 Adelaide Street,Footscray,3011,PUBLIC,Altona
+240,Victoria Parade Surgery Centre,"Level 1, 100 Victoria Parade",East Melbourne,3002,PRIVATE,Inner Metro North
+241,Victorian Gut Centre Bundoora,119 Plenty Road,Bundoora,3083,PRIVATE,Preston
+242,Victorian Sleep Centre,695-697 Rathdowne Street,Carlton North,3054,PRIVATE,Inner Metro North
+243,Vision Day Surgery Camberwell,27 Denmark Hill Road,Hawthorn East,3123,PRIVATE,Box Hill
+244,Vision Day Surgery Eastern,852-856 Whitehorse Road,Box Hill,3128,PRIVATE,Box Hill
+245,Vision Day Surgery Footscray,89 Paisley Street,Footscray,3011,PRIVATE,Altona
+246,Vision Laser St Kilda Road,"Ground Floor, 600 St Kilda Rd",Melbourne,3000,PRIVATE,Inner Metro South
+247,Wangaratta Private Hospital,134-150 Templeton Street,Wangaratta,3677,PRIVATE,Wangaratta
+248,Wantirna Health,251 Mountain Highway,Wantirna,3152,PUBLIC,Knox
+249,Warringal Private Hospital,216 Burgundy Street,Heidelberg,3084,PRIVATE,Heidelberg
+250,Waverley Endoscopy Suites,301 Blackburn Road,Mount Waverley,3149,PRIVATE,Monash
+251,Waverley Private Hospital,343-357 Blackburn Road,Mount Waverley,3149,PRIVATE,Monash
+252,Werribee Mercy Hospital,300 Princes Highway,Werribee,3030,PUBLIC,Werribee
+253,West Gippsland Healthcare Group,41 Landsborough Street,Warragul,3820,PUBLIC,
+254,West Wimmera Health Service,49 Nelson Street,Nhill,3418,PUBLIC,Nhill and Kaniva
+255,Western District Health Service,20 Foster Street,Hamilton,3300,PUBLIC,
+256,"Western District Health Service, Coleraine Campus",71 McLeod Street,Coleraine,3315,PUBLIC,
+257,Western Gastroenterology Services,30 Eleanor Street,Footscray,3011,PRIVATE,Altona
+258,Western Health,160 Gordon Street,Footscray,3011,PUBLIC,Altona
+259,Western Private Hospital,1-9 Marion St ,Footscray,3011,PRIVATE,Altona
+260,Westpoint Endoscopy Day Hospital,243 Heaths Road,Werribee,3030,PRIVATE,Werribee
+261,Williamstown Hospital,77b Railway Crescent,Williamstown,3016,PUBLIC,Altona
+262,Wimmera Health Care Group,83 Baillie Street,Horsham,3400,PUBLIC,Horsham
+263,Windsor Private Hospital,20 The Avenue,Windsor,3181,PRIVATE,Inner Metro South
+264,Yackandandah Bush Nursing Hospital Inc.,20 Isaacs Avenue,Yackandandah,3749,PRIVATE,
+265,Yarra Ranges Health,25 Market Street,Lilydale,3140,PUBLIC,Maroondah
+266,Yarram and District Health Service,85 Commercial Road,Yarram,3971,PUBLIC,Yarram
+267,Yarrawonga Health,33 Piper Street,Yarrawonga,3730,PUBLIC,
+268,Yea and District Memorial Hospital,45 Station Street,Yea,3717,PUBLIC,Yea

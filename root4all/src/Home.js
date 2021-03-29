@@ -23,7 +23,7 @@ const FindAgencyArea =  styled(Link)`
   width: 250px;
   height: 75px;
   background-color: #EEEEEE;
-  margin-top: 150px;
+  margin-top: 50px;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -39,11 +39,11 @@ const FindAgencyArea =  styled(Link)`
 
 const SloganTextArea = styled.div`
   width: 80%;
-  height: 150px;
+  height: 50px;
   background-color: transparent;
   color: white;
-  font-family: "Bebas Neue", cursive;
-  font-size: 5em;
+  font-family: 'Lato', sans-serif;
+  font-size: 2em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,30 +59,26 @@ const ResultArea = styled.div`
 `;
 
 async function callApi(inputVal, callback) {
+    if (inputVal.length <= 0){
+        callback(`Please enter the agency name`);
+        return
+    }
     try {
-        const data = await API.get("api01ab30b1", '/items', {"queryStringParameters": {
+        const data = await API.get("roof4all", '/checkAgency', {"queryStringParameters": {
             "inputString": inputVal
         }})
         console.log(data)
         //For testing only
-        if (data){
-            callback(`The ${inputVal} is a eligible Agency`)
+        if (data["found"]){
+            callback(`The ${inputVal} is an eligible Agency`)
         } else {
-            callback(`The ${inputVal} is not a Eligible Agency`)
+            callback(`The ${inputVal} is not an Eligible Agency`)
         }
     } catch (err) {
         console.log("Error:", err)
     }
 }
 
-async function callAPITest(){
-    try {
-        const data = await API.get("api01ab30b1", '/items')
-        console.log(data)
-    } catch (err) {
-        console.log("Error:", err)
-    }
-}
 
 function Home() {
     const [input, setInput] = useState("");
@@ -95,7 +91,10 @@ function Home() {
     return (
         <div>
             <Slogan>
-                <SloganTextArea>We support homeless people</SloganTextArea>
+                <SloganTextArea>Are you homeless?</SloganTextArea>
+                <SloganTextArea>Are you a rough sleeper and looking for nearby social housing?</SloganTextArea>
+                <SloganTextArea>Are you seeking shelter?</SloganTextArea>
+                <SloganTextArea>If you said yes to any of these questions, YOU ARE AT THE RIGHT PLACE.</SloganTextArea>
                 <FindAgencyArea to={"/findAgency"}>Find Agency</FindAgencyArea>
             </Slogan>
             <Search.Area>

@@ -28,6 +28,8 @@ app.use(function (req, res, next) {
  * Example get method *
  **********************/
 
+
+
 app.get('/items', function (req, res) {
 
     var connection = mysql.createConnection({
@@ -81,9 +83,38 @@ app.get('/items', function (req, res) {
     // res.json({success: 'get call succeed!', url: req.url, example});
 });
 
-app.get('/item/*', function (req, res) {
+app.get('/checkAgency', function (req, res) {
     // Add your code here
-    res.json({success: 'get call succeed!', url: req.url});
+    var connection = mysql.createConnection({
+        host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
+        user: "admin",
+        password: "12345678",
+        port: 3306,
+        database: "fit5120"
+    });
+    connection.connect(function(err) {
+        if (err) {
+            console.error('Database connection failed: ' + err.stack);
+            return;
+        }
+        console.log('Connected to database.');
+    });
+
+    var inputString = req.query["inputString"]
+    var queryString = `SELECT count(*) AS num_agency FROM agencies where Agency_Name="${inputString}"`;
+    connection.query(queryString, function (error, results, fields){
+        if (error){
+            console.error(error)
+        } else {
+            var num_agency = results[0].num_agency;
+            if (num_agency > 0 ){
+                res.json({success: 'get call succeed!', found: true});
+            } else {
+                res.json({success: 'get call succeed!', found: false});
+            }
+            connection.destroy();
+        }
+    });
 });
 
 /****************************

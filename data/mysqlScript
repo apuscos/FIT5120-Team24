@@ -1,0 +1,46 @@
+create table agencies(
+   ID INT NOT NULL,
+   Agency_Name VARCHAR(100) NOT NULL,
+   Agency_Suburb VARCHAR(100) NOT NULL,
+   Agency_Postcode INT NOT NULL,
+   Agency_Reg_Date VARCHAR(100) NOT NULL,
+   Pref_loc VARCHAR(100),
+   PRIMARY KEY (ID)
+);
+
+create table hospital(
+   ID INT NOT NULL,
+   Formal_Name VARCHAR(100) NOT NULL,
+   Location_Address VARCHAR(100) NOT NULL,
+   Suburb VARCHAR(100) NOT NULL,
+   Postcode INT NOT NULL,
+   Category VARCHAR(100) NOT NULL,
+   Pref_loc VARCHAR(100),
+   PRIMARY KEY ( ID )
+);
+
+create table preferred_location(
+   ID INT NOT NULL,
+   Preferred_Loc VARCHAR(100) NOT NULL,
+   Suburbs VARCHAR(100) NOT NULL,
+   PRIMARY KEY ( ID )
+);
+// Load CSV File
+LOAD DATA LOCAL INFILE 'Agencies.csv'
+INTO TABLE agencies
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE 'Hospital.csv'
+INTO TABLE hospital
+FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE 'Preferred_location.csv'
+INTO TABLE preferred_location
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
