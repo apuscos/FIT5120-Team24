@@ -70,9 +70,9 @@ async function callApi(inputVal, callback) {
         console.log(data)
         //For testing only
         if (data["found"]){
-            callback(`The ${inputVal} is an eligible Agency`)
+            callback(`${inputVal} is an eligible Agency`)
         } else {
-            callback(`The ${inputVal} is not an Eligible Agency`)
+            callback(`${inputVal} is not an Eligible Agency`)
         }
     } catch (err) {
         console.log("Error:", err)
