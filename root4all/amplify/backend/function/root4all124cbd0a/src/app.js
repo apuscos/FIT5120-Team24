@@ -106,6 +106,44 @@ app.get('/checkagencynearhospital', function (req, res) {
     })
 });
 
+app.get('/agencyinsuburb', function (req, res) {
+    // Add your code here
+    var connection = mysql.createConnection({
+        host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
+        user: "admin",
+        password: "12345678",
+        port: 3306,
+        database: "fit5120"
+    });
+    connection.connect(function(err) {
+        if (err) {
+            console.error('Database connection failed: ' + err.stack);
+            return;
+        }
+        console.log('Connected to database.');
+    });
+
+    var inputString = req.query["inputString"]
+    var numberReg = /^[0-9]*$/
+    var queryString = "";
+    if (numberReg.test(inputString)){
+        queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date FROM agencies where Agency_Postcode="${inputString}"`;
+    } else {
+        queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date FROM agencies where Agency_Suburb="${inputString}"`;
+    }
+    connection.query(queryString, function (error, results, fields){
+        if (error){
+            console.error(error)
+        } else {
+            console.log(results);
+
+            res.json({success: 'get call succeed!', results});
+
+            connection.destroy();
+        }
+    });
+});
+
 app.listen(3000, function () {
     console.log("App started")
 });

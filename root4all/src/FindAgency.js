@@ -23,6 +23,18 @@ const Button = styled.div`
   }
 `;
 
+const WarningTextArea = styled.div`
+  font-family: 'Lato', sans-serif;
+  color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+  width: 100%;
+  height: 30px;
+  margin-bottom: -20px;
+`;
+
 const TableTitle = styled.div`
   font-family: "Bebas Neue", cursive;
   font-size: 2.5em;
@@ -39,9 +51,17 @@ const TableWrapper = styled.div`
 `;
 
 
-async function callApi(inputVal, callback) {
-    checkInputValid(inputVal)
-    console.log(inputVal)
+async function agencySuburb(inputVal, callback, warningMsg) {
+    if (!checkInputValid(inputVal)){
+        warningMsg("Invalid input, please enter postcode or suburb name only");
+    } else {
+        warningMsg("");
+        const data = await API.get("roof4all", '/agencyinsuburb', {"queryStringParameters": {
+                "inputString": inputVal
+            }
+        });
+        callback(data["results"]);
+    }
 }
 
 async function getAgencyNearHospital(callback){
@@ -55,19 +75,20 @@ async function getAgencyNearHospital(callback){
 
 function checkInputValid(inputVal) {
     var numberReg = /^[0-9]*$/
-    var characterReg = /^[a-zA-Z]*$/
+    var characterReg = /^[A-Za-z\s]+$/
     var digitalOnly = numberReg.test(inputVal);
     var characterOnly = characterReg.test(inputVal);
     if ((digitalOnly === true && characterOnly === true) || (digitalOnly === false && characterOnly === false)) {
-        console.log("Invalid input, please enter only postcode or suburb name")
+        return false;
     } else {
-        console.log("Valid input")
+        return true;
     }
 }
 
 function FindAgency() {
     const [input, setInput] = useState("");
     const [result, setResult] = useState([{}]);
+    const [warningMsg, setWarningMsg] = useState("");
     return (
         <div>
             <Search.Area>
@@ -75,8 +96,9 @@ function FindAgency() {
                 <Search.SearchArea>
                     <Search.InputArea onChange={e => setInput(e.target.value)}
                                       placeholder={"Please Enter PostCode/Suburb"}/>
-                    <Search.SearchButton onClick={() => callApi(input, setResult)}></Search.SearchButton>
+                    <Search.SearchButton onClick={() => agencySuburb(input, setResult, setWarningMsg)}></Search.SearchButton>
                 </Search.SearchArea>
+                <WarningTextArea>{warningMsg}</WarningTextArea>
             </Search.Area>
             <Search.Area>
                 <Search.SearchArea>
