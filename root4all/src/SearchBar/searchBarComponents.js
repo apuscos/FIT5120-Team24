@@ -5,7 +5,7 @@ import searchIcon from "../Image/search.png";
 
 export const Area = styled.div`
   display: flex;
-  height: 250px;
+  height: 200px;
   align-items: center;
   justify-content: center;
   background: #e3e3e3;
@@ -20,6 +20,7 @@ export const TextArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 `;
 
 export const SearchArea = styled.div`
