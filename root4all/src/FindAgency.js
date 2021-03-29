@@ -60,7 +60,11 @@ async function agencySuburb(inputVal, callback, warningMsg) {
                 "inputString": inputVal
             }
         });
-        callback(data["results"]);
+        if (data["results"].length == 0 ){
+            warningMsg("No record found")
+        } else {
+            callback(data["results"]);
+        }
     }
 }
 
