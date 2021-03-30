@@ -74,9 +74,9 @@ async function callApi(inputVal, callback) {
         console.log(data)
         //For testing only
         if (data["found"]){
-            callback(`${inputVal} is an eligible Agency`)
+            callback(`${inputVal} agency is a government registered agency`)
         } else {
-            callback(`${inputVal} is not an Eligible Agency`)
+            callback(`${inputVal}agency is not a government registered agency`)
         }
     } catch (err) {
         console.log("Error:", err)
@@ -102,7 +102,7 @@ function Home() {
                 <FindAgencyArea to={"/findAgency"}>Find Agency</FindAgencyArea>
             </Slogan>
             <Search.Area>
-                <Search.TextArea>Or Check agency Eligibility</Search.TextArea>
+                <Search.TextArea>or check agency is registered or not?</Search.TextArea>
                 <Search.SearchArea>
                     <Search.InputArea onChange={e => setInput(e.target.value)} placeholder={"Please Enter Agency name"}/>
                     <Search.SearchButton onClick={() => callApi(input, setResult)}></Search.SearchButton>
