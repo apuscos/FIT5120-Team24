@@ -4,7 +4,11 @@ import {API} from "aws-amplify"
 import { NavLink as Link } from 'react-router-dom';
 import image1 from "./Image/homePageImage.jpg"
 import * as Search from "./SearchBar/searchBarComponents"
-
+const Disclaimer = styled.div`
+  font-family: 'Lato', sans-serif;
+  text-align: end;
+  font-size: 0.8em;
+`;
 const Slogan = styled.div`
   display: flex;
   height: 60vh;
@@ -105,6 +109,7 @@ function Home() {
                 </Search.SearchArea>
                 <ResultArea>{result}</ResultArea>
             </Search.Area>
+            <Disclaimer>The information provided here is on the basis of the information provided on the website</Disclaimer>
         </div>
 );
 }

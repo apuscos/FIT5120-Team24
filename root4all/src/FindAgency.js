@@ -23,6 +23,12 @@ const Button = styled.div`
   }
 `;
 
+const Disclaimer = styled.div`
+  font-family: 'Lato', sans-serif;
+  text-align: end;
+  font-size: 0.8em;
+`;
+
 const WarningTextArea = styled.div`
   font-family: 'Lato', sans-serif;
   color: red;
@@ -61,6 +67,7 @@ async function agencySuburb(inputVal, callback, warningMsg) {
             }
         });
         if (data["results"].length == 0 ){
+
             warningMsg("No record found")
         } else {
             callback(data["results"]);
@@ -135,8 +142,10 @@ function FindAgency() {
                         </tbody>
                         </Table>
                         </TableWrapper>
-                        </div>
-                        )
-                    }
+            <Disclaimer>The information provided here is on the basis of the information provided on the website</Disclaimer>
+        </div>
+
+    )
+}
 
 export default FindAgency;
