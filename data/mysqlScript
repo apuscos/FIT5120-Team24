@@ -25,6 +25,15 @@ create table preferred_location(
    Suburbs VARCHAR(100) NOT NULL,
    PRIMARY KEY ( ID )
 );
+
+create table localityFinder(
+   Locality_Name VARCHAR(100) NOT NULL,
+   Post_Code VARCHAR(100) NOT NULL,
+   ID int not null AUTO_INCREMENT,
+   PRIMARY KEY ( ID )
+);
+
+
 // Load CSV File
 LOAD DATA LOCAL INFILE 'Agencies.csv'
 INTO TABLE agencies
@@ -44,6 +53,12 @@ SET Pref_loc = IF(@Pref_loc = "", NULL, @Pref_loc)
 
 LOAD DATA LOCAL INFILE 'Preferred_location.csv'
 INTO TABLE preferred_location
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\r\n'
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE 'LocalityFinder.csv'
+INTO TABLE localityFinder
 FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\r\n'
 IGNORE 1 ROWS;
