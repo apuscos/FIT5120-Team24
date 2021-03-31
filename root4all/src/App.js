@@ -5,6 +5,7 @@ import Home from "./Home";
 import Help from "./Help";
 import About from "./About"
 import FindAgency from "./FindAgency";
+import Footer from "./Footer/Footer"
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
                 <Route path='/help' exact component={Help} />
                 <Route path='/about' exact component={About} />
             </Switch>
+            <Footer />
         </Router>
     );
 }
