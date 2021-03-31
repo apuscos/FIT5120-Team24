@@ -45,5 +45,5 @@ SET Pref_loc = IF(@Pref_loc = "", NULL, @Pref_loc)
 LOAD DATA LOCAL INFILE 'Preferred_location.csv'
 INTO TABLE preferred_location
 FIELDS TERMINATED BY ','
-LINES TERMINATED BY '\n'
+LINES TERMINATED BY '\r\n'
 IGNORE 1 ROWS;
