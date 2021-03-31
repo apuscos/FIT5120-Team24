@@ -1,37 +1,37 @@
-ID,Agency_Name,Agency_Suburb,Agency_Postcode,Agency_Reg_Date,Pref_loc
-0,Aboriginal Housing Victoria,Fitzroy North,3068,07/12/2018,Inner Metro East
-1,Baptcare Affordable Housing,Camberwell,3124,21/10/2019,Box Hill
-2,BeyondHousing,Wodonga,3689,09/01/2019,Wodonga
-3,Centacare Housing Service,Ballarat,3350,23/10/2018,Central Highlands
-4,Common Equity Housing Limited,Richmond,3121,11/06/2019,Inner Metro East
-5,Community Housing(Vic) Ltd,Box Hill,3128,04/03/2019,Box Hill
-6,EACH Housing,Ringwood,3134,16/04/2019,Maroondah
-7,Eastcoast Housing,Moe,3825,18/03/2019,Moe
-8,Eastern Suburbs Rental Housing Cooperative,Blackburn South,3130,04/04/2019,Box Hill
-9,Haven Home Safe,Bendigo,3550,01/04/2019,Bendigo
-10,The Haven Foundation,Heidelberg,3084,11/06/2019,Heidelberg
-11,Housing Choices Australia,Melbourne,3000,27/02/2019,Inner Metro South
-12,HousingFirst,Melbourne,3004,13/02/2019,Inner Metro South
-13,Inner East Social Housing Group,Kew,3101,25/03/2019,Box Hill
-14,Launch Housing,Collingwood,3066,12/04/2019,Inner Metro East
-15,Mallee Accomodation Support Group,Mildura,3500,10/12/2018,
-16,Northcote Rental Housing Co-operative,Northcote,3070,11/07/2019,Inner Metro East
-17,Northern Geelong Rental Housing Cooperative,North Geelong,3215,29/11/2018,Geelong North
-18,Prahran Malvern Community Housing,South Yarra,3141,15/11/2019,Inner Metro South
-19,Salvation army Housing,Blackburn South,3130,29/10/2018,Box Hill
-20,Servants Community Housing,Hawthorn,3122,27/11/2018,Box Hill
-21,South Port Community Housing Group,South Melbourne,3205,03/12/2018,Inner Metro South
-22,St Kilda Community Housing,St Kilda,3182,14/02/2019,Inner Metro South
-23,Sunshine/St Albans Rental Housing Cooperative Ltd,Deer Park,3023,05/12/2018,Keilor and St Albans
-24,SouthEast Housing Cooperative,Dandenong,3175,25/03/2019,Dandenong
-25,Unison Housing,Melbourne,3000,26/11/2018,Inner Metro South
-26,Uniting Housing Australia,Melbourne,3000,04/02/2019,Inner Metro South
-27,United Housing Co-operative,Yarraville,3013,30/05/2019,Altona
-28,VincentCare Community Housing,Melbourne,3000,07/03/2019,Inner Metro South
-29,YWCA Housing,South Melbourne,3205,21/12/2020,Inner Metro South
-30,Wayss,Dandenong,3175,04/02/2019,Dandenong
-31,West Turk Housing & Elderly Services Co-operative Ltd,Sunshine,3020,06/01/2021,Sunshine
-32,Williamstown Rental Housing Co-operative,Newport,3015,04/02/2019,Altona
-33,Wintringham Housing,Flemington,3031,04/12/2018,Flemington
-34,Womens Housing Ltd,Cremorne,3121,04/12/2018,Inner Metro East
-35,Womens Peoperty Initiatives,Melbourne,3000,04/02/2019,Inner Metro South
+ID,Agency_Name,Agency_Suburb,Agency_Postcode,Agency_Reg_Date,Pref_loc,Url
+0,Aboriginal Housing Victoria,Fitzroy North,3068,07/12/2018,Inner Metro East,https://ahvic.org.au/
+1,Baptcare Affordable Housing,Camberwell,3124,21/10/2019,Box Hill,http://www.baptcare.org.au/services/housing
+2,BeyondHousing,Wodonga,3689,09/01/2019,Wodonga,https://www.beyondhousing.org.au/
+3,Centacare Housing Service,Ballarat,3350,23/10/2018,Central Highlands,https://www.centacareballarat.org.au/services/housing
+4,Common Equity Housing Limited,Richmond,3121,11/06/2019,Inner Metro East,https://www.cehl.com.au/
+5,Community Housing(Vic) Ltd,Box Hill,3128,04/03/2019,Box Hill,https://chl.org.au/
+6,EACH Housing,Ringwood,3134,16/04/2019,Maroondah,http://eachhousing.com.au/
+7,Eastcoast Housing,Moe,3825,18/03/2019,Moe,https://eha.org.au/
+8,Eastern Suburbs Rental Housing Cooperative,Blackburn South,3130,04/04/2019,Box Hill,http://www.esrhc.org.au/
+9,Haven Home Safe,Bendigo,3550,01/04/2019,Bendigo,https://havenhomesafe.org.au/
+10,The Haven Foundation,Heidelberg,3084,11/06/2019,Heidelberg,http://havenfoundation.org.au/
+11,Housing Choices Australia,Melbourne,3000,27/02/2019,Inner Metro South,http://www.housingchoices.org.au/
+12,HousingFirst,Melbourne,3004,13/02/2019,Inner Metro South,https://housingfirst.org.au/
+13,Inner East Social Housing Group,Kew,3101,25/03/2019,Box Hill,https://www.ieshg.com.au/
+14,Launch Housing,Collingwood,3066,12/04/2019,Inner Metro East,https://www.launchhousing.org.au/
+15,Mallee Accomodation Support Group,Mildura,3500,10/12/2018,,http://www.masp.org.au/index.php
+16,Northcote Rental Housing Co-operative,Northcote,3070,11/07/2019,Inner Metro East,http://nrhc.coop/
+17,Northern Geelong Rental Housing Cooperative,North Geelong,3215,29/11/2018,Geelong North,http://www.ngrhc.org.au/
+18,Prahran Malvern Community Housing,South Yarra,3141,15/11/2019,Inner Metro South,https://pmch.org.au/
+19,Salvation army Housing,Blackburn South,3130,29/10/2018,Box Hill,http://www.salvationarmy.org.au/en/Find-Us/Victoria/Salvation-Army-Housing
+20,Servants Community Housing,Hawthorn,3122,27/11/2018,Box Hill,http://www.servants.org.au/
+21,South Port Community Housing Group,South Melbourne,3205,03/12/2018,Inner Metro South,http://www.spchg.org.au/
+22,St Kilda Community Housing,St Kilda,3182,14/02/2019,Inner Metro South,https://stkch.org.au/
+23,Sunshine/St Albans Rental Housing Cooperative Ltd,Deer Park,3023,05/12/2018,Keilor and St Albans,https://www.sunrhc.org.au/
+24,SouthEast Housing Cooperative,Dandenong,3175,25/03/2019,Dandenong,https://sehc.org.au/
+25,Unison Housing,Melbourne,3000,26/11/2018,Inner Metro South,https://www.unison.org.au/
+26,Uniting Housing Australia,Melbourne,3000,04/02/2019,Inner Metro South,https://unitinghousing.org.au/
+27,United Housing Co-operative,Yarraville,3013,30/05/2019,Altona,http://www.unitedhousing.org.au/
+28,VincentCare Community Housing,Melbourne,3000,07/03/2019,Inner Metro South,https://vincentcare.org.au/
+29,YWCA Housing,South Melbourne,3205,21/12/2020,Inner Metro South,https://www.ywcahousing.org.au/
+30,Wayss,Dandenong,3175,04/02/2019,Dandenong,https://www.wayssltd.org.au/%C2%A0
+31,West Turk Housing & Elderly Services Co-operative Ltd,Sunshine,3020,06/01/2021,Sunshine,https://www.westturkhousing.org.au/
+32,Williamstown Rental Housing Co-operative,Newport,3015,04/02/2019,Altona,http://williamstownhousingcoop.org.au/
+33,Wintringham Housing,Flemington,3031,04/12/2018,Flemington,https://www.wintringham.org.au/
+34,Womens Housing Ltd,Cremorne,3121,04/12/2018,Inner Metro East,http://womenshousing.com.au/
+35,Womens Peoperty Initiatives,Melbourne,3000,04/02/2019,Inner Metro South,https://wpi.org.au/%C2%A0

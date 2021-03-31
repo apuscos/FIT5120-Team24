@@ -76,34 +76,61 @@ app.get('/checkagencynearhospital', function (req, res) {
         }
         console.log('Connected to database.');
     });
-
-    var queryString = `SELECT DISTINCT(Pref_loc) FROM hospital WHERE Pref_loc IS NOT NULL`;
+    var queryString = `SELECT DISTINCT(Suburb) FROM hospital WHERE Pref_loc IS NULL`;
+    var output = [];
     connection.query(queryString, function (error, results, fields){
         if (error){
             console.error(error)
         } else {
-            var hospital_loc = "(";
+            var hospital_suburb = "(";
             for (let i = 0; i < results.length; i++){
-                hospital_loc = hospital_loc + `'${results[i]["Pref_loc"]}'`;
+                hospital_suburb = hospital_suburb + `'${results[i]["Suburb"]}'`;
                 if (i != results.length - 1){
-                    hospital_loc = hospital_loc + ` , `;
+                    hospital_suburb = hospital_suburb + ` , `;
                 }
             }
-            hospital_loc = hospital_loc + `)`;
-            queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date FROM agencies WHERE Pref_loc IN ${hospital_loc}`;
-            console.log("process complete");
+            hospital_suburb = hospital_suburb + `)`;
+
+            queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date, Url FROM agencies WHERE Agency_Suburb IN ${hospital_suburb} AND Pref_loc=""`;
             connection.query(queryString, function (error, results, fields){
                 if (error){
                     console.error(error)
                 } else {
-                    console.log(results);
-                    res.json({success: 'get call succeed!', results});
-                    connection.destroy();
+                    output = output.concat(results)
+                    queryString = `SELECT DISTINCT(Pref_loc) FROM hospital WHERE Pref_loc IS NOT NULL`;
+                    connection.query(queryString, function (error, results, fields){
+                        if (error){
+                            console.error(error)
+                        } else {
+                            var hospital_loc = "(";
+                            for (let i = 0; i < results.length; i++){
+                                hospital_loc = hospital_loc + `'${results[i]["Pref_loc"]}'`;
+                                if (i != results.length - 1){
+                                    hospital_loc = hospital_loc + ` , `;
+                                }
+                            }
+                            hospital_loc = hospital_loc + `)`;
+                            queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date, Url FROM agencies WHERE Pref_loc IN ${hospital_loc}`;
+                            console.log("process complete");
+                            connection.query(queryString, function (error, results, fields){
+                                if (error){
+                                    console.error(error)
+                                } else {
+                                    output = output.concat(results)
+                                    res.json({success: 'get call succeed!', output});
+                                    connection.destroy();
+                                }
+                            });
+
+                        }
+                    })
                 }
             });
 
         }
     })
+
+
 });
 
 app.get('/agencyinsuburb', function (req, res) {
@@ -127,9 +154,9 @@ app.get('/agencyinsuburb', function (req, res) {
     var numberReg = /^[0-9]*$/
     var queryString = "";
     if (numberReg.test(inputString)){
-        queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date FROM agencies where Agency_Postcode="${inputString}"`;
+        queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date, Url FROM agencies where Agency_Postcode="${inputString}"`;
     } else {
-        queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date FROM agencies where Agency_Suburb="${inputString}"`;
+        queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date, Url FROM agencies where Agency_Suburb="${inputString}"`;
     }
     connection.query(queryString, function (error, results, fields){
         if (error){
@@ -143,6 +170,100 @@ app.get('/agencyinsuburb', function (req, res) {
         }
     });
 });
+
+
+app.get('/findnearagency', function (req, res) {
+    // Add your code here
+    var connection = mysql.createConnection({
+        host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
+        user: "admin",
+        password: "12345678",
+        port: 3306,
+        database: "fit5120"
+    });
+    connection.connect(function(err) {
+        if (err) {
+            console.error('Database connection failed: ' + err.stack);
+            return;
+        }
+        console.log('Connected to database.');
+    });
+
+    var inputString = req.query["inputString"]
+    var numberReg = /^[0-9]*$/
+    var queryString = "";
+    var suburbName = "";
+    if (numberReg.test(inputString)){
+        queryString = `SELECT Locality_Name FROM localityFinder where Post_Code="${inputString}"`;
+        connection.query(queryString, function (error, results, fields){
+            if (error){
+                console.error(error)
+            } else {
+                if (results.length === 0) {
+                    res.json({success: 'get call succeed!', results: []});
+                    connection.destroy();
+                } else {
+                    suburbName = results[0]["Locality_Name"]
+                    queryString = `SELECT Preferred_Loc FROM preferred_location where Suburbs="${suburbName}"`;
+                    connection.query(queryString, function (error, results, fields) {
+                        if (error) {
+                            console.error(error)
+                        } else {
+                            var pref_loc = "";
+                            if (results.length == 0) {
+                                res.json({success: 'get call succeed!', results: []});
+                                connection.destroy();
+                            } else {
+                                pref_loc = results[0]["Preferred_Loc"]
+                                queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date, Url FROM agencies WHERE Pref_loc="${pref_loc}"`;
+                                connection.query(queryString, function (error, results, fields) {
+                                    if (error) {
+                                        console.error(error)
+                                    } else {
+                                        console.log(results)
+                                        res.json({success: 'get call succeed!', results});
+                                        connection.destroy();
+                                    }
+                                })
+                            }
+
+                        }
+                    });
+                }
+            }
+        });
+    } else {
+        suburbName = inputString;
+        queryString = `SELECT Preferred_Loc FROM preferred_location where Suburbs="${suburbName}"`;
+        connection.query(queryString, function (error, results, fields){
+            if (error){
+                console.error(error)
+            } else {
+                console.log(results);
+                var pref_loc = "";
+                if (results.length == 0){
+                    res.json({success: 'get call succeed!', results:[]});
+                    connection.destroy();
+                } else {
+                    pref_loc = results[0]["Preferred_Loc"]
+                    queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date, Url FROM agencies WHERE Pref_loc="${pref_loc}"`;
+                    connection.query(queryString, function (error, results, fields){
+                        if (error){
+                            console.error(error)
+                        } else {
+                            console.log(results)
+                            res.json({success: 'get call succeed!', results});
+                            connection.destroy();
+                        }
+                    })
+                }
+
+            }
+        });
+    }
+});
+
+
 
 app.listen(3000, function () {
     console.log("App started")

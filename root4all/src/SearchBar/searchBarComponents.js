@@ -38,9 +38,9 @@ export const SearchButton = styled.button`
   background-repeat: no-repeat;
   background-position: center;
   border: none;
-  height: 75px;
-  width: 75px;
-  background-color: white;
+  height: 50px;
+  width: 50px;
+  background-color: #a226a2;
   filter: invert(100%);
   cursor:pointer;
   &:hover {
@@ -51,7 +51,7 @@ export const SearchButton = styled.button`
 export const InputArea = styled.input`
   line-height: 1;
   width: 50%;
-  height: 75px;
+  height: 50px;
   border: none;
   font-family: 'Lato', sans-serif;
   font-size: 1.25em;
