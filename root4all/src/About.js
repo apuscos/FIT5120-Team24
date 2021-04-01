@@ -36,7 +36,7 @@ const Title = styled.div`
 
 const Content = styled.div`
   font-family: 'Lato', sans-serif;
-  width: 40%;
+  width: 60%;
   display: flex;
   font-size: 1.7em;
 `;
@@ -56,12 +56,12 @@ const TitleBigger = styled.div`
 `;
 const ImageSection = styled.div`
   height: 350px;
-  width: 30%;
+  width: 100%;
   margin-top: 30px;
   background-image: url(${backgroundImg});
   background-repeat: no-repeat;
   background-position: center;
-  background-size: cover;
+  background-size: contain;
 `;
 
 const AreaWarpper = styled.div`
@@ -69,18 +69,18 @@ const AreaWarpper = styled.div`
   flex-direction: row;
   width: 100%;
   height: 400px;
-  padding-left: 20%;
+  padding-left: 10%;
   background-color: #979696;
 `;
 
 const TeamImg = styled.div`
   height: 400px;
   margin-top: 50px;
-  width: 1674px;
+  width: 100%;
   background-image: url(${teamImg});
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 1674px 400px;
+  background-size: contain;
   margin-bottom: 50px;
 `;
 function About() {
