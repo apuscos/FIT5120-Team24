@@ -2,11 +2,9 @@ import React from 'react';
 import styled from "styled-components";
 import { NavLink as Link } from 'react-router-dom';
 import image1 from "./Image/homePageImage.jpg"
-const Disclaimer = styled.div`
-  font-family: 'Lato', sans-serif;
-  text-align: end;
-  font-size: 0.8em;
-`;
+import statImage1 from "./Image/statImage1.png"
+import statImage2 from "./Image/statImage2.JPG"
+import statImage3 from "./Image/statImage3.JPG"
 const Slogan = styled.div`
   display: flex;
   height: 60vh;
@@ -40,12 +38,12 @@ const FindAgencyArea =  styled(Link)`
 `;
 
 const SloganTextArea = styled.div`
-  width: 80%;
-  height: 80px;
+  width: 90vw;
+  height: 120px;
   background-color: transparent;
   color: white;
   font-family: "Bebas Neue", cursive;
-  font-size: 5em;
+  font-size: 3.5vw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,7 +52,39 @@ const SloganTextArea = styled.div`
 
 const StatArea = styled.div`
     height: 500px;
-    background-color: red;
+    background-color: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StateSection = styled.div`
+  width: 30vw;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;
+
+const StateImage = styled.div`
+  background-image: url(${props => props.imageUrl});
+  height: 50%;
+  
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  margin-bottom: 20px;
+`;
+
+const StateText = styled.div`
+  max-height: 50%;
+  
+  padding-left: 20%;
+  padding-right: 20%;
+  font-family: "Bebas Neue", cursive;
+  display: flex;
+  font-size: 1.3em;
+  justify-content: center;
 `;
 
 function Home() {
@@ -66,8 +96,29 @@ function Home() {
 
                 <FindAgencyArea to={"/findAgency"}>Find Agency</FindAgencyArea>
             </Slogan>
-            <StatArea/>
-            <Disclaimer>The information provided here is on the basis of the information provided on the website</Disclaimer>
+            <StatArea>
+                <StateSection>
+                    <StateImage imageUrl={statImage1} />
+                    <StateText>
+                        Victorian Authorities assist more than 100,000 homeless people annually
+                    </StateText>
+                </StateSection>
+                <StateSection>
+                    <StateImage imageUrl={statImage2} />
+                    <StateText>
+                        During the pandemic, the government granted a Homelessness to A Home Package of $150 million
+                    </StateText>
+                </StateSection>
+                <StateSection>
+                    <StateImage imageUrl={statImage3} />
+                    <StateText>
+                        Funds worth $500 million to renew and create new public housing premises across the state.
+                    </StateText>
+                    <StateText>
+                        The Government’s promised 1000 new social housing units during pandemic.
+                    </StateText>
+                </StateSection>
+            </StatArea>
         </div>
 );
 }

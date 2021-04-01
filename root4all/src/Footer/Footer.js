@@ -1,22 +1,107 @@
 import React from 'react';
 import styled from "styled-components"
+import { NavLink as Link } from 'react-router-dom';
 
 const FooterArea = styled.div`
-  height: 200px;
+  height: 250px;
   background-color: #2c2d38;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-const FooterLink = styled.link`
+const FooterLink = styled(Link)`
+  text-decoration: none;
+  cursor: pointer;
+  font-family: "Bebas Neue", cursive;
+  font-size: 1.1em;
+  color: white;
+  padding-left: 40%;
+  &:hover{
+    text-decoration: underline;
+  }
+`;
+
+const FooterExternalLink = styled.div`
+  text-decoration: none;
+  cursor: pointer;
+  font-family: "Bebas Neue", cursive;
+  font-size: 1.2em;
+  color: white;
+  padding-left: 40%;
+  &:hover{
+    text-decoration: underline;
+  }
+`;
+
+const Section = styled.div`
+  height: 80%;
+  width: 30vw;
+  
+`;
+
+const SectionTitle = styled.div`
+  padding-left: 40%;
   font-family: 'Lato', sans-serif;
+  font-size: 1.5em;
+  margin-bottom: 5%;
+`;
+
+const Disclaimer = styled.div`
+  font-family: 'Lato', sans-serif;
+  padding-left: 5%;
+  font-size: 0.8em;
+  color: gray;
+  padding-bottom: 1%;
+  background-color: #2c2d38;
+  
+`;
+
+const ExternalLink = styled.a`
+    text-decoration: none;
+  display: flex;
+  margin-bottom: 5px;
 `;
 
 const Footer = () => {
     return (
         <>
             <FooterArea>
-                This is footer area
+                <Section>
+                    <SectionTitle>Solutions</SectionTitle>
+                    <FooterLink to={"/findAgency"}>Find Agency</FooterLink>
+                </Section>
+                <Section>
+                    <SectionTitle>Connect</SectionTitle>
+                    <FooterLink to={"/about"}>About</FooterLink>
+                </Section>
+                <Section>
+                    <SectionTitle>Resources</SectionTitle>
+                    <ExternalLink target="_blank" href="https://www.housing.vic.gov.au/victorian-housing-register-participating-agencies">
+                        <FooterExternalLink>
+                            Victorian Housing Register participating agencies
+                        </FooterExternalLink>
+                    </ExternalLink>
+                    <ExternalLink target="_blank" href="https://www.healthcollect.vic.gov.au/HospitalLists/MainHospitalList.aspx">
+                        <FooterExternalLink>
+                            Victorian Hospital Lists
+                        </FooterExternalLink>
+                    </ExternalLink>
+                    <ExternalLink target="_blank" href="https://www.housing.vic.gov.au/apply-social-housing">
+                        <FooterExternalLink>
+                            Apply for social housing
+                        </FooterExternalLink>
+                    </ExternalLink>
+                    <ExternalLink target="_blank" href="https://www.premier.vic.gov.au/homes-homeless-victorians-during-pandemic-and-beyond">
+                        <FooterExternalLink>
+                            Homes For Homeless Victorians During Pandemic And Beyond
+                        </FooterExternalLink>
+                    </ExternalLink>
+
+                </Section>
             </FooterArea>
+            <Disclaimer>The information on this website is based on the data from the HousingVic website</Disclaimer>
         </>
     );
 };
