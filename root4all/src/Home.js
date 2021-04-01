@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { NavLink as Link } from 'react-router-dom';
 import image1 from "./Image/homePageImage.jpg"
 import statImage1 from "./Image/statImage1.png"
-import statImage2 from "./Image/statImage2.JPG"
-import statImage3 from "./Image/statImage3.JPG"
+import statImage2 from "./Image/statImage2.png"
+import statImage3 from "./Image/statImage3.png"
 const Slogan = styled.div`
   display: flex;
   height: 60vh;
