@@ -5,7 +5,7 @@ import "../font/font.css"
 
 
 export const Nav = styled.nav`
-  background: white;
+  background: transparent;
   height: 85px;
   display: flex;
   justify-content: space-between;

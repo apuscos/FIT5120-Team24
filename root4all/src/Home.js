@@ -37,6 +37,15 @@ const FindAgencyArea =  styled(Link)`
   }
 `;
 
+const FixImage = styled.div`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: red;
+  width: 100%;
+  height: 500px;
+`;
+
 const SloganTextArea = styled.div`
   width: 90vw;
   height: 120px;
@@ -61,6 +70,7 @@ const StatArea = styled.div`
 const StateSection = styled.div`
   width: 30vw;
   height: 90%;
+  margin-top: -80px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -87,15 +97,25 @@ const StateText = styled.div`
   justify-content: center;
 `;
 
+const StatTitle = styled.div`
+  font-family: "Bebas Neue", cursive;
+  color: black;
+  background-color: #fafafa;
+  font-size: 3em;
+  padding-top: 20px;
+  text-align: center;
+`;
 function Home() {
     return (
         <div>
+
             <Slogan>
                 <SloganTextArea> Experiencing homelessness or rough sleeping?</SloganTextArea>
                 <SloganTextArea> Social Housing agencies are there to help and we can help you find one</SloganTextArea>
-
                 <FindAgencyArea to={"/findAgency"}>Find Agency</FindAgencyArea>
             </Slogan>
+            <StatTitle>help is round the corner
+            </StatTitle>
             <StatArea>
                 <StateSection>
                     <StateImage imageUrl={statImage1} />

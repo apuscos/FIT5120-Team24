@@ -94,6 +94,10 @@ const ResultArea = styled.div`
   margin-top: 10px;
 `;
 
+const TableTr = styled.tr`
+  background-color: #5dd95d;
+`;
+
 
 
 
@@ -259,9 +263,9 @@ function FindAgency() {
             </Search.Area>
             <TableTitle>Agency Information</TableTitle>
             <TableWrapper>
-                <Table responsiveMd theadDark>
+                <Table responsiveMd>
                     <thead>
-                    <tr>
+                    <tr success>
                         <th scope="col">Agency Name</th>
                         <th scope="col">Agency Suburb</th>
                         <th scope="col">Agency Postcode</th>
@@ -282,7 +286,6 @@ function FindAgency() {
                         </tbody>
                         </Table>
                         </TableWrapper>
-            <Disclaimer>The information provided here is on the basis of the information provided on the website</Disclaimer>
         </div>
 
     )

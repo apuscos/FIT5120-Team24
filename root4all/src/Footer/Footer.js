@@ -4,8 +4,8 @@ import { NavLink as Link } from 'react-router-dom';
 
 const FooterArea = styled.div`
   height: 250px;
-  background-color: #2c2d38;
-  color: white;
+  background-color: black;
+  color: #5dd95d;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,7 +14,7 @@ const FooterArea = styled.div`
 const FooterLink = styled(Link)`
   text-decoration: none;
   cursor: pointer;
-  font-family: "Bebas Neue", cursive;
+  font-family: 'Lato', sans-serif;
   font-size: 1.1em;
   color: white;
   padding-left: 40%;
@@ -26,7 +26,7 @@ const FooterLink = styled(Link)`
 const FooterExternalLink = styled.div`
   text-decoration: none;
   cursor: pointer;
-  font-family: "Bebas Neue", cursive;
+  font-family: 'Lato', sans-serif;
   font-size: 1.2em;
   color: white;
   padding-left: 40%;
@@ -43,7 +43,7 @@ const Section = styled.div`
 
 const SectionTitle = styled.div`
   padding-left: 40%;
-  font-family: 'Lato', sans-serif;
+  font-family: "Bebas Neue", cursive;
   font-size: 1.5em;
   margin-bottom: 5%;
 `;
@@ -54,7 +54,7 @@ const Disclaimer = styled.div`
   font-size: 0.8em;
   color: gray;
   padding-bottom: 1%;
-  background-color: #2c2d38;
+  background-color: black;
   
 `;
 
@@ -78,19 +78,14 @@ const Footer = () => {
                 </Section>
                 <Section>
                     <SectionTitle>Resources</SectionTitle>
-                    <ExternalLink target="_blank" href="https://www.housing.vic.gov.au/victorian-housing-register-participating-agencies">
+                    <ExternalLink target="_blank" href="https://www.housing.vic.gov.au">
                         <FooterExternalLink>
-                            Victorian Housing Register participating agencies
+                            Housing Vic Website
                         </FooterExternalLink>
                     </ExternalLink>
                     <ExternalLink target="_blank" href="https://www.healthcollect.vic.gov.au/HospitalLists/MainHospitalList.aspx">
                         <FooterExternalLink>
                             Victorian Hospital Lists
-                        </FooterExternalLink>
-                    </ExternalLink>
-                    <ExternalLink target="_blank" href="https://www.housing.vic.gov.au/apply-social-housing">
-                        <FooterExternalLink>
-                            Apply for social housing
                         </FooterExternalLink>
                     </ExternalLink>
                     <ExternalLink target="_blank" href="https://www.premier.vic.gov.au/homes-homeless-victorians-during-pandemic-and-beyond">

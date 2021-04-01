@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import {Logo} from "./Navigation/NavComponents"
 
 const ProductDesc = styled.div`
   height: 300px;
@@ -40,7 +41,7 @@ function About() {
     return (
         <div className="App">
             <ProductDesc>
-                <Title>Product description</Title>
+                <Logo></Logo>
                 <Content>
                     Roof 4 All strives to provide a consolidated form of the integration of all necessary information on available social housing options aiding to the needs, the eligibility in availing certain housing services and other support options for the homeless or people at the risk of homelessness due to the difficult situations stemmed from the fallout of the Covid pandemic
                 </Content>
@@ -48,7 +49,7 @@ function About() {
             <TeamDesc>
                 <Title>Team Description</Title>
                 <Content>
-                    We, The Remenents, are a team of graduate students from IT, Data Science, Business Information Systems and Network and Security and we aim to work collaboratively to help the homeless people
+                    We, The Remnants, are a team of graduate students from IT, Data Science, Business Information Systems and Network and Security and we aim to work collaboratively to help the homeless people
                 </Content>
             </TeamDesc>
         </div>
