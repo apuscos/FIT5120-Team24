@@ -92,6 +92,7 @@ const ResultArea = styled.div`
   font-size: 1.5em;
   margin-bottom: 20px;
   margin-top: 10px;
+  color: red;
 `;
 
 const TableTr = styled.tr`
@@ -145,12 +146,12 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck) {
                     },
                     {
                         label: 'No',
-                        onClick: () => warningMsg("No record found")
+                        onClick: () => warningMsg("Try another postcode or suburb")
                     }
                 ]
 
             };
-            confirmAlert(options, "a")
+            confirmAlert(options)
         } else {
             callback(result);
         }
@@ -180,22 +181,40 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData){
         result = data["results"]
     }
     if (result.length == 0) {
-        warningMsg("No record found")
+        const options = {
+            title: 'No nearby agency Found',
+            message: 'Sorry, there are no nearby agencies . We can still suggest you some agencies,if you would like',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => getAgencyInMelbourne(callback)
+                },
+                {
+                    label: 'No',
+                    onClick: () => warningMsg("Try another postcode or suburb")
+                }
+            ]
+
+        };
+        confirmAlert(options)
     } else {
         callback(result)
     }
 }
 
-async function getAgencyNearHospital(callback){
+async function getAgencyInMelbourne(callback){
     try {
-        const data = await API.get("roof4all", '/checkagencynearhospital');
+        const data = await API.get("roof4all", '/agencyinsuburb', {"queryStringParameters": {
+                "inputString": 3000
+            }
+        });
         callback(data["results"])
     } catch (err) {
         console.log("Error:", err)
     }
 }
 
-async function checkEligibility(inputVal, callback) {
+async function checkEligibility(inputVal, callback, listInfo) {
     if (inputVal.length <= 0){
         callback(`Please enter the agency name`);
         return
@@ -209,7 +228,22 @@ async function checkEligibility(inputVal, callback) {
         if (data["found"]){
             callback(`${inputVal} agency is a government registered agency`)
         } else {
-            callback(`${inputVal} agency is not a government registered agency`)
+            const options = {
+                title: 'Oops!',
+                message: `${inputVal} agency is not a government registered agency, if you would like, we may suggest you some agencies in the city`,
+                buttons: [
+                    {
+                        label: 'Yes',
+                        onClick: () => getAgencyInMelbourne(listInfo)
+                    },
+                    {
+                        label: 'No',
+                        onClick: () => callback(`You can still search for agencies in suburb using the find agency feature`)
+                    }
+                ]
+
+            };
+            confirmAlert(options)
         }
     } catch (err) {
         console.log("Error:", err)
@@ -257,7 +291,7 @@ function FindAgency() {
                 <Search.TextArea>or check agency is registered or not?</Search.TextArea>
                 <Search.SearchArea>
                     <Search.InputArea onChange={e => setEligibleInput(e.target.value)} placeholder={"Please Enter Agency name"}/>
-                    <Search.SearchButton onClick={() => checkEligibility(eligibleInput, setEligibleResult)}></Search.SearchButton>
+                    <Search.SearchButton onClick={() => checkEligibility(eligibleInput, setEligibleResult, setResult)}></Search.SearchButton>
                 </Search.SearchArea>
                 <ResultArea>{eligibleResult}</ResultArea>
             </Search.Area>
