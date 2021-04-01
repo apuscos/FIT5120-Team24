@@ -114,7 +114,7 @@ function Home() {
                 <SloganTextArea> Social Housing agencies are there to help and we can help you find one</SloganTextArea>
                 <FindAgencyArea to={"/findAgency"}>Find Agency</FindAgencyArea>
             </Slogan>
-            <StatTitle>help is round the corner
+            <StatTitle>help is around the corner
             </StatTitle>
             <StatArea>
                 <StateSection>
