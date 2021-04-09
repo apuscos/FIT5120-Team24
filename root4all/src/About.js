@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from "styled-components";
-import {Logo} from "./Navigation/NavComponents"
 import backgroundImg from "./Image/aboutBackground.png"
 import teamImg from "./Image/teamImage.png"
 

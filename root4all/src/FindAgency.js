@@ -3,41 +3,22 @@ import styled from "styled-components";
 import * as Search from "./SearchBar/searchBarComponents"
 import {Table, Tr} from 'styled-table-component';
 import {API} from "aws-amplify";
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
-
-
-const Button = styled.div`
-  width: 400px;
-  height: 75px;
-  background-color: black;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Bebas Neue", cursive;
-  font-size: 2.5em;
-  color: white;
-  opacity: 1;
-  cursor: pointer;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
+import {confirmAlert} from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const CheckBoxArea = styled.div`
   height: 20px;
   display: flex;
   width: 100%;
-  margin-left: calc( 50% - 90px);
+  margin-left: calc(50% - 90px);
   margin-top: -15px;
 `;
 
 const CheckBox = styled.input`
   height: 20px;
   width: 20px;
-  &:checked  {
+
+  &:checked {
     background: blue;
   }
 `;
@@ -50,15 +31,6 @@ const CheckBoxLabel = styled.div`
   font-size: 1.5em;
 `;
 
-const CheckBoxWrapper = styled.div`
-  display: flex;
-  align-items: flex-start;
-`;
-const Disclaimer = styled.div`
-  font-family: 'Lato', sans-serif;
-  text-align: end;
-  font-size: 0.8em;
-`;
 
 const WarningTextArea = styled.div`
   font-family: 'Lato', sans-serif;
@@ -95,46 +67,41 @@ const ResultArea = styled.div`
   color: red;
 `;
 
-const TableTr = styled.tr`
-  background-color: #5dd95d;
-`;
-
-
-
-
-
-
 async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck) {
-    if (!checkInputValid(inputVal)){
+    if (!checkInputValid(inputVal)) {
         warningMsg("Invalid input");
     } else {
         warningMsg("");
-        const data = await API.get("roof4all", '/agencyinsuburb', {"queryStringParameters": {
+        // Get agencies in the specific suburb
+        const data = await API.get("roof4all", '/agencyinsuburb', {
+            "queryStringParameters": {
                 "inputString": inputVal
             }
         });
-        var suburbResult = data["results"]
-        var result = []
-        var hospitalData = []
-        if (hospitalCheck){
-            const hospital = await API.get("roof4all", '/checkagencynearhospital');
+        const suburbResult = data["results"];
+        let result = [];
+        let hospitalData = [];
+        if (hospitalCheck) {
+            // Get all agencies that near hospital
+            const hospital = await API.get("roof4all", '/checkagencynearhospital', {});
             hospitalData = hospital["output"]
-            console.log(hospitalData)
-            for (var i = 0; i<hospitalData.length; i++) {
-                var hospitalAgency = hospitalData[i]
-                for (var j = 0; j < suburbResult.length; j++){
-                    var suburbAgency = suburbResult[j];
-                    if (hospitalAgency["Agency_Name"] === suburbAgency["Agency_Name"]){
+            // Matching the agencies near hospital with the agencies in the specific suburb
+            for (let i = 0; i < hospitalData.length; i++) {
+                const hospitalAgency = hospitalData[i];
+                for (let j = 0; j < suburbResult.length; j++) {
+                    const suburbAgency = suburbResult[j];
+                    if (hospitalAgency["Agency_Name"] === suburbAgency["Agency_Name"]) {
                         result.push(suburbAgency);
                         break;
                     }
                 }
             }
         } else {
+            // No hospital check, just return the agencies in specific suburb
             result = suburbResult
         }
-
-        if (result.length === 0 ){
+        // If No results got, get Nearby agency
+        if (result.length === 0) {
             callback([]);
             const options = {
                 title: 'No Record Found',
@@ -158,20 +125,21 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck) {
     }
 }
 
-async function getNearAgency(inputVal, callback, warningMsg, hospitalData){
-    const data = await API.get("roof4all", '/findnearagency ', {"queryStringParameters": {
+async function getNearAgency(inputVal, callback, warningMsg, hospitalData) {
+    // Get nearby agency with specific input
+    const data = await API.get("roof4all", '/findnearagency ', {
+        "queryStringParameters": {
             "inputString": inputVal
         }
     });
-    var result = []
-    console.log(data)
-    console.log(hospitalData)
-    if (hospitalData.length > 0){
-        for (var i = 0; i<hospitalData.length; i++) {
-            var hospitalAgency = hospitalData[i]
-            for (var j = 0; j < data["results"].length; j++){
-                var suburbAgency = data["results"][j];
-                if (hospitalAgency["Agency_Name"] === suburbAgency["Agency_Name"]){
+    let result = [];
+    // Compare with hospital data just get
+    if (hospitalData.length > 0) {
+        for (let i = 0; i < hospitalData.length; i++) {
+            const hospitalAgency = hospitalData[i];
+            for (let j = 0; j < data["results"].length; j++) {
+                const suburbAgency = data["results"][j];
+                if (hospitalAgency["Agency_Name"] === suburbAgency["Agency_Name"]) {
                     result.push(hospitalAgency);
                     break;
                 }
@@ -180,7 +148,8 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData){
     } else {
         result = data["results"]
     }
-    if (result.length == 0) {
+    // If no results, get results in the melbourne city
+    if (result.length === 0) {
         const options = {
             title: 'No nearby agency Found',
             message: 'Sorry, there are no nearby agencies . We can still suggest you some agencies,if you would like',
@@ -202,9 +171,11 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData){
     }
 }
 
-async function getAgencyInMelbourne(callback){
+async function getAgencyInMelbourne(callback) {
     try {
-        const data = await API.get("roof4all", '/agencyinsuburb', {"queryStringParameters": {
+        // Get data with postcode 3000
+        const data = await API.get("roof4all", '/agencyinsuburb', {
+            "queryStringParameters": {
                 "inputString": 3000
             }
         });
@@ -215,17 +186,17 @@ async function getAgencyInMelbourne(callback){
 }
 
 async function checkEligibility(inputVal, callback, listInfo) {
-    if (inputVal.length <= 0){
+    if (inputVal.length <= 0) {
         callback(`Please enter the agency name`);
         return
     }
     try {
-        const data = await API.get("roof4all", '/checkAgency', {"queryStringParameters": {
+        const data = await API.get("roof4all", '/checkAgency', {
+            "queryStringParameters": {
                 "inputString": inputVal
-            }})
-        console.log(data)
-        //For testing only
-        if (data["found"]){
+            }
+        })
+        if (data["found"]) {
             callback(`${inputVal} agency is a government registered agency`)
         } else {
             const options = {
@@ -251,15 +222,11 @@ async function checkEligibility(inputVal, callback, listInfo) {
 }
 
 function checkInputValid(inputVal) {
-    var numberReg = /^[0-9]*$/
-    var characterReg = /^[A-Za-z\s]+$/
-    var digitalOnly = numberReg.test(inputVal);
-    var characterOnly = characterReg.test(inputVal);
-    if ((digitalOnly === true && characterOnly === true) || (digitalOnly === false && characterOnly === false) || inputVal.length === 0) {
-        return false;
-    } else {
-        return true;
-    }
+    const numberReg = /^[0-9]*$/;
+    const characterReg = /^[A-Za-z\s]+$/;
+    const digitalOnly = numberReg.test(inputVal);
+    const characterOnly = characterReg.test(inputVal);
+    return !((digitalOnly === true && characterOnly === true) || (digitalOnly === false && characterOnly === false) || inputVal.length === 0);
 }
 
 
@@ -271,27 +238,28 @@ function FindAgency() {
     const [eligibleResult, setEligibleResult] = useState("");
     const [check, setCheck] = useState(false);
     return (
-        <div>
+        <>
             <Search.Area>
                 <Search.TextArea>Search agency by Postcode or Suburb name</Search.TextArea>
                 <Search.SearchArea>
                     <Search.InputArea onChange={e => setInput(e.target.value)}
                                       placeholder={"Please Enter PostCode/Suburb"}/>
-                    <Search.SearchButton onClick={() => agencySuburb(input, setResult, setWarningMsg, check)}></Search.SearchButton>
+                    <Search.SearchButton onClick={() => agencySuburb(input, setResult, setWarningMsg, check)}/>
                 </Search.SearchArea>
-
                 <CheckBoxArea>
-                    <CheckBox type="checkbox" checked={check} onChange={()=>{setCheck(!check)}}/>
+                    <CheckBox type="checkbox" checked={check} onChange={() => {
+                        setCheck(!check)
+                    }}/>
                     <CheckBoxLabel>Near Hospital</CheckBoxLabel>
                 </CheckBoxArea>
                 <WarningTextArea>{warningMsg}</WarningTextArea>
-
             </Search.Area>
             <Search.Area>
                 <Search.TextArea>or check agency is registered or not?</Search.TextArea>
                 <Search.SearchArea>
-                    <Search.InputArea onChange={e => setEligibleInput(e.target.value)} placeholder={"Please Enter Agency name"}/>
-                    <Search.SearchButton onClick={() => checkEligibility(eligibleInput, setEligibleResult, setResult)}></Search.SearchButton>
+                    <Search.InputArea onChange={e => setEligibleInput(e.target.value)}
+                                      placeholder={"Please Enter Agency name"}/>
+                    <Search.SearchButton onClick={() => checkEligibility(eligibleInput, setEligibleResult, setResult)}/>
                 </Search.SearchArea>
                 <ResultArea>{eligibleResult}</ResultArea>
             </Search.Area>
@@ -299,7 +267,7 @@ function FindAgency() {
             <TableWrapper>
                 <Table responsiveMd>
                     <thead>
-                    <tr success>
+                    <tr>
                         <th scope="col">Agency Name</th>
                         <th scope="col">Agency Suburb</th>
                         <th scope="col">Agency Postcode</th>
@@ -310,17 +278,17 @@ function FindAgency() {
                     {result.map((x, i) => {
                         return (
                             <Tr key={i}>
-                                <td><a target="_blank" href={x["Url"]}>{x["Agency_Name"]}</a></td>
+                                <td><a href={x["Url"]}>{x["Agency_Name"]}</a></td>
                                 <td>{x["Agency_Suburb"]}</td>
                                 <td>{x["Agency_Postcode"]}</td>
                                 <td>{x["Agency_Reg_Date"]}</td>
                             </Tr>
                         )
                     })}
-                        </tbody>
-                        </Table>
-                        </TableWrapper>
-        </div>
+                    </tbody>
+                </Table>
+            </TableWrapper>
+        </>
 
     )
 }

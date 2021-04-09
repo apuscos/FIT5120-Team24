@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from "styled-components";
-import { NavLink as Link } from 'react-router-dom';
+import {NavLink as Link} from 'react-router-dom';
 import image1 from "./Image/homePageImage.jpg"
 import statImage1 from "./Image/statImage1.png"
 import statImage2 from "./Image/statImage2.png"
 import statImage3 from "./Image/statImage3.png"
+
+// Slogan area
+//-------------------------------------------------------------------
 const Slogan = styled.div`
   display: flex;
   height: 60vh;
@@ -19,7 +22,7 @@ const Slogan = styled.div`
   opacity: 0.9;
 `;
 
-const FindAgencyArea =  styled(Link)`
+const FindAgencyButton = styled(Link)`
   width: 250px;
   height: 75px;
   background-color: #EEEEEE;
@@ -37,15 +40,6 @@ const FindAgencyArea =  styled(Link)`
   }
 `;
 
-const FixImage = styled.div`
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  background-color: red;
-  width: 100%;
-  height: 500px;
-`;
-
 const SloganTextArea = styled.div`
   width: 90vw;
   height: 120px;
@@ -58,10 +52,13 @@ const SloganTextArea = styled.div`
   justify-content: center;
   opacity: 1;
 `;
+//-------------------------------------------------------------------
+// Statistic Area
+//-------------------------------------------------------------------
 
 const StatArea = styled.div`
-    height: 500px;
-    background-color: #fafafa;
+  height: 500px;
+  background-color: #fafafa;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,7 +76,6 @@ const StateSection = styled.div`
 const StateImage = styled.div`
   background-image: url(${props => props.imageUrl});
   height: 50%;
-  
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -88,7 +84,6 @@ const StateImage = styled.div`
 
 const StateText = styled.div`
   max-height: 50%;
-  
   padding-left: 20%;
   padding-right: 20%;
   font-family: "Bebas Neue", cursive;
@@ -105,32 +100,33 @@ const StatTitle = styled.div`
   padding-top: 20px;
   text-align: center;
 `;
+//-------------------------------------------------------------------
+
 function Home() {
     return (
-        <div>
-
+        <>
             <Slogan>
                 <SloganTextArea> Experiencing homelessness or rough sleeping?</SloganTextArea>
                 <SloganTextArea> Social Housing agencies are there to help and we can help you find one</SloganTextArea>
-                <FindAgencyArea to={"/findAgency"}>Find Agency</FindAgencyArea>
+                <FindAgencyButton to={"/findAgency"}>Find Agency</FindAgencyButton>
             </Slogan>
             <StatTitle>help is around the corner
             </StatTitle>
             <StatArea>
                 <StateSection>
-                    <StateImage imageUrl={statImage1} />
+                    <StateImage imageUrl={statImage1}/>
                     <StateText>
                         Victorian Authorities assist more than 100,000 homeless people annually
                     </StateText>
                 </StateSection>
                 <StateSection>
-                    <StateImage imageUrl={statImage2} />
+                    <StateImage imageUrl={statImage2}/>
                     <StateText>
                         During the pandemic, the government granted a Homelessness to A Home Package of $150 million
                     </StateText>
                 </StateSection>
                 <StateSection>
-                    <StateImage imageUrl={statImage3} />
+                    <StateImage imageUrl={statImage3}/>
                     <StateText>
                         Funds worth $500 million to renew and create new public housing premises across the state.
                     </StateText>
@@ -139,8 +135,8 @@ function Home() {
                     </StateText>
                 </StateSection>
             </StatArea>
-        </div>
-);
+        </>
+    );
 }
 
 export default Home;
