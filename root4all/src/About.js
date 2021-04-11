@@ -2,6 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 import backgroundImg from "./Image/aboutBackground.png"
 import teamImg from "./Image/teamImage.png"
+import Navbar from "./Navigation/Nav";
 
 const ProductDesc = styled.div`
   display: flex;
@@ -55,7 +56,6 @@ const TitleBigger = styled.div`
 `;
 const ImageSection = styled.div`
   height: 350px;
-  width: 100%;
   margin-top: 30px;
   background-image: url(${backgroundImg});
   background-repeat: no-repeat;
@@ -66,7 +66,6 @@ const ImageSection = styled.div`
 const AreaWarpper = styled.div`
   display: flex;
   flex-direction: row;
-  width: 100%;
   height: 400px;
   padding-left: 10%;
   background-color: #979696;
@@ -85,6 +84,7 @@ const TeamImg = styled.div`
 function About() {
     return (
         <>
+            <Navbar />
             <AreaWarpper className="App">
                 <ImageSection/>
                 <ProductDesc>

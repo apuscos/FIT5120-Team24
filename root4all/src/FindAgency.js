@@ -1,16 +1,22 @@
-import React, {useState} from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styled from "styled-components";
 import * as Search from "./SearchBar/searchBarComponents"
 import {Table, Tr} from 'styled-table-component';
 import {API} from "aws-amplify";
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import Navbar from "./Navigation/Nav";
+import mapboxgl from 'mapbox-gl';
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
+
+mapboxgl.workerClass = MapboxWorker;
+mapboxgl.accessToken = 'pk.eyJ1IjoiZ2Fvd2FuZyIsImEiOiJja215anpwaDIwMTcwMnZvMm8xcDU5eXcyIn0.FmAr1bkX7r19ygBIqsySUQ';
 
 const CheckBoxArea = styled.div`
   height: 20px;
   display: flex;
-  width: 100%;
-  margin-left: calc(50% - 90px);
+  margin-left: calc(-50% + 50px);
   margin-top: -15px;
 `;
 
@@ -65,6 +71,15 @@ const ResultArea = styled.div`
   margin-bottom: 20px;
   margin-top: 10px;
   color: red;
+`;
+
+
+const MapArea = styled.div`
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
+  height: 800px;
 `;
 
 async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck) {
@@ -230,6 +245,8 @@ function checkInputValid(inputVal) {
 }
 
 
+
+
 function FindAgency() {
     const [input, setInput] = useState("");
     const [result, setResult] = useState([{}]);
@@ -237,8 +254,26 @@ function FindAgency() {
     const [eligibleInput, setEligibleInput] = useState("");
     const [eligibleResult, setEligibleResult] = useState("");
     const [check, setCheck] = useState(false);
+
+    const mapContainer = useRef();
+    const [lng, setLng] = useState(145.00916604815802);
+    const [lat, setLat] = useState(-37.78036799990421);
+    const [zoom, setZoom] = useState(9);
+
+    useEffect(() => {
+        const map = new mapboxgl.Map({
+            container: mapContainer.current,
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [lng, lat],
+            zoom: zoom
+        });
+        return () => map.remove();
+    }, []);
+
+
     return (
         <>
+            <Navbar />
             <Search.Area>
                 <Search.TextArea>Search agency by Postcode or Suburb name</Search.TextArea>
                 <Search.SearchArea>
@@ -265,7 +300,7 @@ function FindAgency() {
             </Search.Area>
             <TableTitle>Agency Information</TableTitle>
             <TableWrapper>
-                <Table responsiveMd>
+                <Table>
                     <thead>
                     <tr>
                         <th scope="col">Agency Name</th>
@@ -278,7 +313,7 @@ function FindAgency() {
                     {result.map((x, i) => {
                         return (
                             <Tr key={i}>
-                                <td><a href={x["Url"]}>{x["Agency_Name"]}</a></td>
+                                <td><a target="_blank"  rel="noreferrer"  href={x["Url"]}>{x["Agency_Name"]}</a></td>
                                 <td>{x["Agency_Suburb"]}</td>
                                 <td>{x["Agency_Postcode"]}</td>
                                 <td>{x["Agency_Reg_Date"]}</td>
@@ -288,6 +323,8 @@ function FindAgency() {
                     </tbody>
                 </Table>
             </TableWrapper>
+            <MapArea ref={mapContainer}>
+            </MapArea>
         </>
 
     )

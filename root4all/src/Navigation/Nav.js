@@ -5,10 +5,10 @@ import {
     Logo
 } from './NavComponents';
 
-const NavBar = () => {
+const NavBar = (props) => {
     return (
         <>
-            <Nav>
+            <Nav position={props.positioning}>
                 <NavLink to={"/home"}> <Logo/></NavLink>
                 <NavLink to={"/home"}> Home</NavLink>
                 <NavLink to={"/findAgency"} > Find agency</NavLink>

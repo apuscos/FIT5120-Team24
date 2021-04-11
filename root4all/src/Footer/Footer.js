@@ -14,10 +14,11 @@ const FooterArea = styled.div`
 const FooterLink = styled(Link)`
   text-decoration: none;
   cursor: pointer;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Baloo Bhai 2', cursive;
   font-size: 1.1em;
   color: white;
   padding-left: 40%;
+  font-weight: 500;
   &:hover{
     text-decoration: underline;
   }
@@ -26,10 +27,11 @@ const FooterLink = styled(Link)`
 const FooterExternalLink = styled.div`
   text-decoration: none;
   cursor: pointer;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Baloo Bhai 2', cursive;
   font-size: 1.2em;
   color: white;
   padding-left: 40%;
+  font-weight: 500;
   &:hover{
     text-decoration: underline;
   }
@@ -43,7 +45,8 @@ const Section = styled.div`
 
 const SectionTitle = styled.div`
   padding-left: 40%;
-  font-family: "Bebas Neue", cursive;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 700;
   font-size: 1.5em;
   margin-bottom: 5%;
 `;

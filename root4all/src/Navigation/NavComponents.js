@@ -5,15 +5,18 @@ import "../font/font.css"
 
 
 export const Nav = styled.nav`
-  background: transparent;
+  background-color: ${props => props.position ? "rgba(0, 0, 0, 0.9)" :"rgba(0, 0, 0)" };;
   height: 85px;
+  width: 70%;
   display: flex;
+  padding-left: 15%;
+  padding-right: 15%;
   justify-content: space-between;
   align-items: center;
-  padding: 0.2rem calc((100vw - 1000px) / 2);
   z-index: 12;
-  /* Third Nav */
-  /* justify-content: flex-start; */
+  position: ${props => props.position || "static"};
+  top: 0px;
+  left: 0px;
 `;
 
 export const NavLink = styled(Link)`
@@ -23,9 +26,10 @@ export const NavLink = styled(Link)`
   padding: 0 1rem;
   height: 100%;
   cursor: pointer;
-  font-family: "Bebas Neue", cursive;
-  font-size: 1.25rem;
-  color: black;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 700;
+  font-size: 22px;
+  color: white;
   &:hover{
     text-decoration: underline;
   }
@@ -33,9 +37,11 @@ export const NavLink = styled(Link)`
 export const Logo = styled.div`
   background-image: url(${logo});
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: 100%;
+  background-position: center;
   height: 60px;
   width: 175px;
+  
 `;
 
 

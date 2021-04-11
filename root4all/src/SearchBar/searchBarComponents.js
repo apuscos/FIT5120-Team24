@@ -14,7 +14,6 @@ export const Area = styled.div`
 
 export const TextArea = styled.div`
   height: 40%;
-  width: 500px;
   font-family: "Bebas Neue", cursive;
   font-size: 2.5em;
   display: flex;
