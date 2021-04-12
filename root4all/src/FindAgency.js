@@ -9,6 +9,7 @@ import Navbar from "./Navigation/Nav";
 import mapboxgl from 'mapbox-gl';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
+import turf from "@turf/turf"
 
 mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2Fvd2FuZyIsImEiOiJja215anpwaDIwMTcwMnZvMm8xcDU5eXcyIn0.FmAr1bkX7r19ygBIqsySUQ';
@@ -80,6 +81,12 @@ const MapArea = styled.div`
   margin-right: auto;
   width: 800px;
   height: 800px;
+  margin-bottom: 60px;
+`;
+
+const PopUpTitle = styled.div`
+  font-size: 24px;
+  font-family: 'Baloo Bhai 2', cursive;
 `;
 
 async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck) {
@@ -94,6 +101,7 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck) {
             }
         });
         const suburbResult = data["results"];
+        console.log(suburbResult)
         let result = [];
         let hospitalData = [];
         if (hospitalCheck) {
@@ -245,7 +253,38 @@ function checkInputValid(inputVal) {
 }
 
 
+function getBoundingBox (data) {
+    var bounds = {}, coords, point, latitude, longitude;
 
+    // We want to use the “features” key of the FeatureCollection (see above)
+
+    // Loop through each “feature”
+
+
+        // Pull out the coordinates of this feature
+
+        // For each individual coordinate in this feature's coordinates…
+        for (var j = 0; j < data.length; j++) {
+
+            longitude = data[j][0];
+            latitude = data[j][1];
+
+            // Update the bounds recursively by comparing the current
+            // xMin/xMax and yMin/yMax with the coordinate
+            // we're currently checking
+            bounds.xMin = bounds.xMin < longitude ? bounds.xMin : longitude;
+            bounds.xMax = bounds.xMax > longitude ? bounds.xMax : longitude;
+            bounds.yMin = bounds.yMin < latitude ? bounds.yMin : latitude;
+            bounds.yMax = bounds.yMax > latitude ? bounds.yMax : latitude;
+        }
+
+
+
+    // Returns an object that contains the bounds of this GeoJSON
+    // data. The keys of this object describe a box formed by the
+    // northwest (xMin, yMin) and southeast (xMax, yMax) coordinates.
+    return bounds;
+}
 
 function FindAgency() {
     const [input, setInput] = useState("");
@@ -267,12 +306,28 @@ function FindAgency() {
             center: [lng, lat],
             zoom: zoom
         });
-
+        let markers = [];
         for (let i = 0; i < result.length; i++){
             const location = result[i];
             const lat = location["Lat"];
             const lng = location["Lng"];
-            let marker = new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map)
+            let popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+                "<a target='_blank' href=" + location['Url'] + "><h2>" + location['Agency_Name'] + "</h2></a>" +
+                "<div>" + location['Agency_Suburb'] + "</div>" +
+                "<div>" + location['Agency_Reg_Date'] + "</div>"
+
+            );
+            let marker = new mapboxgl.Marker().setLngLat([lng, lat]).setPopup(popup).addTo(map)
+            markers.push([lat, lng])
+        }
+        if (markers.length > 0){
+
+            const bound = getBoundingBox(markers);
+            const xMin = bound.xMin;
+            const yMin = bound.yMin;
+            const xMax = bound.xMax;
+            const yMax = bound.yMax;
+            map.fitBounds([[yMin, xMin], [yMax, xMax]], {padding: 40})
         }
 
         return () => map.remove();
@@ -306,32 +361,8 @@ function FindAgency() {
                 <ResultArea>{eligibleResult}</ResultArea>
             </Search.Area>
             <TableTitle>Agency Information</TableTitle>
-            <TableWrapper>
-                <Table>
-                    <thead>
-                    <tr>
-                        <th scope="col">Agency Name</th>
-                        <th scope="col">Agency Suburb</th>
-                        <th scope="col">Agency Postcode</th>
-                        <th scope="col">Agency Register Date</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {result.map((x, i) => {
-                        return (
-                            <Tr key={i}>
-                                <td><a target="_blank"  rel="noreferrer"  href={x["Url"]}>{x["Agency_Name"]}</a></td>
-                                <td>{x["Agency_Suburb"]}</td>
-                                <td>{x["Agency_Postcode"]}</td>
-                                <td>{x["Agency_Reg_Date"]}</td>
-                            </Tr>
-                        )
-                    })}
-                    </tbody>
-                </Table>
-            </TableWrapper>
-            <MapArea ref={mapContainer}>
-            </MapArea>
+
+            <MapArea ref={mapContainer}></MapArea>
         </>
 
     )
