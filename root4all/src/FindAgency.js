@@ -249,7 +249,7 @@ function checkInputValid(inputVal) {
 
 function FindAgency() {
     const [input, setInput] = useState("");
-    const [result, setResult] = useState([{}]);
+    const [result, setResult] = useState([]);
     const [warningMsg, setWarningMsg] = useState("");
     const [eligibleInput, setEligibleInput] = useState("");
     const [eligibleResult, setEligibleResult] = useState("");
@@ -267,9 +267,16 @@ function FindAgency() {
             center: [lng, lat],
             zoom: zoom
         });
-        return () => map.remove();
-    }, []);
 
+        for (let i = 0; i < result.length; i++){
+            const location = result[i];
+            const lat = location["Lat"];
+            const lng = location["Lng"];
+            let marker = new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map)
+        }
+
+        return () => map.remove();
+    }, [lng, lat, zoom, result]);
 
     return (
         <>

@@ -91,7 +91,7 @@ app.get('/checkagencynearhospital', function (req, res) {
             }
             hospital_suburb = hospital_suburb + `)`;
 
-            queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date, Url FROM agencies WHERE Agency_Suburb IN ${hospital_suburb} AND Pref_loc=""`;
+            queryString = `SELECT * FROM agencies WHERE Agency_Suburb IN ${hospital_suburb} AND Pref_loc=""`;
             connection.query(queryString, function (error, results, fields){
                 if (error){
                     console.error(error)
@@ -110,7 +110,7 @@ app.get('/checkagencynearhospital', function (req, res) {
                                 }
                             }
                             hospital_loc = hospital_loc + `)`;
-                            queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date, Url FROM agencies WHERE Pref_loc IN ${hospital_loc}`;
+                            queryString = `SELECT * FROM agencies WHERE Pref_loc IN ${hospital_loc}`;
                             console.log("process complete");
                             connection.query(queryString, function (error, results, fields){
                                 if (error){
@@ -154,9 +154,9 @@ app.get('/agencyinsuburb', function (req, res) {
     var numberReg = /^[0-9]*$/
     var queryString = "";
     if (numberReg.test(inputString)){
-        queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date, Url FROM agencies where Agency_Postcode="${inputString}"`;
+        queryString = `SELECT * FROM agencies where Agency_Postcode="${inputString}"`;
     } else {
-        queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date, Url FROM agencies where Agency_Suburb="${inputString}"`;
+        queryString = `SELECT * FROM agencies where Agency_Suburb="${inputString}"`;
     }
     connection.query(queryString, function (error, results, fields){
         if (error){
@@ -215,7 +215,7 @@ app.get('/findnearagency', function (req, res) {
                                 connection.destroy();
                             } else {
                                 pref_loc = results[0]["Preferred_Loc"]
-                                queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date, Url FROM agencies WHERE Pref_loc="${pref_loc}"`;
+                                queryString = `SELECT * FROM agencies WHERE Pref_loc="${pref_loc}"`;
                                 connection.query(queryString, function (error, results, fields) {
                                     if (error) {
                                         console.error(error)
@@ -246,7 +246,7 @@ app.get('/findnearagency', function (req, res) {
                     connection.destroy();
                 } else {
                     pref_loc = results[0]["Preferred_Loc"]
-                    queryString = `SELECT Agency_Name, Agency_Suburb, Agency_Postcode, Agency_Reg_Date, Url FROM agencies WHERE Pref_loc="${pref_loc}"`;
+                    queryString = `SELECT * FROM agencies WHERE Pref_loc="${pref_loc}"`;
                     connection.query(queryString, function (error, results, fields){
                         if (error){
                             console.error(error)
@@ -257,7 +257,6 @@ app.get('/findnearagency', function (req, res) {
                         }
                     })
                 }
-
             }
         });
     }
@@ -269,7 +268,4 @@ app.listen(3000, function () {
     console.log("App started")
 });
 
-// Export the app object. When executing the application local this does nothing. However,
-// to port it to AWS Lambda we will create a wrapper around that will load the app from
-// this file
 module.exports = app

@@ -46,7 +46,7 @@ const Trapezoid = styled.div`
   width: 32vw;
   height: 0;
   border-bottom:  100vh solid rgba(0, 0, 0, 0.5);
-  border-left: 0px solid transparent;
+  border-left: 0 solid transparent;
   border-right: 20vw solid transparent;
 `;
 
@@ -54,7 +54,7 @@ const HorizontalLine = styled.div`
   width: 100px;
   height: 3px;
   background-color: #2BA837;
-  margin-bottom: 10vh;
+  margin-bottom: 5vh;
   border-radius: 19px;
 `;
 
@@ -71,7 +71,14 @@ const VerticalLine = styled.div`
   margin-left: auto;
   margin-right: auto;
   border-radius: 19px;
-  
+`;
+
+const SubTitle = styled.div`
+  color: #2BA837;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 700;
+  font-size: 1.8vw;
+  padding-bottom: 30px;
 `;
 
 const LineWrapper = styled.div`
@@ -163,8 +170,7 @@ function Home() {
             <Navbar positioning="fixed" />
             <Slogan>
                 <Trapezoid>
-
-                    <SloganTextArea> <HorizontalLine/> Experiencing homelessness or rough sleeping?</SloganTextArea>
+                    <SloganTextArea> <HorizontalLine/>  <SubTitle>Victoria</SubTitle> Experiencing homelessness or rough sleeping?</SloganTextArea>
                     <SloganTextArea2> Social Housing agencies are there to help and we can help you find one</SloganTextArea2>
                     <FindAgencyButton to={"/findAgency"}>Find Agency</FindAgencyButton>
                 </Trapezoid>
