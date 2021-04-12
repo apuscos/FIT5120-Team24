@@ -14,8 +14,9 @@ export const Area = styled.div`
 
 export const TextArea = styled.div`
   height: 40%;
-  font-family: "Bebas Neue", cursive;
-  font-size: 2.5em;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 700;
+  font-size: 2.2em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,7 +53,8 @@ export const InputArea = styled.input`
   width: 50%;
   height: 50px;
   border: none;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 600;
   font-size: 1.25em;
   padding-left: 30px;
   &:focus {

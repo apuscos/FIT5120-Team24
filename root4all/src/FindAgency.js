@@ -17,7 +17,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZ2Fvd2FuZyIsImEiOiJja215anpwaDIwMTcwMnZvMm8xc
 const CheckBoxArea = styled.div`
   height: 20px;
   display: flex;
-  margin-left: calc(-50% + 50px);
+  margin-left: calc(-50% + 80px);
   margin-top: -15px;
 `;
 
@@ -33,14 +33,16 @@ const CheckBox = styled.input`
 const CheckBoxLabel = styled.div`
   height: 20px;
   color: black;
-  font-family: "Bebas Neue", cursive;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 600;
   line-height: 30px;
   font-size: 1.5em;
 `;
 
 
 const WarningTextArea = styled.div`
-  font-family: 'Lato', sans-serif;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 600;
   color: red;
   display: flex;
   align-items: center;
@@ -52,7 +54,8 @@ const WarningTextArea = styled.div`
 `;
 
 const TableTitle = styled.div`
-  font-family: "Bebas Neue", cursive;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 700;
   font-size: 2.5em;
   color: black;
   text-align: center;
@@ -60,14 +63,10 @@ const TableTitle = styled.div`
   margin-bottom: 25px;
 `;
 
-const TableWrapper = styled.div`
-  width: 70%;
-  text-align: center;
-  margin-left: 15%;
-`;
 
 const ResultArea = styled.div`
-  font-family: 'Lato', sans-serif;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 600;
   font-size: 1.5em;
   margin-bottom: 20px;
   margin-top: 10px;
@@ -84,10 +83,6 @@ const MapArea = styled.div`
   margin-bottom: 60px;
 `;
 
-const PopUpTitle = styled.div`
-  font-size: 24px;
-  font-family: 'Baloo Bhai 2', cursive;
-`;
 
 async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck) {
     if (!checkInputValid(inputVal)) {
