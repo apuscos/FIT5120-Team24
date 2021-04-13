@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styled from "styled-components";
 import * as Search from "./SearchBar/searchBarComponents"
-import {Table, Tr} from 'styled-table-component';
 import {API} from "aws-amplify";
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -9,7 +8,6 @@ import Navbar from "./Navigation/Nav";
 import mapboxgl from 'mapbox-gl';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
-import turf from "@turf/turf"
 
 mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2Fvd2FuZyIsImEiOiJja215anpwaDIwMTcwMnZvMm8xcDU5eXcyIn0.FmAr1bkX7r19ygBIqsySUQ';
@@ -70,7 +68,9 @@ const ResultArea = styled.div`
   font-size: 1.5em;
   margin-bottom: 20px;
   margin-top: 10px;
-  color: red;
+  color: ${props => 
+     props.msg === `You can still search for agencies in suburb using the find agency feature` ? "red": "#2BA837"
+  };
 `;
 
 
@@ -249,32 +249,20 @@ function checkInputValid(inputVal) {
 
 
 function getBoundingBox (data) {
-    var bounds = {}, coords, point, latitude, longitude;
+    let bounds = {},latitude, longitude;
+    for (let j = 0; j < data.length; j++) {
 
-    // We want to use the “features” key of the FeatureCollection (see above)
+        longitude = data[j][0];
+        latitude = data[j][1];
 
-    // Loop through each “feature”
-
-
-        // Pull out the coordinates of this feature
-
-        // For each individual coordinate in this feature's coordinates…
-        for (var j = 0; j < data.length; j++) {
-
-            longitude = data[j][0];
-            latitude = data[j][1];
-
-            // Update the bounds recursively by comparing the current
-            // xMin/xMax and yMin/yMax with the coordinate
-            // we're currently checking
-            bounds.xMin = bounds.xMin < longitude ? bounds.xMin : longitude;
-            bounds.xMax = bounds.xMax > longitude ? bounds.xMax : longitude;
-            bounds.yMin = bounds.yMin < latitude ? bounds.yMin : latitude;
-            bounds.yMax = bounds.yMax > latitude ? bounds.yMax : latitude;
-        }
-
-
-
+        // Update the bounds recursively by comparing the current
+        // xMin/xMax and yMin/yMax with the coordinate
+        // we're currently checking
+        bounds.xMin = bounds.xMin < longitude ? bounds.xMin : longitude;
+        bounds.xMax = bounds.xMax > longitude ? bounds.xMax : longitude;
+        bounds.yMin = bounds.yMin < latitude ? bounds.yMin : latitude;
+        bounds.yMax = bounds.yMax > latitude ? bounds.yMax : latitude;
+    }
     // Returns an object that contains the bounds of this GeoJSON
     // data. The keys of this object describe a box formed by the
     // northwest (xMin, yMin) and southeast (xMax, yMax) coordinates.
@@ -353,7 +341,7 @@ function FindAgency() {
                                       placeholder={"Please Enter Agency name"}/>
                     <Search.SearchButton onClick={() => checkEligibility(eligibleInput, setEligibleResult, setResult)}/>
                 </Search.SearchArea>
-                <ResultArea>{eligibleResult}</ResultArea>
+                <ResultArea msg={eligibleResult}>{eligibleResult}</ResultArea>
             </Search.Area>
             <TableTitle>Agency Information</TableTitle>
 
