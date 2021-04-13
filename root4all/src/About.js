@@ -28,7 +28,7 @@ const TeamDesc = styled.div`
 const Title = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 700;
-  font-size: 3em;
+  font-size: 2.5em;
   width: auto;
   margin-bottom: 10px;
 `;
@@ -37,7 +37,7 @@ const Content = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 500;
   display: flex;
-  font-size: 1.7em;
+  font-size: 20px;
 `;
 
 const ContentBigger = styled.div`
@@ -45,13 +45,13 @@ const ContentBigger = styled.div`
   font-weight: 500;
   width: 65%;
   display: flex;
-  font-size: 1.7em;
+  font-size: 20px;
 `;
 
 const TitleBigger = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 700;
-  font-size: 3em;
+  font-size: 2.5em;
   width: auto;
 `;
 
