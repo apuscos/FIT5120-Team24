@@ -117,7 +117,6 @@ const StateSection = styled.div`
   width: calc((70vw - 80px)/3);
   height: calc((70vw - 80px)/3);
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
   margin-bottom: 90px;
@@ -129,12 +128,13 @@ const StateSection = styled.div`
 
 const StateImage = styled.div`
   background-image: url(${props => props.imageUrl});
-  width: 200px;
-  height: 200px;
+  width: calc((70vw - 80px)/6);
+  height: calc((70vw - 80px)/6);
   margin-bottom: 5%;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  margin-top: 8%;
 `;
 
 const StateText = styled.div`
@@ -144,13 +144,13 @@ const StateText = styled.div`
   align-items: center;
   justify-content: center;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 1vw;
 `;
 
 const StateHead = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 600;
-  font-size: 32px;
+  font-size: 1.4vw;
 `;
 
 const StatTitle = styled.div`
