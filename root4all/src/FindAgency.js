@@ -8,6 +8,7 @@ import Navbar from "./Navigation/Nav";
 import mapboxgl from 'mapbox-gl';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2Fvd2FuZyIsImEiOiJja215anpwaDIwMTcwMnZvMm8xcDU5eXcyIn0.FmAr1bkX7r19ygBIqsySUQ';
@@ -78,10 +79,63 @@ const MapArea = styled.div`
   display: flex;
   margin-left: auto;
   margin-right: auto;
-  width: 800px;
+  width: 65%;
   height: 800px;
   margin-bottom: 60px;
 `;
+
+const AgencyInfoArea = styled.div`
+  display: flex;
+  height: 1000px;
+`;
+
+const AgencyInfoBlock = styled.div`
+  display: flex;
+  height: 200px;
+  margin: 20px;
+  border: 1px solid #dadada;
+  background-color: #ffffff;
+  position: relative;
+  cursor: pointer;
+  flex-direction: column;
+  &:hover {
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: "";
+      border: 4px solid #2BA837;
+      width: calc(100% - 8px);
+    }
+  }
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    border: ${props => props.clicked ? "4px solid #2BA837" : "0px solid #2BA837"};     
+    width: calc(100% - 8px);
+  }
+  
+`
+const AgencyInfoTitle = styled.div`
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 600;
+  font-size: 28px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+`;
+
+const AgencyInfoContent = styled.div`
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 500;
+  font-size: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+`;
+
+
 
 
 async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck) {
@@ -281,6 +335,11 @@ function FindAgency() {
     const [lng, setLng] = useState(145.00916604815802);
     const [lat, setLat] = useState(-37.78036799990421);
     const [zoom, setZoom] = useState(9);
+    const [scrollbarHidden, setScrollbarHidden] = useState(true);
+    const [map, setMap]= useState(null);
+    const [selectBound, setSelectBound] = useState([]);
+    const [allBound, setAllBound] = useState([]);
+    const [currentlyIdx, setCurrentlyIdx] = useState(-1);
 
     useEffect(() => {
         const map = new mapboxgl.Map({
@@ -289,6 +348,10 @@ function FindAgency() {
             center: [lng, lat],
             zoom: zoom
         });
+        setMap(map);
+        setCurrentlyIdx(-1);
+        setAllBound([]);
+        setSelectBound([]);
         let markers = [];
         for (let i = 0; i < result.length; i++){
             const location = result[i];
@@ -300,21 +363,33 @@ function FindAgency() {
                 "<div>" + location['Agency_Reg_Date'] + "</div>"
 
             );
-            let marker = new mapboxgl.Marker().setLngLat([lng, lat]).setPopup(popup).addTo(map)
-            markers.push([lat, lng])
+            let marker = new mapboxgl.Marker().setLngLat([lng, lat]).setPopup(popup).addTo(map);
+            markers.push([lat, lng]);
+            // let newClicked = clicked.push(false);
+            // setClicked(newClicked);
         }
         if (markers.length > 0){
-
             const bound = getBoundingBox(markers);
             const xMin = bound.xMin;
             const yMin = bound.yMin;
             const xMax = bound.xMax;
             const yMax = bound.yMax;
-            map.fitBounds([[yMin, xMin], [yMax, xMax]], {padding: 40})
+            let bounds = [[yMin, xMin], [yMax, xMax]];
+            if (markers.length === 1){
+                bounds = [[yMin - 0.002, xMin-0.002], [yMax+0.002, xMax+0.002]];
+            }
+            setAllBound(bounds);
+            map.fitBounds(bounds, {padding: 40})
         }
 
         return () => map.remove();
     }, [lng, lat, zoom, result]);
+
+    useEffect(()=> {
+        if (selectBound.length > 0) {
+            map.fitBounds(selectBound, {padding: 40});
+        }
+    }, [selectBound,map]);
 
     return (
         <>
@@ -324,7 +399,10 @@ function FindAgency() {
                 <Search.SearchArea>
                     <Search.InputArea onChange={e => setInput(e.target.value)}
                                       placeholder={"Please Enter PostCode/Suburb"}/>
-                    <Search.SearchButton onClick={() => agencySuburb(input, setResult, setWarningMsg, check)}/>
+                    <Search.SearchButton onClick={() => {
+                        agencySuburb(input, setResult, setWarningMsg, check);
+                        setScrollbarHidden(false);
+                    }}/>
                 </Search.SearchArea>
                 <CheckBoxArea>
                     <CheckBox type="checkbox" checked={check} onChange={() => {
@@ -343,12 +421,69 @@ function FindAgency() {
                 </Search.SearchArea>
                 <ResultArea msg={eligibleResult}>{eligibleResult}</ResultArea>
             </Search.Area>
-            <TableTitle>Agency Information</TableTitle>
-
-            <MapArea ref={mapContainer}></MapArea>
+            <AgencyInfoArea>
+                {!scrollbarHidden ?
+                    <Scrollbars style={{ width: "35%", height: 800, background:"#f7f7f7"}}>
+                        {result.map((x, i) => {
+                            return(
+                                <AgencyInfo result={x} id={i} boundCallback={setSelectBound} allBound={allBound} currentlyIdx={currentlyIdx} setCurrentIdx={setCurrentlyIdx}/>
+                            );
+                        })}
+                    </Scrollbars> : null
+                }
+                <MapArea ref={mapContainer}/>
+            </AgencyInfoArea>
         </>
 
     )
 }
+
+const AgencyLink = styled.a`
+  color: black;
+  &:visited{
+    color: black;
+  }
+`;
+
+function AgencyInfo(props) {
+    const [clicked, setClicked] = useState(false)
+    const agencyName = props.result["Agency_Name"] ? props.result["Agency_Name"] : "";
+    const url = props.result["Url"] ? props.result["Url"] : "";
+    const lat = props.result["Lat"];
+    const lng = props.result["Lng"];
+    const id = props.id;
+    const currentlyIdx = props.currentlyIdx;
+    useEffect(()=>{
+        if (currentlyIdx === -1){
+            setClicked(false);
+        }
+        if(currentlyIdx !== id && currentlyIdx !== -1){
+            setClicked(false);
+        }
+    }, [currentlyIdx, id]);
+    return(
+        <>
+            <AgencyInfoBlock clicked={clicked} onClick={(e)=>{
+                setClicked(!clicked);
+                if (!clicked){
+                    if (lat && lng && props.boundCallback){
+                        props.boundCallback([[lng - 0.001, lat - 0.001], [lng + 0.001, lat + 0.001]]);
+                        props.setCurrentIdx(id);
+                    }
+                } else {
+                    if (props.allBound){
+                        props.boundCallback(props.allBound);
+                    }
+                }
+            }}>
+                <AgencyInfoTitle>{agencyName}</AgencyInfoTitle>
+                <AgencyInfoContent><AgencyLink target="_blank" rel="noreferrer" href={url}>Go to website</AgencyLink></AgencyInfoContent>
+            </AgencyInfoBlock>
+        </>
+    );
+
+}
+
+
 
 export default FindAgency;
