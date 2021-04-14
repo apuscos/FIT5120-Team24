@@ -337,9 +337,11 @@ function FindAgency() {
     const [zoom, setZoom] = useState(9);
     const [scrollbarHidden, setScrollbarHidden] = useState(true);
     const [map, setMap]= useState(null);
-    const [selectBound, setSelectBound] = useState([]);
     const [allBound, setAllBound] = useState([]);
     const [currentlyIdx, setCurrentlyIdx] = useState(-1);
+    const [markerList, setMarkerList] = useState([]);
+    const scrollRef = useRef(null);
+    const [markerClicked, setMarkerClicked] = useState(false);
 
     useEffect(() => {
         const map = new mapboxgl.Map({
@@ -351,23 +353,28 @@ function FindAgency() {
         setMap(map);
         setCurrentlyIdx(-1);
         setAllBound([]);
-        setSelectBound([]);
         let markers = [];
+        let markerList = [];
         for (let i = 0; i < result.length; i++){
             const location = result[i];
             const lat = location["Lat"];
             const lng = location["Lng"];
-            let popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-                "<a target='_blank' href=" + location['Url'] + "><h2>" + location['Agency_Name'] + "</h2></a>" +
-                "<div>" + location['Agency_Suburb'] + "</div>" +
-                "<div>" + location['Agency_Reg_Date'] + "</div>"
-
+            let popup = new mapboxgl.Popup({ offset: 25, closeButton:false }).setHTML(
+                "<h2>" + location['Agency_Name'] + "</h2>"
             );
+            popup.on('open', function(){
+               setCurrentlyIdx(i);
+               setMarkerClicked(true);
+            });
+            popup.on('close', function(){
+                setCurrentlyIdx(-1);
+                setMarkerClicked(false);
+            });
             let marker = new mapboxgl.Marker().setLngLat([lng, lat]).setPopup(popup).addTo(map);
             markers.push([lat, lng]);
-            // let newClicked = clicked.push(false);
-            // setClicked(newClicked);
+            markerList.push(marker);
         }
+        setMarkerList(markerList);
         if (markers.length > 0){
             const bound = getBoundingBox(markers);
             const xMin = bound.xMin;
@@ -386,10 +393,24 @@ function FindAgency() {
     }, [lng, lat, zoom, result]);
 
     useEffect(()=> {
-        if (selectBound.length > 0) {
-            map.fitBounds(selectBound, {padding: 40});
+        if (currentlyIdx !== -1) {
+            for(let i = 0; i < markerList.length; i++){
+                if (i !== currentlyIdx) {
+                    markerList[i].getPopup().remove();
+                }
+            }
+            const lat = markerList[currentlyIdx].getLngLat().lat
+            const lng = markerList[currentlyIdx].getLngLat().lng
+            map.fitBounds([[lng - 0.001, lat - 0.001], [lng + 0.001, lat + 0.001]], {padding: 40});
+            markerList[currentlyIdx].getPopup().addTo(map);
+        } else if (allBound.length > 0){
+            for(let i = 0; i < markerList.length; i++){
+                markerList[i].getPopup().remove();
+            }
+            map.fitBounds(allBound, {padding: 40});
         }
-    }, [selectBound,map]);
+
+    }, [allBound,map,markerList, currentlyIdx]);
 
     return (
         <>
@@ -423,10 +444,10 @@ function FindAgency() {
             </Search.Area>
             <AgencyInfoArea>
                 {!scrollbarHidden ?
-                    <Scrollbars style={{ width: "35%", height: 800, background:"#f7f7f7"}}>
+                    <Scrollbars ref={scrollRef} style={{ width: "35%", height: 800, background:"#f7f7f7"}}>
                         {result.map((x, i) => {
                             return(
-                                <AgencyInfo result={x} id={i} boundCallback={setSelectBound} allBound={allBound} currentlyIdx={currentlyIdx} setCurrentIdx={setCurrentlyIdx}/>
+                                <AgencyInfo result={x} scrollbar={scrollRef} id={i} currentlyIdx={currentlyIdx} setCurrentIdx={setCurrentlyIdx} markerClicked={markerClicked} setMarkerClicked={setMarkerClicked}/>
                             );
                         })}
                     </Scrollbars> : null
@@ -447,33 +468,40 @@ const AgencyLink = styled.a`
 
 function AgencyInfo(props) {
     const [clicked, setClicked] = useState(false)
+    const [clickStatus, setClickStatus] = useState(false);
     const agencyName = props.result["Agency_Name"] ? props.result["Agency_Name"] : "";
     const url = props.result["Url"] ? props.result["Url"] : "";
-    const lat = props.result["Lat"];
-    const lng = props.result["Lng"];
     const id = props.id;
     const currentlyIdx = props.currentlyIdx;
+    const scrollRef = useRef(null);
     useEffect(()=>{
         if (currentlyIdx === -1){
             setClicked(false);
+            setClickStatus(false);
         }
         if(currentlyIdx !== id && currentlyIdx !== -1){
             setClicked(false);
+            setClickStatus(false);
+        } else if (currentlyIdx === id){
+            console.log(props.markerClicked);
+            console.log(!clickStatus)
+            if(props.markerClicked && !clickStatus) {
+                props.scrollbar.current.scrollTop(220 * id);
+            }
+            setClicked(true);
         }
-    }, [currentlyIdx, id]);
+    }, [currentlyIdx, id, props.markerClicked, props.scrollbar]);
     return(
         <>
-            <AgencyInfoBlock clicked={clicked} onClick={(e)=>{
+            <AgencyInfoBlock ref={scrollRef} clicked={clicked} onClick={(e)=>{
                 setClicked(!clicked);
                 if (!clicked){
-                    if (lat && lng && props.boundCallback){
-                        props.boundCallback([[lng - 0.001, lat - 0.001], [lng + 0.001, lat + 0.001]]);
-                        props.setCurrentIdx(id);
-                    }
+                    props.setCurrentIdx(id);
+                    setClickStatus(true);
                 } else {
-                    if (props.allBound){
-                        props.boundCallback(props.allBound);
-                    }
+                    props.setCurrentIdx(-1);
+                    setClickStatus(false);
+
                 }
             }}>
                 <AgencyInfoTitle>{agencyName}</AgencyInfoTitle>
@@ -481,7 +509,6 @@ function AgencyInfo(props) {
             </AgencyInfoBlock>
         </>
     );
-
 }
 
 
