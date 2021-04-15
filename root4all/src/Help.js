@@ -42,11 +42,11 @@ const QuestionArea = styled.div`
     right: 0;
     border: ${props => props.firstLine ? "none" : "1px solid #dadada"};
   }
+  background-color: ${props => props.expand ? "rgba(205, 205, 205, 0.6)" : "transparent"};
 
   cursor: pointer;
-
   &:hover {
-    background-color: rgba(205, 205, 205, 0.82);
+    background-color: rgba(205, 205, 205, 0.6);
   }
 `;
 
@@ -67,6 +67,7 @@ const AnswerArea = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 400;
   padding-left: 40px;
+  padding-top: 20px;
 `;
 
 
@@ -119,7 +120,7 @@ function QuestionSection(props) {
 
     return (
         <>
-            <QuestionArea firstLine={props.id === 0} onClick={toggle}>{props.questionContent} <ArrowDown expand={props.id === props.openID}/></QuestionArea>
+            <QuestionArea firstLine={props.id === 0} onClick={toggle} expand={props.id === props.openID} >{props.questionContent} <ArrowDown expand={props.id === props.openID}/></QuestionArea>
             <Expand open={props.openID === props.id} > {props.answerConent}</Expand>
         </>
     );
