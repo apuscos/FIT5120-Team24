@@ -346,7 +346,7 @@ function FindAgency() {
     useEffect(() => {
         const map = new mapboxgl.Map({
             container: mapContainer.current,
-            style: 'mapbox://styles/mapbox/streets-v11',
+            style: 'mapbox://styles/mapbox/light-v10',
             center: [lng, lat],
             zoom: zoom
         });
@@ -490,18 +490,16 @@ function AgencyInfo(props) {
             }
             setClicked(true);
         }
-    }, [currentlyIdx, id, props.markerClicked, props.scrollbar]);
+    }, [currentlyIdx, id, props.markerClicked, props.scrollbar, clickStatus]);
     return(
         <>
-            <AgencyInfoBlock ref={scrollRef} clicked={clicked} onClick={(e)=>{
+            <AgencyInfoBlock ref={scrollRef} clicked={clicked} onClick={()=>{
                 setClicked(!clicked);
                 if (!clicked){
                     props.setCurrentIdx(id);
                     setClickStatus(true);
                 } else {
                     props.setCurrentIdx(-1);
-                    setClickStatus(false);
-
                 }
             }}>
                 <AgencyInfoTitle>{agencyName}</AgencyInfoTitle>
