@@ -346,7 +346,7 @@ function FindAgency() {
     useEffect(() => {
         const map = new mapboxgl.Map({
             container: mapContainer.current,
-            style: 'mapbox://styles/mapbox/light-v10',
+            style: 'mapbox://styles/mapbox/streets-v11?optimize=true',
             center: [lng, lat],
             zoom: zoom
         });
@@ -354,7 +354,7 @@ function FindAgency() {
         setCurrentlyIdx(-1);
         setAllBound([]);
         let markers = [];
-        let markerList = [];
+        let markerListTemp = [];
         for (let i = 0; i < result.length; i++){
             const location = result[i];
             const lat = location["Lat"];
@@ -372,9 +372,9 @@ function FindAgency() {
             });
             let marker = new mapboxgl.Marker().setLngLat([lng, lat]).setPopup(popup).addTo(map);
             markers.push([lat, lng]);
-            markerList.push(marker);
+            markerListTemp.push(marker);
         }
-        setMarkerList(markerList);
+        setMarkerList(markerListTemp);
         if (markers.length > 0){
             const bound = getBoundingBox(markers);
             const xMin = bound.xMin;
