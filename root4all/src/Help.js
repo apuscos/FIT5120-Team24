@@ -33,13 +33,20 @@ const QuestionArea = styled.div`
   align-items: center;
   padding-left: 40px;
   position: relative;
-  &::before{
+
+  &::before {
     position: absolute;
     content: "";
     top: 0;
     left: 0;
     right: 0;
     border: ${props => props.firstLine ? "none" : "1px solid #dadada"};
+  }
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(205, 205, 205, 0.82);
   }
 `;
 
@@ -92,7 +99,7 @@ function Help() {
             <FaqArea expand={openID !== -1}>
                 {questionList.map((x, i)=> {
                     return (
-                        <QuestionSection id={i} lastLine={i === questionList.length - 1} questionContent={x[0]} answerConent={x[1]} setOpen={setOpenID} openID={openID}/>
+                        <QuestionSection id={i} questionContent={x[0]} answerConent={x[1]} setOpen={setOpenID} openID={openID}/>
                     )
                 })}
             </FaqArea>
@@ -112,7 +119,7 @@ function QuestionSection(props) {
 
     return (
         <>
-            <QuestionArea firstLine={props.id === 0} lastLine={props.lastLine} onClick={toggle}>{props.questionContent} <ArrowDown expand={props.id === props.openID}/></QuestionArea>
+            <QuestionArea firstLine={props.id === 0} onClick={toggle}>{props.questionContent} <ArrowDown expand={props.id === props.openID}/></QuestionArea>
             <Expand open={props.openID === props.id} > {props.answerConent}</Expand>
         </>
     );
