@@ -415,8 +415,11 @@ const AgencyLink = styled.a`
   &:visited{
     color: black;
   }
-  display: flex;
   font-size: 20px;
+`;
+
+const LinkIconWrapper = styled.div`
+  display: flex;
   align-items: center;
 `;
 
@@ -519,7 +522,10 @@ function AgencyInfo(props) {
             }}>
                 <AgencyInfoTitle>{agencyName}</AgencyInfoTitle>
                 <AgencyInfoContent>
-                    <AgencyLink target="_blank" rel="noreferrer" href={url}><Icon url={WebsiteIcon}/>Go to website</AgencyLink>
+                    <LinkIconWrapper>
+                        <Icon url={WebsiteIcon}/>
+                        <AgencyLink target="_blank" rel="noreferrer" href={url}>Go to website</AgencyLink>
+                    </LinkIconWrapper>
                 </AgencyInfoContent>
             </AgencyInfoBlock>
         </>
