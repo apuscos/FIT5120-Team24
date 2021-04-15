@@ -48,11 +48,11 @@ const ArrowDown = styled.i`
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
+  transform: ${props => props.expand ? "rotate(-135deg)" : "rotate(45deg)"};
   margin-left: auto;
   margin-right: 20px;
   margin-bottom: 3px;
+  transition: transform 0.448s ease-in-out;
 `;
 
 const AnswerArea = styled.div`
@@ -112,7 +112,7 @@ function QuestionSection(props) {
 
     return (
         <>
-            <QuestionArea firstLine={props.id === 0} lastLine={props.lastLine} onClick={toggle}>{props.questionContent} <ArrowDown/></QuestionArea>
+            <QuestionArea firstLine={props.id === 0} lastLine={props.lastLine} onClick={toggle}>{props.questionContent} <ArrowDown expand={props.id === props.openID}/></QuestionArea>
             <Expand open={props.openID === props.id} > {props.answerConent}</Expand>
         </>
     );
