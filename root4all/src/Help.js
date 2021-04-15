@@ -14,7 +14,7 @@ const FaqTitle = styled.div`
 `;
 
 const FaqArea = styled.div`
-  height: ${props => props.expand ? "600px" : "400px"};
+  height: ${props => props.expand ? "620px" : "400px"};
   max-width: 800px;
   margin-left: calc(15% + 40px);
   margin-right: calc(15% + 40px);
