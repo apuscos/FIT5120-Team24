@@ -9,6 +9,7 @@ import mapboxgl from 'mapbox-gl';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 import { Scrollbars } from 'react-custom-scrollbars';
+import WebsiteIcon from "./Image/globe.svg"
 
 mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2Fvd2FuZyIsImEiOiJja215anpwaDIwMTcwMnZvMm8xcDU5eXcyIn0.FmAr1bkX7r19ygBIqsySUQ';
@@ -84,56 +85,6 @@ const MapArea = styled.div`
   margin-bottom: 60px;
 `;
 
-const AgencyInfoArea = styled.div`
-  display: flex;
-  height: 1000px;
-`;
-
-const AgencyInfoBlock = styled.div`
-  display: flex;
-  height: 200px;
-  margin: 20px;
-  border: 1px solid #dadada;
-  background-color: #ffffff;
-  position: relative;
-  cursor: pointer;
-  flex-direction: column;
-  &:hover {
-    &::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      content: "";
-      border: 4px solid #2BA837;
-      width: calc(100% - 8px);
-    }
-  }
-  &::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    content: "";
-    border: ${props => props.clicked ? "4px solid #2BA837" : "0px solid #2BA837"};     
-    width: calc(100% - 8px);
-  }
-  
-`
-const AgencyInfoTitle = styled.div`
-  font-family: 'Baloo Bhai 2', cursive;
-  font-weight: 600;
-  font-size: 28px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 20px;
-`;
-
-const AgencyInfoContent = styled.div`
-  font-family: 'Baloo Bhai 2', cursive;
-  font-weight: 500;
-  font-size: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-`;
 
 
 
@@ -464,7 +415,71 @@ const AgencyLink = styled.a`
   &:visited{
     color: black;
   }
+  display: flex;
+  font-size: 20px;
+  align-items: center;
 `;
+
+const Icon = styled.div`
+  background-image: ${props => `url(${props.url})`};
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-right: 5px;
+  margin-bottom: 5px;
+`;
+const AgencyInfoArea = styled.div`
+  display: flex;
+  height: 1000px;
+`;
+
+const AgencyInfoBlock = styled.div`
+  display: flex;
+  height: 200px;
+  margin: 20px;
+  border: 1px solid #dadada;
+  background-color: #ffffff;
+  position: relative;
+  cursor: pointer;
+  flex-direction: column;
+  &:hover {
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: "";
+      border: 4px solid #2BA837;
+      width: calc(100% - 8px);
+    }
+  }
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    border: ${props => props.clicked ? "4px solid #2BA837" : "0px solid #2BA837"};     
+    width: calc(100% - 8px);
+  }
+  
+`
+const AgencyInfoTitle = styled.div`
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 600;
+  font-size: 28px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+`;
+
+const AgencyInfoContent = styled.div`
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 500;
+  font-size: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+`;
+
 
 function AgencyInfo(props) {
     const [clicked, setClicked] = useState(false)
@@ -503,7 +518,9 @@ function AgencyInfo(props) {
                 }
             }}>
                 <AgencyInfoTitle>{agencyName}</AgencyInfoTitle>
-                <AgencyInfoContent><AgencyLink target="_blank" rel="noreferrer" href={url}>Go to website</AgencyLink></AgencyInfoContent>
+                <AgencyInfoContent>
+                    <AgencyLink target="_blank" rel="noreferrer" href={url}><Icon url={WebsiteIcon}/>Go to website</AgencyLink>
+                </AgencyInfoContent>
             </AgencyInfoBlock>
         </>
     );
