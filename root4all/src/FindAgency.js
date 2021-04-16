@@ -286,13 +286,6 @@ function FindAgency() {
     const [lng, setLng] = useState(145.00916604815802);
     const [lat, setLat] = useState(-37.78036799990421);
     const [zoom, setZoom] = useState(9);
-    const [scrollbarHidden, setScrollbarHidden] = useState(true);
-    const [map, setMap]= useState(null);
-    const [allBound, setAllBound] = useState([]);
-    const [currentlyIdx, setCurrentlyIdx] = useState(-1);
-    const [markerList, setMarkerList] = useState([]);
-    const scrollRef = useRef(null);
-    const [markerClicked, setMarkerClicked] = useState(false);
 
     useEffect(() => {
         const map = new mapboxgl.Map({
@@ -301,31 +294,20 @@ function FindAgency() {
             center: [lng, lat],
             zoom: zoom
         });
-        setMap(map);
-        setCurrentlyIdx(-1);
-        setAllBound([]);
         let markers = [];
-        let markerListTemp = [];
         for (let i = 0; i < result.length; i++){
             const location = result[i];
             const lat = location["Lat"];
             const lng = location["Lng"];
+            const url = location['Url'];
+            console.log(url)
             let popup = new mapboxgl.Popup({ offset: 25, closeButton:false }).setHTML(
-                "<h2>" + location['Agency_Name'] + "</h2>"
+                "<h2>" + location['Agency_Name'] + "</h2>" +
+                `<a target='_blank' rel=\"noreferrer\" href=${url}>Go to website</a>`
             );
-            popup.on('open', function(){
-               setCurrentlyIdx(i);
-               setMarkerClicked(true);
-            });
-            popup.on('close', function(){
-                setCurrentlyIdx(-1);
-                setMarkerClicked(false);
-            });
             let marker = new mapboxgl.Marker().setLngLat([lng, lat]).setPopup(popup).addTo(map);
             markers.push([lat, lng]);
-            markerListTemp.push(marker);
         }
-        setMarkerList(markerListTemp);
         if (markers.length > 0){
             const bound = getBoundingBox(markers);
             const xMin = bound.xMin;
@@ -336,32 +318,12 @@ function FindAgency() {
             if (markers.length === 1){
                 bounds = [[yMin - 0.002, xMin-0.002], [yMax+0.002, xMax+0.002]];
             }
-            setAllBound(bounds);
             map.fitBounds(bounds, {padding: 40})
         }
 
         return () => map.remove();
     }, [lng, lat, zoom, result]);
 
-    useEffect(()=> {
-        if (currentlyIdx !== -1) {
-            for(let i = 0; i < markerList.length; i++){
-                if (i !== currentlyIdx) {
-                    markerList[i].getPopup().remove();
-                }
-            }
-            const lat = markerList[currentlyIdx].getLngLat().lat
-            const lng = markerList[currentlyIdx].getLngLat().lng
-            map.fitBounds([[lng - 0.001, lat - 0.001], [lng + 0.001, lat + 0.001]], {padding: 40});
-            markerList[currentlyIdx].getPopup().addTo(map);
-        } else if (allBound.length > 0){
-            for(let i = 0; i < markerList.length; i++){
-                markerList[i].getPopup().remove();
-            }
-            map.fitBounds(allBound, {padding: 40});
-        }
-
-    }, [allBound,map,markerList, currentlyIdx]);
 
     return (
         <>
@@ -373,7 +335,6 @@ function FindAgency() {
                                       placeholder={"Please Enter PostCode/Suburb"}/>
                     <Search.SearchButton onClick={() => {
                         agencySuburb(input, setResult, setWarningMsg, check);
-                        setScrollbarHidden(false);
                     }}/>
                 </Search.SearchArea>
                 <CheckBoxArea>
@@ -393,145 +354,11 @@ function FindAgency() {
                 </Search.SearchArea>
                 <ResultArea msg={eligibleResult}>{eligibleResult}</ResultArea>
             </Search.Area>
-            <AgencyInfoArea>
-                {!scrollbarHidden ?
-                    <Scrollbars ref={scrollRef} style={{ width: "35%", height: 800, background:"#f7f7f7"}}>
-                        {result.map((x, i) => {
-                            return(
-                                <AgencyInfo result={x} scrollbar={scrollRef} id={i} currentlyIdx={currentlyIdx} setCurrentIdx={setCurrentlyIdx} markerClicked={markerClicked} setMarkerClicked={setMarkerClicked}/>
-                            );
-                        })}
-                    </Scrollbars> : null
-                }
-                <MapArea ref={mapContainer}/>
-            </AgencyInfoArea>
+            <MapArea ref={mapContainer}/>
         </>
 
     )
 }
-
-const AgencyLink = styled.a`
-  color: black;
-  &:visited{
-    color: black;
-  }
-  font-size: 20px;
-`;
-
-const LinkIconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const Icon = styled.div`
-  background-image: ${props => `url(${props.url})`};
-  width: 20px;
-  height: 20px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  margin-right: 5px;
-  margin-bottom: 5px;
-`;
-const AgencyInfoArea = styled.div`
-  display: flex;
-  height: 1000px;
-`;
-
-const AgencyInfoBlock = styled.div`
-  display: flex;
-  height: 200px;
-  margin: 20px;
-  border: 1px solid #dadada;
-  background-color: #ffffff;
-  position: relative;
-  cursor: pointer;
-  flex-direction: column;
-  &:hover {
-    &::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      content: "";
-      border: 4px solid #2BA837;
-      width: calc(100% - 8px);
-    }
-  }
-  &::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    content: "";
-    border: ${props => props.clicked ? "4px solid #2BA837" : "0px solid #2BA837"};     
-    width: calc(100% - 8px);
-  }
-  
-`
-const AgencyInfoTitle = styled.div`
-  font-family: 'Baloo Bhai 2', cursive;
-  font-weight: 600;
-  font-size: 28px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 20px;
-`;
-
-const AgencyInfoContent = styled.div`
-  font-family: 'Baloo Bhai 2', cursive;
-  font-weight: 500;
-  font-size: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-`;
-
-
-function AgencyInfo(props) {
-    const [clicked, setClicked] = useState(false)
-    const [clickStatus, setClickStatus] = useState(false);
-    const agencyName = props.result["Agency_Name"] ? props.result["Agency_Name"] : "";
-    const url = props.result["Url"] ? props.result["Url"] : "";
-    const id = props.id;
-    const currentlyIdx = props.currentlyIdx;
-    const scrollRef = useRef(null);
-    useEffect(()=>{
-        if (currentlyIdx === -1){
-            setClicked(false);
-            setClickStatus(false);
-        }
-        if(currentlyIdx !== id && currentlyIdx !== -1){
-            setClicked(false);
-            setClickStatus(false);
-        } else if (currentlyIdx === id){
-            console.log(props.markerClicked);
-            console.log(!clickStatus)
-            if(props.markerClicked && !clickStatus) {
-                props.scrollbar.current.scrollTop(220 * id);
-            }
-            setClicked(true);
-        }
-    }, [currentlyIdx, id, props.markerClicked, props.scrollbar, clickStatus]);
-    return(
-        <>
-            <AgencyInfoBlock ref={scrollRef} clicked={clicked} onClick={()=>{
-                setClicked(!clicked);
-                if (!clicked){
-                    props.setCurrentIdx(id);
-                    setClickStatus(true);
-                } else {
-                    props.setCurrentIdx(-1);
-                }
-            }}>
-                <AgencyInfoTitle>{agencyName}</AgencyInfoTitle>
-                <AgencyInfoContent>
-                    <LinkIconWrapper>
-                        <Icon url={WebsiteIcon}/>
-                        <AgencyLink target="_blank" rel="noreferrer" href={url}>Go to website</AgencyLink>
-                    </LinkIconWrapper>
-                </AgencyInfoContent>
-            </AgencyInfoBlock>
-        </>
-    );
-}
-
 
 
 export default FindAgency;
