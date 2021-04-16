@@ -14,7 +14,6 @@ const NavBar = (props) => {
                 <NavLink to={"/findAgency"} > Find agency</NavLink>
                 <NavLink to={"/checkEligibility"}> Check Eligibility</NavLink>
                 <NavLink to={"/help"}> Help</NavLink>
-                <NavLink to={"/about"}> About</NavLink>
             </Nav>
         </>
     );
