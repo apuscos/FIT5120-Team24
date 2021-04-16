@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/checkAgency",
+            "lambdaFunction": "root4all124cbd0a",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/checkAgency"
+        }
+    ],
+    "resourceName": "roof4all",
+    "apiName": "roof4all",
+    "functionArns": [
+        {
+            "lambdaFunction": "root4all124cbd0a"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-root4all-dev-223757-authRole",
+        "unAuthRoleName": "amplify-root4all-dev-223757-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "root4all124cbd0a",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
