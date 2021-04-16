@@ -12,6 +12,7 @@ const NavBar = (props) => {
                 <NavLink to={"/home"}> <Logo/></NavLink>
                 <NavLink to={"/home"}> Home</NavLink>
                 <NavLink to={"/findAgency"} > Find agency</NavLink>
+                <NavLink to={"/checkEligibility"}> Check Eligibility</NavLink>
                 <NavLink to={"/help"}> Help</NavLink>
                 <NavLink to={"/about"}> About</NavLink>
             </Nav>

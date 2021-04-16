@@ -5,7 +5,7 @@ import image1 from "./Image/homePageImage.jpg"
 import statImage1 from "./Image/statImage1.png"
 import statImage2 from "./Image/statImage2.png"
 import statImage3 from "./Image/statImage3.png"
-import Navbar from "./Navigation/Nav";
+import Navbar from "./Navigation/NavBar";
 
 // Slogan area
 //-------------------------------------------------------------------
