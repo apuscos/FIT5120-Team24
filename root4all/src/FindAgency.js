@@ -4,7 +4,7 @@ import * as Search from "./SearchBar/searchBarComponents"
 import {API} from "aws-amplify";
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import Navbar from "./Navigation/Nav";
+import Navbar from "./Navigation/NavBar";
 import mapboxgl from 'mapbox-gl';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';

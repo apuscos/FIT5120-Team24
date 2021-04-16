@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Navbar from "./Navigation/Nav";
+import Navbar from "./Navigation/NavBar";
 import styled from "styled-components";
 import Expand from 'react-expand-animated';
 
