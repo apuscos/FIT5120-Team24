@@ -193,6 +193,18 @@ function CheckEligibility(){
                     {(showHouseHoldError && submitClicked) && <WarningMsg>Please select the Household type</WarningMsg>}
                 </Wrapper>
 
+                <HiddenSection displayContent={dependentDisplay}>
+                    <Label>Number of Dependent Children</Label>
+                    <Wrapper>
+                        <SelectionBox {...register("numChildren" , {required: true, valueAsNumber: true})} >
+                            <SelectionOption value="0">0</SelectionOption>
+                            <SelectionOption value="1">1</SelectionOption>
+                            <SelectionOption value="2">2</SelectionOption>
+                        </SelectionBox>
+                        {errors.numChildren && <WarningMsg>Please select the Number of Children</WarningMsg>}
+                    </Wrapper>
+                </HiddenSection>
+
 
                 <Label>Number of Additional Dependent</Label>
                 <Wrapper>
@@ -203,7 +215,7 @@ function CheckEligibility(){
                         <SelectionOption value="3">3</SelectionOption>
                         <SelectionOption value="4">4</SelectionOption>
                     </SelectionBox>
-                    {errors.residenship && <WarningMsg>Please select the Residenship</WarningMsg>}
+                    {errors.numDependent && <WarningMsg>Please select the Number of dependent</WarningMsg>}
                 </Wrapper>
 
 

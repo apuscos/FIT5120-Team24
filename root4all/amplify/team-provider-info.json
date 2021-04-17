@@ -15,7 +15,7 @@
       "function": {
         "root4all124cbd0a": {
           "deploymentBucketName": "amplify-root4all-dev-223757-deployment",
-          "s3Key": "amplify-builds/root4all124cbd0a-4a474f4c6d7456384674-build.zip"
+          "s3Key": "amplify-builds/root4all124cbd0a-4e6c546f793471773563-build.zip"
         }
       }
     }

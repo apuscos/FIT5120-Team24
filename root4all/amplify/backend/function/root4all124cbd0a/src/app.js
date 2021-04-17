@@ -270,6 +270,7 @@ app.get('/checkEligibility', function (req, res) {
     const disabilityCheck = inputParams["check"];
     const householdType = inputParams["household"];
     const numDependent = inputParams["numDependent"];
+    const numChildren = inputParams["numChildren"];
     let registerForInterestWeeklyIncomeLimit = {Single: 1059, Couple: 1621, Family: 2186};
     let registerForPriorityWeeklyIncomeLimit = {Single: 593, Couple: 1025, Family: 1062};
     console.log(inputParams);
@@ -280,7 +281,7 @@ app.get('/checkEligibility', function (req, res) {
     console.log(disabilityCheck);
     console.log(householdType);
     console.log(numDependent);
-    if (citizenship === undefined || residenship === undefined || weeklyIncome === undefined || asset === undefined || disabilityCheck === undefined || householdType === undefined || isNaN(numDependent) || isNaN(asset) || isNaN(weeklyIncome)){
+    if (citizenship === undefined || residenship === undefined || weeklyIncome === undefined || asset === undefined || disabilityCheck === undefined || householdType === undefined || isNaN(numDependent) || isNaN(asset) || isNaN(weeklyIncome) || isNaN(numChildren)){
         res.json({error: "Input error"});
     } else {
         registerForInterestWeeklyIncomeLimit["Family"] += (numDependent * 355);
@@ -289,6 +290,9 @@ app.get('/checkEligibility', function (req, res) {
         registerForPriorityWeeklyIncomeLimit["Family"] += (numDependent * 37);
         registerForPriorityWeeklyIncomeLimit["Couple"] += (numDependent * 37);
         registerForPriorityWeeklyIncomeLimit["Single"] += (numDependent * 37);
+        if (numChildren > 1){
+            registerForPriorityWeeklyIncomeLimit["Family"] += 37;
+        }
         const registerForInterestAssetLimit = disabilityCheck ? 115522 : 34656;
         const registerForPriorityAssetLimit = disabilityCheck ? 115522 : 13699;
         const interestWeeklyIncomeLimit = registerForInterestWeeklyIncomeLimit[householdType];
