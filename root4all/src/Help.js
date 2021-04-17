@@ -75,7 +75,7 @@ const AnswerArea = styled.div`
 
 
 function Help() {
-    const q1 = "Question 1";
+    const q1 = "who are you";
     const q2 = "Question 2";
     const q3 = "Question 3";
     const q4 = "Question 4";
@@ -83,7 +83,7 @@ function Help() {
     const q6 = "Question 6";
     const q7 = "Question 7";
     const q8 = "Question 8";
-    const a1 = (<AnswerArea>Answer1</AnswerArea>);
+    const a1 = (<AnswerArea>GAo</AnswerArea>);
     const a2 = (<AnswerArea>Answer2</AnswerArea>);
     const a3 = (<AnswerArea>Answer3</AnswerArea>);
     const a4 = (<AnswerArea>Answer4</AnswerArea>);
