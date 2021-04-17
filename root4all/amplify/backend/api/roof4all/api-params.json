@@ -1,12 +1,44 @@
 {
     "paths": [
         {
+            "name": "/checkEligibility",
+            "lambdaFunction": "root4all124cbd0a",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/checkEligibility"
+        },
+        {
             "name": "/checkAgency",
             "lambdaFunction": "root4all124cbd0a",
             "privacy": {
                 "open": true
             },
             "policyResourceName": "/checkAgency"
+        },
+        {
+            "name": "/checkagencynearhospital",
+            "lambdaFunction": "root4all124cbd0a",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/checkagencynearhospital"
+        },
+        {
+            "name": "/agencyinsuburb",
+            "lambdaFunction": "root4all124cbd0a",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/agencyinsuburb"
+        },
+        {
+            "name": "/findnearagency",
+            "lambdaFunction": "root4all124cbd0a",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/findnearagency"
         }
     ],
     "resourceName": "roof4all",
@@ -31,5 +63,6 @@
                 "Arn"
             ]
         }
-    ]
+    ],
+    "uuid": "32f2e0de"
 }

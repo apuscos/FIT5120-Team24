@@ -1,7 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Navbar from "./Navigation/NavBar";
 import styled from "styled-components";
-import { useForm } from "react-hook-form";
+import {set, useForm} from "react-hook-form";
+import {API} from "aws-amplify";
 
 
 const CheckEligibilityTitle = styled.div`
@@ -75,17 +76,47 @@ const HiddenSection = styled.div`
 `;
 
 
+
 function CheckEligibility(){
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [display, setDisplay] = useState(false);
+    const [dependentDisplay, setDependentDisplay] = useState(false)
     const [showError, setShowError] = useState(true);
+    const [showHouseHoldError, setShowHouseHoldError] = useState(true);
     const [submitClicked, setSubmitClicked] = useState(false);
-    const selectionBoxRef = useRef(null);
-    const onSubmit = data => {
+    const [result, setResult] = useState("");
+    const onSubmit = async (data) => {
         if (data["citizenship"] === "Others"){
             data["residenship"] = "";
         }
-        console.log(data)
+        console.log(data);
+        try {
+            // Get data with postcode 3000
+            const response = await API.get("roof4all", '/checkEligibility', {
+                "queryStringParameters": {
+                    "inputParams": JSON.stringify(data)
+                }
+            });
+            let content = "";
+            if (response["error"]){
+                content = <div>Input Error</div>;
+            } else if (response["result"] === 1){
+                content = <div>You are not eligible, you have to be the Australian citizen or Permanent resident</div>;
+            } else if (response["result"] === 2){
+                content = <div>You are not eligible, you have to be the victorian resident</div>;
+            } else if (response["result"] === 3){
+                content = <div>You are not eligible, your weekly income has exceed the limit</div>;
+            } else if (response["result"] === 4){
+                content = <div>You are not eligible, your asset has exceed the limit</div>;
+            } else if (response["result"] === 5){
+                content = (<><div>You are eligible!</div><div>You are eligible, you can register for interest housing</div><a target="_blank" href="https://www.housing.vic.gov.au/register-interest-application-pdf">You can find the application form here</a></>);
+            } else if (response["result"] === 6){
+                content = (<><div>You are eligible!</div><div>You are eligible, you can register for priority housing</div><a target="_blank" href="https://www.housing.vic.gov.au/priority-access-application-pdf">You can find the application form here</a></>);
+            }
+            setResult(content)
+        } catch (err) {
+            console.log("Error:", err)
+        }
 
     };
 
@@ -96,10 +127,6 @@ function CheckEligibility(){
             return value !== "";
         }
     }
-
-
-
-
 
 
     return(
@@ -134,7 +161,7 @@ function CheckEligibility(){
                 <HiddenSection displayContent={display}>
                     <Label>Residenship</Label>
                     <Wrapper>
-                        <SelectionBox ref={selectionBoxRef} {...register("residenship" , {validate: value => valid(value)})} >
+                        <SelectionBox {...register("residenship" , {validate: value => valid(value)})} >
                             <SelectionOption value="">Select...</SelectionOption>
                             <SelectionOption value="Victorian_resident">Victorian resident</SelectionOption>
                             <SelectionOption value="Others">Others</SelectionOption>
@@ -145,15 +172,40 @@ function CheckEligibility(){
 
                 <Label>Household Type</Label>
                 <Wrapper>
-                    <SelectionBox ref={selectionBoxRef} {...register("household" , {required: true})} >
+                    <SelectionBox {...register("household" , {required: true})} onChange={(e) => {
+                        if (e.target.value === ""){
+                            setShowHouseHoldError(true);
+                        } else {
+                            setShowHouseHoldError(false);
+                        }
+
+                        if (e.target.value === "Family"){
+                            setDependentDisplay(true);
+                        } else {
+                            setDependentDisplay(false);
+                        }
+                    }}>
                         <SelectionOption value="">Select...</SelectionOption>
                         <SelectionOption value="Single">Single person</SelectionOption>
                         <SelectionOption value="Couple">Couple, no dependants</SelectionOption>
                         <SelectionOption value="Family">Family (one or two parents) with up to two dependent children</SelectionOption>
-                        <SelectionOption value="Additional">Each additional dependant</SelectionOption>
                     </SelectionBox>
-                    {errors.household && <WarningMsg>Please select the Household type</WarningMsg>}
+                    {(showHouseHoldError && submitClicked) && <WarningMsg>Please select the Household type</WarningMsg>}
                 </Wrapper>
+
+
+                <Label>Number of Additional Dependent</Label>
+                <Wrapper>
+                    <SelectionBox {...register("numDependent" , {required: true, valueAsNumber: true})} >
+                        <SelectionOption value="0">0</SelectionOption>
+                        <SelectionOption value="1">1</SelectionOption>
+                        <SelectionOption value="2">2</SelectionOption>
+                        <SelectionOption value="3">3</SelectionOption>
+                        <SelectionOption value="4">4</SelectionOption>
+                    </SelectionBox>
+                    {errors.residenship && <WarningMsg>Please select the Residenship</WarningMsg>}
+                </Wrapper>
+
 
 
 
@@ -174,6 +226,12 @@ function CheckEligibility(){
 
                 <SubmitButton type="submit" onClick={()=> setSubmitClicked(true)} />
             </FormArea>
+            <>
+                {result}
+            </>
+
+
+
         </>
     );
 }
