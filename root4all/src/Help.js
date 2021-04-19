@@ -129,7 +129,7 @@ function Help() {
     return (
         <>
             <Navbar />
-            <FaqTitle>FAQ</FaqTitle>
+            <FaqTitle>Facts</FaqTitle>
             <FaqArea expand={openID !== -1}>
                 {questionList.map((x, i)=> {
                     return (
