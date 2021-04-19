@@ -92,7 +92,7 @@ const MapArea = styled.div`
 
 
 
-async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck) {
+async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showScrollbar) {
     if (!checkInputValid(inputVal)) {
         warningMsg("Invalid input");
     } else {
@@ -135,7 +135,7 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck) {
                 buttons: [
                     {
                         label: 'Yes',
-                        onClick: () => getNearAgency(inputVal, callback, warningMsg, hospitalData)
+                        onClick: () => getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar)
                     },
                     {
                         label: 'No',
@@ -147,11 +147,12 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck) {
             confirmAlert(options)
         } else {
             callback(result);
+            showScrollbar(false);
         }
     }
 }
 
-async function getNearAgency(inputVal, callback, warningMsg, hospitalData) {
+async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar) {
     // Get nearby agency with specific input
     const data = await API.get("roof4all", '/findnearagency ', {
         "queryStringParameters": {
@@ -182,7 +183,7 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData) {
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => getAgencyInMelbourne(callback)
+                    onClick: () => getAgencyInMelbourne(callback, showScrollbar)
                 },
                 {
                     label: 'No',
@@ -193,11 +194,12 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData) {
         };
         confirmAlert(options)
     } else {
+        showScrollbar(false)
         callback(result)
     }
 }
 
-async function getAgencyInMelbourne(callback) {
+async function getAgencyInMelbourne(callback, showScrollbar) {
     try {
         // Get data with postcode 3000
         const data = await API.get("roof4all", '/agencyinsuburb', {
@@ -205,7 +207,8 @@ async function getAgencyInMelbourne(callback) {
                 "inputString": 3000
             }
         });
-        callback(data["results"])
+        callback(data["results"]);
+        showScrollbar(false);
     } catch (err) {
         console.log("Error:", err)
     }
@@ -375,8 +378,8 @@ function FindAgency() {
                     <Search.InputArea onChange={e => setInput(e.target.value)}
                                       placeholder={"Please Enter PostCode/Suburb"}/>
                     <Search.SearchButton onClick={() => {
-                        agencySuburb(input, setResult, setWarningMsg, check);
-                        setScrollbarHidden(false);
+                        agencySuburb(input, setResult, setWarningMsg, check, setScrollbarHidden);
+                        setScrollbarHidden(true);
                     }}/>
                 </Search.SearchArea>
                 <CheckBoxArea>
