@@ -12,6 +12,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import LanguageRoundedIcon from '@material-ui/icons/LanguageRounded';
 import PhoneRoundedIcon from '@material-ui/icons/PhoneRounded';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
+import Card from '@material-ui/core/Card';
 
 mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2Fvd2FuZyIsImEiOiJja215anpwaDIwMTcwMnZvMm8xcDU5eXcyIn0.FmAr1bkX7r19ygBIqsySUQ';
@@ -439,7 +440,7 @@ const AgencyInfoArea = styled.div`
   height: 1000px;
 `;
 
-const AgencyInfoBlock = styled.div`
+const AgencyInfoBlock = styled(Card)`
   display: flex;
   height: 200px;
   margin: 20px;

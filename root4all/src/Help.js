@@ -20,7 +20,7 @@ const FaqArea = styled.div`
   margin-right: calc(15% + 40px);
   border: 2px solid #dadada;
   border-radius: 10px;
-  margin-bottom: 50px;
+  margin-bottom: 200px;
   transition: height 0.448s ease-in-out;
 `;
 
