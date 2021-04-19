@@ -13,9 +13,20 @@ import LanguageRoundedIcon from '@material-ui/icons/LanguageRounded';
 import PhoneRoundedIcon from '@material-ui/icons/PhoneRounded';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import Card from '@material-ui/core/Card';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2Fvd2FuZyIsImEiOiJja215anpwaDIwMTcwMnZvMm8xcDU5eXcyIn0.FmAr1bkX7r19ygBIqsySUQ';
+
+const LinearProgressStyled = styled(LinearProgress)`
+  && {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+`;
 
 const CheckBoxArea = styled.div`
   height: 20px;
@@ -81,17 +92,19 @@ const MapArea = styled.div`
 
 
 
-async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showScrollbar) {
+async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showScrollbar, setLoading) {
     if (!checkInputValid(inputVal)) {
         warningMsg("Invalid input");
     } else {
         warningMsg("");
         // Get agencies in the specific suburb
+        setLoading(true);
         const data = await API.get("roof4all", '/agencyinsuburb', {
             "queryStringParameters": {
                 "inputString": inputVal
             }
         });
+        setLoading(false);
         const suburbResult = data["results"];
         console.log(suburbResult)
         let result = [];
@@ -124,7 +137,7 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showS
                 buttons: [
                     {
                         label: 'Yes',
-                        onClick: () => getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar)
+                        onClick: () => getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar, setLoading)
                     },
                     {
                         label: 'No',
@@ -141,13 +154,15 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showS
     }
 }
 
-async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar) {
+async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar, setLoading) {
     // Get nearby agency with specific input
+    setLoading(true);
     const data = await API.get("roof4all", '/findnearagency ', {
         "queryStringParameters": {
             "inputString": inputVal
         }
     });
+    setLoading(false);
     let result = [];
     // Compare with hospital data just get
     if (hospitalData.length > 0) {
@@ -172,7 +187,7 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showS
             buttons: [
                 {
                     label: 'Yes',
-                    onClick: () => getAgencyInMelbourne(callback, showScrollbar)
+                    onClick: () => getAgencyInMelbourne(callback, showScrollbar, setLoading)
                 },
                 {
                     label: 'No',
@@ -188,14 +203,16 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showS
     }
 }
 
-async function getAgencyInMelbourne(callback, showScrollbar) {
+async function getAgencyInMelbourne(callback, showScrollbar, setLoading) {
     try {
         // Get data with postcode 3000
+        setLoading(true);
         const data = await API.get("roof4all", '/agencyinsuburb', {
             "queryStringParameters": {
                 "inputString": 3000
             }
         });
+        setLoading(false);
         callback(data["results"]);
         showScrollbar(false);
     } catch (err) {
@@ -203,17 +220,19 @@ async function getAgencyInMelbourne(callback, showScrollbar) {
     }
 }
 
-async function checkEligibility(inputVal, callback, listInfo) {
+async function checkEligibility(inputVal, callback, listInfo, setScrollbarHidden, setLoading) {
     if (inputVal.length <= 0) {
         callback(`Please enter the agency name`);
         return
     }
     try {
+        setLoading(true);
         const data = await API.get("roof4all", '/checkAgency', {
             "queryStringParameters": {
                 "inputString": inputVal
             }
         })
+        setLoading(false);
         if (data["found"]) {
             callback(`${inputVal} agency is a government registered agency`)
         } else {
@@ -223,7 +242,7 @@ async function checkEligibility(inputVal, callback, listInfo) {
                 buttons: [
                     {
                         label: 'Yes',
-                        onClick: () => getAgencyInMelbourne(listInfo)
+                        onClick: () => getAgencyInMelbourne(listInfo, setScrollbarHidden, setLoading)
                     },
                     {
                         label: 'No',
@@ -288,6 +307,7 @@ function FindAgency() {
     const [markerList, setMarkerList] = useState([]);
     const scrollRef = useRef(null);
     const [markerClicked, setMarkerClicked] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const map = new mapboxgl.Map({
@@ -360,6 +380,7 @@ function FindAgency() {
 
     return (
         <>
+            {loading ? <LinearProgressStyled color="secondary"/> : null}
             <Navbar />
             <Search.Area>
                 <Search.TextArea>Search agency by Postcode or Suburb name</Search.TextArea>
@@ -367,7 +388,7 @@ function FindAgency() {
                     <Search.InputArea onChange={e => setInput(e.target.value)}
                                       placeholder={"Please Enter PostCode/Suburb"}/>
                     <Search.SearchButton onClick={() => {
-                        agencySuburb(input, setResult, setWarningMsg, check, setScrollbarHidden);
+                        agencySuburb(input, setResult, setWarningMsg, check, setScrollbarHidden, setLoading);
                         setScrollbarHidden(true);
                     }}/>
                 </Search.SearchArea>
@@ -384,7 +405,9 @@ function FindAgency() {
                 <Search.SearchArea>
                     <Search.InputArea onChange={e => setEligibleInput(e.target.value)}
                                       placeholder={"Please Enter Agency name"}/>
-                    <Search.SearchButton onClick={() => checkEligibility(eligibleInput, setEligibleResult, setResult)}/>
+                    <Search.SearchButton onClick={() => {checkEligibility(eligibleInput, setEligibleResult, setResult, setScrollbarHidden, setLoading);
+                                                        setScrollbarHidden(true);
+                    }}/>
                 </Search.SearchArea>
                 <ResultArea msg={eligibleResult}>{eligibleResult}</ResultArea>
             </Search.Area>
@@ -430,6 +453,7 @@ const AgencyInfoBlock = styled(Card)`
   position: relative;
   cursor: pointer;
   flex-direction: column;
+
   &:hover {
     &::before {
       position: absolute;
@@ -440,15 +464,16 @@ const AgencyInfoBlock = styled(Card)`
       width: calc(100% - 8px);
     }
   }
+
   &::before {
     position: absolute;
     top: 0;
     left: 0;
     content: "";
-    border: ${props => props.clicked ? "4px solid #2BA837" : "0px solid #2BA837"};     
+    border: ${props => props.clicked ? "4px solid #2BA837" : "0px solid #2BA837"};
     width: calc(100% - 8px);
   }
-  
+
 `
 const AgencyInfoTitle = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
