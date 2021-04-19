@@ -56,17 +56,6 @@ const WarningTextArea = styled.div`
   margin-bottom: -20px;
 `;
 
-const TableTitle = styled.div`
-  font-family: 'Baloo Bhai 2', cursive;
-  font-weight: 700;
-  font-size: 2.5em;
-  color: black;
-  text-align: center;
-  margin-top: 25px;
-  margin-bottom: 25px;
-`;
-
-
 const ResultArea = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 600;
@@ -429,15 +418,6 @@ const LinkIconWrapper = styled.div`
   align-items: center;
 `;
 
-const Icon = styled.div`
-  background-image: ${props => `url(${props.url})`};
-  width: 20px;
-  height: 20px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  margin-right: 5px;
-  margin-bottom: 5px;
-`;
 const AgencyInfoArea = styled.div`
   display: flex;
   height: 1000px;
@@ -447,8 +427,6 @@ const AgencyInfoBlock = styled(Card)`
   display: flex;
   height: 200px;
   margin: 20px;
-  border: 1px solid #dadada;
-  background-color: #ffffff;
   position: relative;
   cursor: pointer;
   flex-direction: column;
@@ -531,15 +509,15 @@ function AgencyInfo(props) {
                 <AgencyInfoTitle>{agencyName}</AgencyInfoTitle>
                 <AgencyInfoContent>
                     <LinkIconWrapper>
-                        <HomeRoundedIcon/>
+                        <HomeRoundedIcon/> &nbsp;
                         <div>{address}</div>
                     </LinkIconWrapper>
                     <LinkIconWrapper>
-                        <PhoneRoundedIcon/>
+                        <PhoneRoundedIcon/> &nbsp;
                         <div>{phone}</div>
                     </LinkIconWrapper>
                     <LinkIconWrapper>
-                        <LanguageRoundedIcon/>
+                        <LanguageRoundedIcon/> &nbsp;
                         <AgencyLink target="_blank" rel="noreferrer" href={url}>Go to website</AgencyLink>
                     </LinkIconWrapper>
                 </AgencyInfoContent>
