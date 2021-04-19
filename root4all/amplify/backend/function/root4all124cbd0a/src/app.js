@@ -261,7 +261,72 @@ app.get('/findnearagency', function (req, res) {
         });
     }
 });
+app.get('/checkEligibility', function (req, res) {
+    const inputParams = JSON.parse(req.query["inputParams"]);
+    const citizenship = inputParams["citizenship"];
+    const residenship = inputParams["residenship"];
+    const weeklyIncome = inputParams["weeklyIncome"];
+    const asset = inputParams["asset"];
+    const disabilityCheck = inputParams["check"];
+    const householdType = inputParams["household"];
+    const numDependent = inputParams["numDependent"];
+    const numChildren = inputParams["numChildren"];
+    let registerForInterestWeeklyIncomeLimit = {Single: 1059, Couple: 1621, Family: 2186};
+    let registerForPriorityWeeklyIncomeLimit = {Single: 593, Couple: 1025, Family: 1062};
+    console.log(inputParams);
+    console.log(citizenship);
+    console.log(residenship);
+    console.log(weeklyIncome);
+    console.log(asset);
+    console.log(disabilityCheck);
+    console.log(householdType);
+    console.log(numDependent);
+    if (citizenship === undefined || residenship === undefined || weeklyIncome === undefined || asset === undefined || disabilityCheck === undefined || householdType === undefined || isNaN(numDependent) || isNaN(asset) || isNaN(weeklyIncome) || isNaN(numChildren)){
+        res.json({error: "Input error"});
+    } else {
+        registerForInterestWeeklyIncomeLimit["Family"] += (numDependent * 355);
+        registerForInterestWeeklyIncomeLimit["Couple"] += (numDependent * 355);
+        registerForInterestWeeklyIncomeLimit["Single"] += (numDependent * 355);
+        registerForPriorityWeeklyIncomeLimit["Family"] += (numDependent * 37);
+        registerForPriorityWeeklyIncomeLimit["Couple"] += (numDependent * 37);
+        registerForPriorityWeeklyIncomeLimit["Single"] += (numDependent * 37);
+        if (numChildren > 1){
+            registerForPriorityWeeklyIncomeLimit["Family"] += 37;
+        }
+        const registerForInterestAssetLimit = disabilityCheck ? 115522 : 34656;
+        const registerForPriorityAssetLimit = disabilityCheck ? 115522 : 13699;
+        const interestWeeklyIncomeLimit = registerForInterestWeeklyIncomeLimit[householdType];
+        const priorityWeeklyIncomeLimit = registerForPriorityWeeklyIncomeLimit[householdType];
 
+        if(citizenship !== "Australian_citizen" && citizenship !== "Permanent_resident"){
+            // Citizenship not met
+            res.json({result: 1});
+        } else if (residenship !== "Victorian_resident") {
+            // Residenship not met
+            res.json({result: 2});
+        } else {
+            if (weeklyIncome > interestWeeklyIncomeLimit){
+                //Weekly Income not met
+                res.json({result: 3});
+            } else if (asset > registerForInterestAssetLimit) {
+                // Asset not met
+                res.json({result: 4});
+            } else {
+                if (weeklyIncome <= priorityWeeklyIncomeLimit && asset <= registerForPriorityAssetLimit){
+                    // Met the prority access
+                    res.json({result: 6});
+                } else {
+                    // Met the Interest
+                    res.json({result: 5});
+                }
+
+            }
+        }
+
+
+    }
+
+});
 
 
 app.listen(3000, function () {
