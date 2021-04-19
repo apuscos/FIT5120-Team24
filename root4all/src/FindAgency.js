@@ -9,7 +9,9 @@ import mapboxgl from 'mapbox-gl';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 import { Scrollbars } from 'react-custom-scrollbars';
-import WebsiteIcon from "./Image/globe.svg"
+import LanguageRoundedIcon from '@material-ui/icons/LanguageRounded';
+import PhoneRoundedIcon from '@material-ui/icons/PhoneRounded';
+import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 
 mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2Fvd2FuZyIsImEiOiJja215anpwaDIwMTcwMnZvMm8xcDU5eXcyIn0.FmAr1bkX7r19ygBIqsySUQ';
@@ -489,6 +491,8 @@ function AgencyInfo(props) {
     const [clickStatus, setClickStatus] = useState(false);
     const agencyName = props.result["Agency_Name"] ? props.result["Agency_Name"] : "";
     const url = props.result["Url"] ? props.result["Url"] : "";
+    const address = props.result["Address"] ? props.result["Address"] : ""
+    const phone = props.result["Phone"] ? props.result["Phone"] : ""
     const id = props.id;
     const currentlyIdx = props.currentlyIdx;
     const scrollRef = useRef(null);
@@ -523,7 +527,15 @@ function AgencyInfo(props) {
                 <AgencyInfoTitle>{agencyName}</AgencyInfoTitle>
                 <AgencyInfoContent>
                     <LinkIconWrapper>
-                        <Icon url={WebsiteIcon}/>
+                        <HomeRoundedIcon/>
+                        <div>{address}</div>
+                    </LinkIconWrapper>
+                    <LinkIconWrapper>
+                        <PhoneRoundedIcon/>
+                        <div>{phone}</div>
+                    </LinkIconWrapper>
+                    <LinkIconWrapper>
+                        <LanguageRoundedIcon/>
                         <AgencyLink target="_blank" rel="noreferrer" href={url}>Go to website</AgencyLink>
                     </LinkIconWrapper>
                 </AgencyInfoContent>

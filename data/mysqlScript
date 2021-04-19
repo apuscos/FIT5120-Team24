@@ -43,6 +43,7 @@ create table localityFinder(
 LOAD DATA LOCAL INFILE 'Agencies.csv'
 INTO TABLE agencies
 FIELDS TERMINATED BY ','
+OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 ROWS;
 
