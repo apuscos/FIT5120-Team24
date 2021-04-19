@@ -7,6 +7,55 @@ import Gao from "./Image/gao.jpg"
 import Toly from "./Image/toly.jpg"
 import Jiang from "./Image/jiang.jpg"
 import Shiwani from "./Image/shiwani.jpg"
+import Paper from '@material-ui/core/Paper';
+import SwipeableViews from 'react-swipeable-views';
+import { autoPlay } from 'react-swipeable-views-utils';
+import Typography from '@material-ui/core/Typography';
+import MobileStepper from '@material-ui/core/MobileStepper';
+import Button from '@material-ui/core/Button';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+const photoSteps = [
+    {
+        label: "Advaita Ramkumar",
+        imgPath: Advita
+    },
+    {
+        label: "Anatolii Kuznetsov",
+        imgPath: Toly
+    },
+    {
+        label: "Gao Wang",
+        imgPath: Gao
+    },
+    {
+        label: "Jianwen Jiang",
+        imgPath: Jiang
+    },
+    {
+        label: "Shiwani Joshi",
+        imgPath: Shiwani
+    }
+]
+
+const ImgStyled = styled.img`
+  height: 255px;
+  display: block;
+  max-width: 260px;
+  overflow: hidden;
+`;
+
+const PaperStyled = styled(Paper)`
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding-left: 10px;
+  &&{
+    background-color: #e3e3e3;
+  }
+`;
 
 const ProductDesc = styled.div`
   display: flex;
@@ -19,10 +68,9 @@ const TeamDesc = styled.div`
   height: 300px;
   background-color: white;
   display: flex;
-  justify-content: center;
-  padding-top: 20px;
-  padding-left: calc(15% + 40px);
   flex-direction: column;
+  padding-left: 350px;
+  padding-top: 100px;
 `;
 
 const Title = styled.div`
@@ -43,7 +91,7 @@ const Content = styled.div`
 const ContentBigger = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 500;
-  width: 65%;
+  width: 80%;
   display: flex;
   font-size: 20px;
 `;
@@ -53,6 +101,7 @@ const TitleBigger = styled.div`
   font-weight: 700;
   font-size: 2.5em;
   width: auto;
+  
 `;
 
 const ProductImg = styled.div`
@@ -75,35 +124,33 @@ const AreaWrapper = styled.div`
 `;
 
 const TeamImgArea = styled.div`
-  height: 350px;
+  height: 370px;
+  max-width: 255px;
   display: flex;
-`;
-
-const ImageText = styled.div`
-  width: 20%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
 `;
 
-const MemberImage = styled.div`
-  width: 200px;
-  height: 200px;
-  background-image: url(${props => props.url});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  margin-bottom: 20px;
+const TeamWrapper = styled.div`
+  padding-left: calc(15% + 40px);
+  margin-bottom: 50px;
+  display: flex;
+  margin-top: 50px;
 `;
 
-const MemberText = styled.div`
-  font-family: 'Baloo Bhai 2', cursive;
-  font-weight: 500;
-  font-size: 20px;
-`;
 function About() {
+    const [activeStep, setActiveStep] = React.useState(0);
+    const maxSteps = photoSteps.length;
+    const handleNext = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    };
+
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
+
+    const handleStepChange = (step) => {
+        setActiveStep(step);
+    };
     return (
         <>
             <Navbar />
@@ -116,40 +163,52 @@ function About() {
                 </ProductDesc>
                 <ProductImg/>
             </AreaWrapper>
-            <TeamDesc>
-                <TitleBigger>Meet the team</TitleBigger>
-                <ContentBigger>
-                    We, The Remnants, are a team of graduate students from IT, Data Science, Business Information Systems and Network and Security and we aim to work collaboratively to help the homeless people
-                </ContentBigger>
-            </TeamDesc>
-            <TeamImgArea>
-                <ImageText>
-                    <MemberImage url={Advita}/>
-                    <MemberText>Advaita Ramkumar</MemberText>
-                    <MemberText>Business Analyst</MemberText>
-                </ImageText>
-                <ImageText>
-                    <MemberImage url={Toly}/>
-                    <MemberText>Anatolii Kuznetsov</MemberText>
-                    <MemberText>Security Analyst</MemberText>
-                </ImageText>
-                <ImageText>
-                    <MemberImage url={Gao}/>
-                    <MemberText>Gao Wang</MemberText>
-                    <MemberText>Developer</MemberText>
-                </ImageText>
-                <ImageText>
-                    <MemberImage url={Jiang}/>
-                    <MemberText>Jianwen Jiang</MemberText>
-                    <MemberText>Business Analyst</MemberText>
-                </ImageText>
-                <ImageText>
-                    <MemberImage url={Shiwani}/>
-                    <MemberText>Shiwani Joshi</MemberText>
-                    <MemberText>Data Scientist</MemberText>
-                </ImageText>
-            </TeamImgArea>
+            <TeamWrapper>
+                <TeamImgArea>
+                    <PaperStyled square elevation={0}>
+                        <Typography>{photoSteps[activeStep].label}</Typography>
+                    </PaperStyled>
+                    <AutoPlaySwipeableViews
+                        axis= 'x'
+                        index={activeStep}
+                        onChangeIndex={handleStepChange}
+                        enableMouseEvents
+                    >
+                        {photoSteps.map((step, index) => (
+                            <div key={step.label}>
+                                {Math.abs(activeStep - index) <= 2 ? (
+                                    <ImgStyled src={step.imgPath} alt={step.label} />
+                                ) : null}
+                            </div>
+                        ))}
+                    </AutoPlaySwipeableViews>
+                    <MobileStepper
+                        steps={maxSteps}
+                        position="static"
+                        variant="dots"
+                        activeStep={activeStep}
+                        nextButton={
+                            <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
+                                Next
+                                {<KeyboardArrowRight />}
+                            </Button>
+                        }
+                        backButton={
+                            <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+                                {<KeyboardArrowLeft />}
+                                Back
+                            </Button>
+                        }
+                    />
+                </TeamImgArea>
 
+                <TeamDesc>
+                    <TitleBigger>Meet the team</TitleBigger>
+                    <ContentBigger>
+                        We, The Remnants, are a team of graduate students from IT, Data Science, Business Information Systems and Network and Security and we aim to work collaboratively to help the homeless people
+                    </ContentBigger>
+                </TeamDesc>
+            </TeamWrapper>
         </>
     );
 }
