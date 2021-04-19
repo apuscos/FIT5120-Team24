@@ -104,7 +104,6 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showS
                 "inputString": inputVal
             }
         });
-        setLoading(false);
         const suburbResult = data["results"];
         console.log(suburbResult)
         let result = [];
@@ -128,6 +127,7 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showS
             // No hospital check, just return the agencies in specific suburb
             result = suburbResult
         }
+        setLoading(false);
         // If No results got, get Nearby agency
         if (result.length === 0) {
             callback([]);
@@ -162,7 +162,6 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showS
             "inputString": inputVal
         }
     });
-    setLoading(false);
     let result = [];
     // Compare with hospital data just get
     if (hospitalData.length > 0) {
@@ -179,6 +178,7 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showS
     } else {
         result = data["results"]
     }
+    setLoading(false);
     // If no results, get results in the melbourne city
     if (result.length === 0) {
         const options = {
