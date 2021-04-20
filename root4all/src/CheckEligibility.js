@@ -1,7 +1,7 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import Navbar from "./Navigation/NavBar";
 import styled from "styled-components";
-import {set, useForm} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import {API} from "aws-amplify";
 import Button from '@material-ui/core/Button';
 import LinearProgress from "@material-ui/core/LinearProgress";
@@ -116,8 +116,10 @@ const ResultContent = styled.div`
   font-size: 16px;
 `;
 
-const TableContainerStyled = styled(Paper)`
-      width: 1000px;
+const TableContainerStyled = styled(TableContainer)`
+      &&{
+        width: 1000px;
+      }
 `;
 
 
@@ -185,25 +187,25 @@ function CheckEligibility(){
                             <TableCell component="th" scope="row">
                                 {"Priority Access application form"}
                             </TableCell>
-                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/register-interest-application-pdf">https://www.housing.vic.gov.au/register-interest-application-pdf</a></TableCell>
+                            <TableCell><a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/register-interest-application-pdf">https://www.housing.vic.gov.au/register-interest-application-pdf</a></TableCell>
                         </TableRow>
                         <TableRow key={"Additional adult household member form"}>
                             <TableCell component="th" scope="row">
                                 {"Additional adult household member form"}
                             </TableCell>
-                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf</a></TableCell>
+                            <TableCell><a target="_blank"  rel="noreferrer"  href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf</a></TableCell>
                         </TableRow>
                         <TableRow key={"Additional dependent children form"}>
                             <TableCell component="th" scope="row">
                                 {"Additional dependent children form"}
                             </TableCell>
-                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf</a></TableCell>
+                            <TableCell><a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf</a></TableCell>
                         </TableRow>
                         <TableRow key={"Special accommodation requirements form"}>
                             <TableCell component="th" scope="row">
                                 {"Special accommodation requirements form"}
                             </TableCell>
-                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf</a></TableCell>
+                            <TableCell><a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf</a></TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
@@ -228,31 +230,31 @@ function CheckEligibility(){
                             <TableCell component="th" scope="row">
                                 {"Priority Access application form"}
                             </TableCell>
-                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/priority-access-application-pdf">https://www.housing.vic.gov.au/priority-access-application-pdf</a></TableCell>
+                            <TableCell><a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/priority-access-application-pdf">https://www.housing.vic.gov.au/priority-access-application-pdf</a></TableCell>
                         </TableRow>
                         <TableRow key={"Additional adult household member form"}>
                             <TableCell component="th" scope="row">
                                 {"Additional adult household member form"}
                             </TableCell>
-                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf</a></TableCell>
+                            <TableCell><a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf</a></TableCell>
                         </TableRow>
                         <TableRow key={"Additional dependent children form"}>
                             <TableCell component="th" scope="row">
                                 {"Additional dependent children form"}
                             </TableCell>
-                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf</a></TableCell>
+                            <TableCell><a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf</a></TableCell>
                         </TableRow>
                         <TableRow key={"Insecure housing eligibility confirmation form"}>
                             <TableCell component="th" scope="row">
                                 {"Insecure housing eligibility confirmation form"}
                             </TableCell>
-                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/sites/default/files/documents/201809/Insecure-housing-eligibility-confirmation.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201809/Insecure-housing-eligibility-confirmation.pdf</a></TableCell>
+                            <TableCell><a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201809/Insecure-housing-eligibility-confirmation.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201809/Insecure-housing-eligibility-confirmation.pdf</a></TableCell>
                         </TableRow>
                         <TableRow key={"Special accommodation requirements form"}>
                             <TableCell component="th" scope="row">
                                 {"Special accommodation requirements form"}
                             </TableCell>
-                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf</a></TableCell>
+                            <TableCell><a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf</a></TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>

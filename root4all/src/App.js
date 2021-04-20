@@ -6,6 +6,7 @@ import About from "./About"
 import FindAgency from "./FindAgency";
 import Footer from "./Footer/Footer"
 import CheckEligibility from "./CheckEligibility";
+import { ThemeProvider } from '@material-ui/core/styles'
 
 
 function App() {

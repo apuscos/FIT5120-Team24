@@ -297,11 +297,11 @@ function FindAgency() {
     const [check, setCheck] = useState(false);
 
     const mapContainer = useRef();
-    const [lng, setLng] = useState(145.00916604815802);
-    const [lat, setLat] = useState(-37.78036799990421);
-    const [zoom, setZoom] = useState(9);
+    const [lng] = useState(145.00916604815802);
+    const [lat] = useState(-37.78036799990421);
+    const [zoom] = useState(9);
     const [scrollbarHidden, setScrollbarHidden] = useState(true);
-    const [map, setMap]= useState(null);
+    const [globalMap, setMap]= useState(null);
     const [allBound, setAllBound] = useState([]);
     const [currentlyIdx, setCurrentlyIdx] = useState(-1);
     const [markerList, setMarkerList] = useState([]);
@@ -323,8 +323,8 @@ function FindAgency() {
         let markerListTemp = [];
         for (let i = 0; i < result.length; i++){
             const location = result[i];
-            const lat = location["Lat"];
-            const lng = location["Lng"];
+            const latPoint = location["Lat"];
+            const lngPoint = location["Lng"];
             let popup = new mapboxgl.Popup({ offset: 25, closeButton:false }).setHTML(
                 "<h2>" + location['Agency_Name'] + "</h2>"
             );
@@ -336,8 +336,8 @@ function FindAgency() {
                 setCurrentlyIdx(-1);
                 setMarkerClicked(false);
             });
-            let marker = new mapboxgl.Marker().setLngLat([lng, lat]).setPopup(popup).addTo(map);
-            markers.push([lat, lng]);
+            let marker = new mapboxgl.Marker().setLngLat([lngPoint, latPoint]).setPopup(popup).addTo(map);
+            markers.push([latPoint, lngPoint]);
             markerListTemp.push(marker);
         }
         setMarkerList(markerListTemp);
@@ -365,18 +365,18 @@ function FindAgency() {
                     markerList[i].getPopup().remove();
                 }
             }
-            const lat = markerList[currentlyIdx].getLngLat().lat
-            const lng = markerList[currentlyIdx].getLngLat().lng
-            map.fitBounds([[lng - 0.001, lat - 0.001], [lng + 0.001, lat + 0.001]], {padding: 40});
-            markerList[currentlyIdx].getPopup().addTo(map);
+            const latItem = markerList[currentlyIdx].getLngLat().lat
+            const lngItem = markerList[currentlyIdx].getLngLat().lng
+            globalMap.fitBounds([[lngItem - 0.001, latItem - 0.001], [lngItem + 0.001, latItem + 0.001]], {padding: 40});
+            markerList[currentlyIdx].getPopup().addTo(globalMap);
         } else if (allBound.length > 0){
             for(let i = 0; i < markerList.length; i++){
                 markerList[i].getPopup().remove();
             }
-            map.fitBounds(allBound, {padding: 40});
+            globalMap.fitBounds(allBound, {padding: 40});
         }
 
-    }, [allBound,map,markerList, currentlyIdx]);
+    }, [allBound,globalMap,markerList, currentlyIdx]);
 
     return (
         <>
