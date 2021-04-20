@@ -6,6 +6,7 @@ import statImage1 from "./Image/statImage1.png"
 import statImage2 from "./Image/statImage2.png"
 import statImage3 from "./Image/statImage3.png"
 import Navbar from "./Navigation/NavBar";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 // Slogan area
 //-------------------------------------------------------------------
@@ -79,6 +80,12 @@ const SubTitle = styled.div`
   font-weight: 700;
   font-size: 1.8vw;
   padding-bottom: 30px;
+`;
+
+const ArrowDown = styled(ExpandMoreIcon)`
+  position: absolute;
+  bottom: 0;
+  left: 50%;
 `;
 
 const LineWrapper = styled.div`
@@ -174,6 +181,7 @@ function Home() {
                     <SloganTextArea2> Social Housing agencies are there to help and we can help you find one</SloganTextArea2>
                     <FindAgencyButton to={"/findAgency"}>Find Agency</FindAgencyButton>
                 </Trapezoid>
+                <ArrowDown style={{ color:  '#2BA837', height: 50, width: 50}}/>
             </Slogan>
             <LineWrapper>
                 <VerticalLine/>
