@@ -3,7 +3,26 @@ import Navbar from "./Navigation/NavBar";
 import styled from "styled-components";
 import {set, useForm} from "react-hook-form";
 import {API} from "aws-amplify";
+import Button from '@material-ui/core/Button';
+import LinearProgress from "@material-ui/core/LinearProgress";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
+
+const LinearProgressStyled = styled(LinearProgress)`
+  && {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+`;
 
 const CheckEligibilityTitle = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
@@ -21,8 +40,8 @@ const FormArea = styled.form`
 
 const InputBox = styled.input`
   line-height: 1;
-  width: 500px;
-  height: 50px;
+  width: 465px;
+  height: 40px;
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 600;
   font-size: 1.25em;
@@ -40,10 +59,10 @@ const Label = styled.label`
 
 const SelectionBox = styled.select`
   width: 500px;
+  height: 40px;
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 500;
   font-size: 1em;
-  border: 2px solid black;
   padding-left: 10px;
   margin-bottom: 5px;
   
@@ -55,7 +74,7 @@ const SelectionOption = styled.option`
   font-size: 1em;
 `;
 
-const SubmitButton = styled.input`
+const SubmitButton = styled(Button)`
   width: 100px;
 `;
 
@@ -75,6 +94,31 @@ const HiddenSection = styled.div`
   position: ${props => props.displayContent === true ? "static" : "absolute"};
 `;
 
+const ResultArea = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 60px;
+  margin-bottom: 60px;
+`;
+
+const ResultTitle = styled.div`
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 500;
+  font-size: 24px;
+`;
+
+const ResultContent = styled.div`
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 500;
+  font-size: 16px;
+`;
+
+const TableContainerStyled = styled(Paper)`
+      width: 800px;
+`;
 
 
 function CheckEligibility(){
@@ -84,12 +128,14 @@ function CheckEligibility(){
     const [showError, setShowError] = useState(true);
     const [showHouseHoldError, setShowHouseHoldError] = useState(true);
     const [submitClicked, setSubmitClicked] = useState(false);
-    const [result, setResult] = useState("");
+    const [result, setResult] = useState(-1);
+    const [loading, setLoading] = useState(false);
     const onSubmit = async (data) => {
         if (data["citizenship"] === "Others"){
             data["residenship"] = "";
         }
         console.log(data);
+        setLoading(true);
         try {
             // Get data with postcode 3000
             const response = await API.get("roof4all", '/checkEligibility', {
@@ -97,26 +143,15 @@ function CheckEligibility(){
                     "inputParams": JSON.stringify(data)
                 }
             });
-            let content = "";
             if (response["error"]){
-                content = <div>Input Error</div>;
-            } else if (response["result"] === 1){
-                content = <div>You are not eligible, you have to be the Australian citizen or Permanent resident</div>;
-            } else if (response["result"] === 2){
-                content = <div>You are not eligible, you have to be the victorian resident</div>;
-            } else if (response["result"] === 3){
-                content = <div>You are not eligible, your weekly income has exceed the limit</div>;
-            } else if (response["result"] === 4){
-                content = <div>You are not eligible, your asset has exceed the limit</div>;
-            } else if (response["result"] === 5){
-                content = (<><div>You are eligible!</div><div>You are eligible, you can register for interest housing</div><a target="_blank" href="https://www.housing.vic.gov.au/register-interest-application-pdf">You can find the application form here</a></>);
-            } else if (response["result"] === 6){
-                content = (<><div>You are eligible!</div><div>You are eligible, you can register for priority housing</div><a target="_blank" href="https://www.housing.vic.gov.au/priority-access-application-pdf">You can find the application form here</a></>);
+                setResult(0)
+            } else {
+                setResult(response["result"])
             }
-            setResult(content)
         } catch (err) {
             console.log("Error:", err)
         }
+        setLoading(false);
 
     };
 
@@ -128,9 +163,83 @@ function CheckEligibility(){
         }
     }
 
+    const result0 = (<><ResultTitle>Input Error</ResultTitle></>)
+    const result1 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>You have to be the Australian citizen or Permanent resident</ResultContent></>)
+    const result2 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>You have to be the victorian resident</ResultContent></>)
+    const result3 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>Your weekly income has exceed the limit</ResultContent></>)
+    const result4 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>Your asset has exceed the limit</ResultContent></>)
+    const result5 = (
+        <>
+            <ResultTitle>You are eligible!</ResultTitle>
+            <ResultContent>You can register for interest housing</ResultContent>
+            <TableContainerStyled component={Paper}>
+                <Table aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Document Name</TableCell>
+                            <TableCell>Link</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow key={"Documents Name"}>
+                            <TableCell component="th" scope="row">
+                                {"Priority Access application form"}
+                            </TableCell>
+                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/register-interest-application-pdf">https://www.housing.vic.gov.au/register-interest-application-pdf</a></TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </TableContainerStyled>
+
+        </>
+    )
+    const result6 = (
+        <>
+            <ResultTitle>You are eligible!</ResultTitle>
+            <ResultContent>You can register for priority housing</ResultContent>
+            <TableContainerStyled component={Paper}>
+                <Table aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Document Name</TableCell>
+                            <TableCell>Link</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow key={"Documents Name"}>
+                            <TableCell component="th" scope="row">
+                                {"Priority Access application form"}
+                            </TableCell>
+                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/priority-access-application-pdf">https://www.housing.vic.gov.au/priority-access-application-pdf</a></TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </TableContainerStyled>
+        </>
+    )
+
+
+    // let content = "";
+    // if (response["error"]){
+    //     content = <div>Input Error</div>;
+    // } else if (response["result"] === 1){
+    //     content = <div>You are not eligible, you have to be the Australian citizen or Permanent resident</div>;
+    // } else if (response["result"] === 2){
+    //     content = <div>You are not eligible, you have to be the victorian resident</div>;
+    // } else if (response["result"] === 3){
+    //     content = <div>You are not eligible, your weekly income has exceed the limit</div>;
+    // } else if (response["result"] === 4){
+    //     content = <div>You are not eligible, your asset has exceed the limit</div>;
+    // } else if (response["result"] === 5){
+    //     content = (<ResultArea><ResultTitle>You are eligible!</ResultTitle><div>You are eligible, you can register for interest housing</div><a target="_blank" href="https://www.housing.vic.gov.au/register-interest-application-pdf">You can find the application form here</a></ResultArea>);
+    // } else if (response["result"] === 6){
+    //     content = (<ResultArea><div>You are eligible!</div><div>You are eligible, you can register for priority housing</div><a target="_blank" href="https://www.housing.vic.gov.au/priority-access-application-pdf">You can find the application form here</a></ResultArea>);
+    // }
+
 
     return(
         <>
+            {loading ? <LinearProgressStyled color="secondary"/> : null}
             <Navbar/>
             <CheckEligibilityTitle>Check Eligibility</CheckEligibilityTitle>
             <FormArea onSubmit={handleSubmit(onSubmit)}>
@@ -231,16 +340,31 @@ function CheckEligibility(){
                 <Label>Asset</Label>
                 <Wrapper>
                     <InputBox {...register("asset", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} />
-                    <input {...register("check")} type={"checkbox"} />
-                    <Label>Need major or full disability modifications</Label>
                     {errors.asset && <WarningMsg>Please enter valid asset number</WarningMsg>}
                 </Wrapper>
+                <Wrapper>
+                    <input {...register("check")} type={"checkbox"} />
+                    <Label>Need major or full disability modifications</Label>
+                </Wrapper>
 
-                <SubmitButton type="submit" onClick={()=> setSubmitClicked(true)} />
+                <SubmitButton variant="contained" type="submit" onClick={()=> setSubmitClicked(true)} > Check </SubmitButton>
             </FormArea>
-            <>
-                {result}
-            </>
+            {result === -1 ? null :
+                <ResultArea>
+                    {result === 0 ? result0 : null}
+                    {result === 1 ? result1 : null}
+                    {result === 2 ? result2 : null}
+                    {result === 3 ? result3 : null}
+                    {result === 4 ? result4 : null}
+                    {result === 5 ? result5 : null}
+                    {result === 6 ? result6 : null}
+                </ResultArea>
+            }
+
+
+
+
+
 
 
 
