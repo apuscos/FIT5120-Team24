@@ -117,7 +117,7 @@ const ResultContent = styled.div`
 `;
 
 const TableContainerStyled = styled(Paper)`
-      width: 800px;
+      width: 1000px;
 `;
 
 
@@ -170,8 +170,8 @@ function CheckEligibility(){
     const result4 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>Your asset has exceed the limit</ResultContent></>)
     const result5 = (
         <>
-            <ResultTitle>You are eligible!</ResultTitle>
-            <ResultContent>You can register for interest housing</ResultContent>
+            <ResultTitle>You are eligible for registering interest housing!</ResultTitle>
+            <ResultContent>Below are some documents you need</ResultContent>
             <TableContainerStyled component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
@@ -187,6 +187,24 @@ function CheckEligibility(){
                             </TableCell>
                             <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/register-interest-application-pdf">https://www.housing.vic.gov.au/register-interest-application-pdf</a></TableCell>
                         </TableRow>
+                        <TableRow key={"Additional adult household member form"}>
+                            <TableCell component="th" scope="row">
+                                {"Additional adult household member form"}
+                            </TableCell>
+                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf</a></TableCell>
+                        </TableRow>
+                        <TableRow key={"Additional dependent children form"}>
+                            <TableCell component="th" scope="row">
+                                {"Additional dependent children form"}
+                            </TableCell>
+                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf</a></TableCell>
+                        </TableRow>
+                        <TableRow key={"Special accommodation requirements form"}>
+                            <TableCell component="th" scope="row">
+                                {"Special accommodation requirements form"}
+                            </TableCell>
+                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf</a></TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
             </TableContainerStyled>
@@ -195,8 +213,8 @@ function CheckEligibility(){
     )
     const result6 = (
         <>
-            <ResultTitle>You are eligible!</ResultTitle>
-            <ResultContent>You can register for priority housing</ResultContent>
+            <ResultTitle>You are eligible for registering priority housing!</ResultTitle>
+            <ResultContent>Below are some documents you need</ResultContent>
             <TableContainerStyled component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
@@ -206,11 +224,35 @@ function CheckEligibility(){
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableRow key={"Documents Name"}>
+                        <TableRow key={"Priority Access application form"}>
                             <TableCell component="th" scope="row">
                                 {"Priority Access application form"}
                             </TableCell>
                             <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/priority-access-application-pdf">https://www.housing.vic.gov.au/priority-access-application-pdf</a></TableCell>
+                        </TableRow>
+                        <TableRow key={"Additional adult household member form"}>
+                            <TableCell component="th" scope="row">
+                                {"Additional adult household member form"}
+                            </TableCell>
+                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf</a></TableCell>
+                        </TableRow>
+                        <TableRow key={"Additional dependent children form"}>
+                            <TableCell component="th" scope="row">
+                                {"Additional dependent children form"}
+                            </TableCell>
+                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf</a></TableCell>
+                        </TableRow>
+                        <TableRow key={"Insecure housing eligibility confirmation form"}>
+                            <TableCell component="th" scope="row">
+                                {"Insecure housing eligibility confirmation form"}
+                            </TableCell>
+                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/sites/default/files/documents/201809/Insecure-housing-eligibility-confirmation.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201809/Insecure-housing-eligibility-confirmation.pdf</a></TableCell>
+                        </TableRow>
+                        <TableRow key={"Special accommodation requirements form"}>
+                            <TableCell component="th" scope="row">
+                                {"Special accommodation requirements form"}
+                            </TableCell>
+                            <TableCell><a target="_blank" href="https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf</a></TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
