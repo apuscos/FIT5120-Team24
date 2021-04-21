@@ -502,18 +502,6 @@ function FindAgency() {
 
                 <WarningTextArea>{warningMsg}</WarningTextArea>
             </Search.Area>
-            {/*<Search.Area>*/}
-            {/*    <Search.TextArea>or check agency is registered or not?</Search.TextArea>*/}
-            {/*    <Search.SearchArea>*/}
-            {/*        <Search.InputArea onChange={e => setEligibleInput(e.target.value)}*/}
-            {/*                          placeholder={"Please Enter Agency name"}/>*/}
-            {/*        <Search.SearchButton onClick={() => {checkEligibility(eligibleInput, setEligibleResult, setResult, setScrollbarHidden, setLoading);*/}
-            {/*                                            setScrollbarHidden(true);*/}
-            {/*        }}/>*/}
-            {/*    </Search.SearchArea>*/}
-            {/*    <ResultArea msg={eligibleResult}>{eligibleResult}</ResultArea>*/}
-            {/*</Search.Area>*/}
-            </Search.Area>
             <AgencyInfoArea>
                 {!scrollbarHidden ?
                     <Scrollbars ref={scrollRef} style={{ width: "35%", height: 800, background:"#f7f7f7"}}>
