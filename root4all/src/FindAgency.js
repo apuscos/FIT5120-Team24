@@ -458,6 +458,17 @@ function FindAgency() {
             {loading ? <LinearProgressStyled color="secondary"/> : null}
             <Navbar />
             <Search.Area>
+                <Search.TextArea>Check if an agency is registered</Search.TextArea>
+                <Search.SearchArea>
+                    <Search.InputArea onChange={e => setEligibleInput(e.target.value)}
+                                      placeholder={"Please Enter Agency name"}/>
+                    <Search.SearchButton onClick={() => {checkEligibility(eligibleInput, setEligibleResult, setResult, setScrollbarHidden, setLoading);
+                        setScrollbarHidden(true);
+                    }}/>
+                </Search.SearchArea>
+                <ResultArea msg={eligibleResult}>{eligibleResult}</ResultArea>
+            </Search.Area>
+            <Search.Area>
                 <Search.TextArea>Search agency by Postcode or Suburb name</Search.TextArea>
                 <Search.SearchArea>
                     <Search.InputArea onChange={e => setInput(e.target.value)}
@@ -491,17 +502,17 @@ function FindAgency() {
 
                 <WarningTextArea>{warningMsg}</WarningTextArea>
             </Search.Area>
-            <Search.Area>
-                <Search.TextArea>or check agency is registered or not?</Search.TextArea>
-                <Search.SearchArea>
-                    <Search.InputArea onChange={e => setEligibleInput(e.target.value)}
-                                      placeholder={"Please Enter Agency name"}/>
-                    <Search.SearchButton onClick={() => {checkEligibility(eligibleInput, setEligibleResult, setResult, setScrollbarHidden, setLoading);
-                                                        setScrollbarHidden(true);
-                    }}/>
-                </Search.SearchArea>
-                <ResultArea msg={eligibleResult}>{eligibleResult}</ResultArea>
-            </Search.Area>
+            {/*<Search.Area>*/}
+            {/*    <Search.TextArea>or check agency is registered or not?</Search.TextArea>*/}
+            {/*    <Search.SearchArea>*/}
+            {/*        <Search.InputArea onChange={e => setEligibleInput(e.target.value)}*/}
+            {/*                          placeholder={"Please Enter Agency name"}/>*/}
+            {/*        <Search.SearchButton onClick={() => {checkEligibility(eligibleInput, setEligibleResult, setResult, setScrollbarHidden, setLoading);*/}
+            {/*                                            setScrollbarHidden(true);*/}
+            {/*        }}/>*/}
+            {/*    </Search.SearchArea>*/}
+            {/*    <ResultArea msg={eligibleResult}>{eligibleResult}</ResultArea>*/}
+            {/*</Search.Area>*/}
             <AgencyInfoArea>
                 {!scrollbarHidden ?
                     <Scrollbars ref={scrollRef} style={{ width: "35%", height: 800, background:"#f7f7f7"}}>

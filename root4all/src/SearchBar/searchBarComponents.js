@@ -5,12 +5,14 @@ import searchIcon from "../Image/search.png";
 
 export const Area = styled.div`
   display: flex;
-  height: 200px;
+  height: 190px;
   align-items: center;
   justify-content: center;
   background: #e3e3e3;
   flex-direction: column;
+  padding-bottom: 20px;
 `;
+
 
 export const TextArea = styled.div`
   height: 40%;
