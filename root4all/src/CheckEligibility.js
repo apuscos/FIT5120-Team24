@@ -88,6 +88,8 @@ const SubmitButton = styled(Button)`
   &&{
     margin-bottom: 40px;
     margin-top: 10px;
+    font-family: 'Baloo Bhai 2', cursive;
+    font-weight: 700;
   }
 `;
 
@@ -113,6 +115,8 @@ const ResultArea = styled.div`
   align-items: center;
   margin-left: 50px;
   flex-direction: column;
+  margin-top: -150px;
+  
 `;
 
 const ResultTitle = styled.div`
@@ -128,11 +132,12 @@ const ResultContent = styled.div`
 `;
 
 const TableContainerStyled = styled(TableContainer)`
-      
+ 
 `;
 
 const WrapperPage = styled.div`
-    display: flex;
+  display: flex;
+  align-items: center;
 `;
 
 
@@ -147,6 +152,8 @@ function CheckEligibility(){
     const [loading, setLoading] = useState(false);
     const [disabled, setDisabled] = useState(false);
     const [residentshipDisable, setResidentshipDisable] = useState(false);
+    const [limit1, setLimit1] = useState(0);
+    const [limit2, setLimit2] = useState(0);
     const onSubmit = async (data) => {
         if (data["citizenship"] === "Others"){
             data["residenship"] = "";
@@ -160,8 +167,19 @@ function CheckEligibility(){
                     "inputParams": JSON.stringify(data)
                 }
             });
+            if (response["limit"]){
+                setLimit1(response["limit"]);
+            }
+
+            if (response["limit1"]){
+                setLimit1(response["limit1"]);
+            }
+            if (response["limit2"]){
+                setLimit2(response["limit2"]);
+            }
+
             if (response["error"]){
-                setResult(0)
+                setResult(0);
             } else {
                 setResult(response["result"])
             }
@@ -183,8 +201,9 @@ function CheckEligibility(){
     const result0 = (<><ResultTitle>Input Error</ResultTitle></>)
     const result1 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>You have to be the Australian citizen or Permanent resident</ResultContent></>)
     const result2 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>You have to be the victorian resident</ResultContent></>)
-    const result3 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>Your weekly income has exceed the limit</ResultContent></>)
-    const result4 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>Your asset has exceed the limit</ResultContent></>)
+    const result3 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>Your weekly income has exceed the limit {limit1} AUD </ResultContent></>)
+    const result4 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>Your asset has exceed the limit {limit1} AUD </ResultContent></>)
+    const result7 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>Your weekly income has exceed the limit {limit1} AUD and your asset has exceed the limit {limit2} AUD</ResultContent></>)
     const result5 = (
         <>
             <ResultTitle>You are eligible for registering interest housing!</ResultTitle>
@@ -411,6 +430,7 @@ function CheckEligibility(){
                         {result === 4 ? result4 : null}
                         {result === 5 ? result5 : null}
                         {result === 6 ? result6 : null}
+                        {result === 7 ? result7 : null}
                     </ResultArea>
                 }
             </WrapperPage>

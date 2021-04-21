@@ -382,10 +382,14 @@ app.get('/checkEligibility', function (req, res) {
         } else {
             if (weeklyIncome > interestWeeklyIncomeLimit){
                 //Weekly Income not met
-                res.json({result: 3});
+                if (asset > registerForInterestAssetLimit) {
+                    res.json({result: 7, limit1: interestWeeklyIncomeLimit, limit2: registerForInterestAssetLimit});
+                } else {
+                    res.json({result: 3, limit: interestWeeklyIncomeLimit});
+                }
             } else if (asset > registerForInterestAssetLimit) {
                 // Asset not met
-                res.json({result: 4});
+                res.json({result: 4, limit: registerForInterestAssetLimit});
             } else {
                 if (weeklyIncome <= priorityWeeklyIncomeLimit && asset <= registerForPriorityAssetLimit){
                     // Met the prority access
