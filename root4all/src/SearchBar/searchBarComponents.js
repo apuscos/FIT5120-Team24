@@ -13,6 +13,7 @@ export const Area = styled.div`
   padding-bottom: 20px;
 `;
 
+
 export const TextArea = styled.div`
   height: 40%;
   font-family: 'Baloo Bhai 2', cursive;

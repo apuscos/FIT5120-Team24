@@ -458,7 +458,7 @@ function FindAgency() {
             {loading ? <LinearProgressStyled color="secondary"/> : null}
             <Navbar />
             <Search.Area>
-                <Search.TextArea>or check agency is registered or not?</Search.TextArea>
+                <Search.TextArea>Check if an agency is registered</Search.TextArea>
                 <Search.SearchArea>
                     <Search.InputArea onChange={e => setEligibleInput(e.target.value)}
                                       placeholder={"Please Enter Agency name"}/>
@@ -501,6 +501,18 @@ function FindAgency() {
 
 
                 <WarningTextArea>{warningMsg}</WarningTextArea>
+            </Search.Area>
+            {/*<Search.Area>*/}
+            {/*    <Search.TextArea>or check agency is registered or not?</Search.TextArea>*/}
+            {/*    <Search.SearchArea>*/}
+            {/*        <Search.InputArea onChange={e => setEligibleInput(e.target.value)}*/}
+            {/*                          placeholder={"Please Enter Agency name"}/>*/}
+            {/*        <Search.SearchButton onClick={() => {checkEligibility(eligibleInput, setEligibleResult, setResult, setScrollbarHidden, setLoading);*/}
+            {/*                                            setScrollbarHidden(true);*/}
+            {/*        }}/>*/}
+            {/*    </Search.SearchArea>*/}
+            {/*    <ResultArea msg={eligibleResult}>{eligibleResult}</ResultArea>*/}
+            {/*</Search.Area>*/}
             </Search.Area>
             <AgencyInfoArea>
                 {!scrollbarHidden ?

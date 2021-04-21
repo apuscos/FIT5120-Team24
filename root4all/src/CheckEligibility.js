@@ -46,6 +46,7 @@ const InputBox = styled.input`
   font-weight: 600;
   font-size: 1.25em;
   padding-left: 30px;
+  margin-bottom: 30px;
   &:focus {
     outline: none;
   }
@@ -64,7 +65,7 @@ const SelectionBox = styled.select`
   font-weight: 500;
   font-size: 1em;
   padding-left: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 30px;
   
 `;
 
@@ -76,6 +77,7 @@ const SelectionOption = styled.option`
 
 const SubmitButton = styled(Button)`
   width: 100px;
+  &&{margin-bottom: 50px;}
 `;
 
 const Wrapper = styled.div`
