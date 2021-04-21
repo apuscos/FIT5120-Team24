@@ -188,6 +188,7 @@ function Home() {
             </LineWrapper>
             <StatTitle><HorizontalLineShort/>Help is around the corner</StatTitle>
             <StatArea>
+                <a href = "https://www.dhhs.vic.gov.au/housing-and-homelessness" target="_blank"  rel="noreferrer">
                 <StateSection dark>
                     <StateImage imageUrl={statImage1}/>
                     <StateHead>Assist</StateHead>
@@ -195,6 +196,8 @@ function Home() {
                         Victorian Authorities assist more than 100,000 homeless people annually
                     </StateText>
                 </StateSection>
+                </a>
+                <a href = "https://www.premier.vic.gov.au/homes-homeless-victorians-during-pandemic-and-beyond" target="_blank"  rel="noreferrer">
                 <StateSection>
                     <StateImage imageUrl={statImage2}/>
                     <StateHead>Home Package</StateHead>
@@ -202,6 +205,8 @@ function Home() {
                         During the pandemic, the government granted a Homelessness to A Home Package of $150 million
                     </StateText>
                 </StateSection>
+                </a>
+                <a href= "https://www.premier.vic.gov.au/homes-homeless-victorians-during-pandemic-and-beyond" target="_blank"  rel="noreferrer">
                 <StateSection dark>
                     <StateImage imageUrl={statImage3}/>
                     <StateHead>New public housing</StateHead>
@@ -209,6 +214,7 @@ function Home() {
                         Funds worth $500 million to renew and create new public housing premises across the state.
                     </StateText>
                 </StateSection>
+                </a>
             </StatArea>
         </>
     );
