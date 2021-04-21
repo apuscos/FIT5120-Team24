@@ -34,6 +34,8 @@ create table preferred_location(
 create table localityFinder(
    Locality_Name VARCHAR(100) NOT NULL,
    Post_Code VARCHAR(100) NOT NULL,
+   Lat DOUBLE NOT NULL,
+   Lng DOUBLE NOT NULL,
    ID int not null AUTO_INCREMENT,
    PRIMARY KEY ( ID )
 );
