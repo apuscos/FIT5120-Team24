@@ -104,6 +104,11 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showS
                 "inputString": inputVal
             }
         });
+        if (data["error"]){
+            warningMsg("Invalid suburb input");
+            setLoading(false);
+            return;
+        }
         const suburbResult = data["results"];
         console.log(suburbResult)
         let result = [];
@@ -162,6 +167,11 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showS
             "inputString": inputVal
         }
     });
+    if (data["error"]){
+        warningMsg("Invalid suburb input");
+        setLoading(false);
+        return;
+    }
     let result = [];
     // Compare with hospital data just get
     if (hospitalData.length > 0) {
@@ -512,8 +522,6 @@ function AgencyInfo(props) {
             setClicked(false);
             setClickStatus(false);
         } else if (currentlyIdx === id){
-            console.log(props.markerClicked);
-            console.log(!clickStatus)
             if(props.markerClicked && !clickStatus) {
                 props.scrollbar.current.scrollTop(220 * id);
             }
@@ -522,7 +530,7 @@ function AgencyInfo(props) {
     }, [currentlyIdx, id, props.markerClicked, props.scrollbar, clickStatus]);
     return(
         <>
-            <AgencyInfoBlock ref={scrollRef} clicked={clicked} onClick={()=>{
+            <AgencyInfoBlock ref={scrollRef} clicked={clicked ? 1 : 0} onClick={()=>{
                 setClicked(!clicked);
                 if (!clicked){
                     props.setCurrentIdx(id);
