@@ -132,6 +132,8 @@ function CheckEligibility(){
     const [submitClicked, setSubmitClicked] = useState(false);
     const [result, setResult] = useState(-1);
     const [loading, setLoading] = useState(false);
+    const [disabled, setDisabled] = useState(false);
+    const [residentshipDisable, setResidentshipDisable] = useState(false);
     const onSubmit = async (data) => {
         if (data["citizenship"] === "Others"){
             data["residenship"] = "";
@@ -261,26 +263,6 @@ function CheckEligibility(){
             </TableContainerStyled>
         </>
     )
-
-
-    // let content = "";
-    // if (response["error"]){
-    //     content = <div>Input Error</div>;
-    // } else if (response["result"] === 1){
-    //     content = <div>You are not eligible, you have to be the Australian citizen or Permanent resident</div>;
-    // } else if (response["result"] === 2){
-    //     content = <div>You are not eligible, you have to be the victorian resident</div>;
-    // } else if (response["result"] === 3){
-    //     content = <div>You are not eligible, your weekly income has exceed the limit</div>;
-    // } else if (response["result"] === 4){
-    //     content = <div>You are not eligible, your asset has exceed the limit</div>;
-    // } else if (response["result"] === 5){
-    //     content = (<ResultArea><ResultTitle>You are eligible!</ResultTitle><div>You are eligible, you can register for interest housing</div><a target="_blank" href="https://www.housing.vic.gov.au/register-interest-application-pdf">You can find the application form here</a></ResultArea>);
-    // } else if (response["result"] === 6){
-    //     content = (<ResultArea><div>You are eligible!</div><div>You are eligible, you can register for priority housing</div><a target="_blank" href="https://www.housing.vic.gov.au/priority-access-application-pdf">You can find the application form here</a></ResultArea>);
-    // }
-
-
     return(
         <>
             {loading ? <LinearProgressStyled color="secondary"/> : null}
@@ -295,6 +277,11 @@ function CheckEligibility(){
                         } else {
                             setShowError(false);
                         }
+                        if (e.target.value === "Others"){
+                            setDisabled(true);
+                        } else {
+                            setDisabled(false);
+                        }
                         if (e.target.value === "Others" || e.target.value === ""){
                             setDisplay(false);
                         } else {
@@ -307,6 +294,7 @@ function CheckEligibility(){
                         <SelectionOption value="Others">Others</SelectionOption>
                     </SelectionBox>
                     {(showError && submitClicked) && <WarningMsg>This field is required</WarningMsg>}
+                    {disabled && <WarningMsg>Sorry, since you are not a Australian Citizen, you are not eligible to apply for government housing</WarningMsg>}
                 </Wrapper>
 
 
@@ -314,12 +302,19 @@ function CheckEligibility(){
                 <HiddenSection displayContent={display}>
                     <Label>Residenship</Label>
                     <Wrapper>
-                        <SelectionBox {...register("residenship" , {validate: value => valid(value)})} >
+                        <SelectionBox {...register("residenship" , {validate: value => valid(value)})} onChange={e => {
+                            if (e.target.value === "Others"){
+                                setResidentshipDisable(true);
+                            } else {
+                                setResidentshipDisable(false);
+                            }
+                        }}>
                             <SelectionOption value="">Select...</SelectionOption>
                             <SelectionOption value="Victorian_resident">Victorian resident</SelectionOption>
                             <SelectionOption value="Others">Others</SelectionOption>
                         </SelectionBox>
                         {errors.residenship && <WarningMsg>Please select the Residenship</WarningMsg>}
+                        {residentshipDisable && <WarningMsg>Sorry, since you are not a resident, you are not eligible to apply for government housing in Victoria</WarningMsg>}
                     </Wrapper>
                 </HiddenSection>
 
@@ -391,7 +386,7 @@ function CheckEligibility(){
                     <Label>Need major or full disability modifications</Label>
                 </Wrapper>
 
-                <SubmitButton variant="contained" type="submit" onClick={()=> setSubmitClicked(true)} > Check </SubmitButton>
+                <SubmitButton disabled={disabled || residentshipDisable} variant="contained" type="submit" onClick={()=> setSubmitClicked(true)} > Check </SubmitButton>
             </FormArea>
             {result === -1 ? null :
                 <ResultArea>
