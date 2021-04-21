@@ -14,6 +14,7 @@ import PhoneRoundedIcon from '@material-ui/icons/PhoneRounded';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import Card from '@material-ui/core/Card';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Slider from '@material-ui/core/Slider';
 
 mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2Fvd2FuZyIsImEiOiJja215anpwaDIwMTcwMnZvMm8xcDU5eXcyIn0.FmAr1bkX7r19ygBIqsySUQ';
@@ -38,6 +39,7 @@ const CheckBoxArea = styled.div`
 const CheckBox = styled.input`
   height: 20px;
   width: 20px;
+  margin-top: -55px;
 
   &:checked {
     background: blue;
@@ -45,6 +47,16 @@ const CheckBox = styled.input`
 `;
 
 const CheckBoxLabel = styled.div`
+  height: 20px;
+  color: black;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 600;
+  line-height: 30px;
+  font-size: 1.5em;
+  margin-top: -55px;
+`;
+
+const RadiusLabel = styled.div`
   height: 20px;
   color: black;
   font-family: 'Baloo Bhai 2', cursive;
@@ -88,11 +100,14 @@ const MapArea = styled.div`
   margin-bottom: 60px;
 `;
 
+const SliderStyled = styled(Slider)`
+    && {width: 400px;}
+`
 
 
 
 
-async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showScrollbar, setLoading) {
+async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showScrollbar, setLoading, radius) {
     if (!checkInputValid(inputVal)) {
         warningMsg("Invalid input");
     } else {
@@ -142,7 +157,7 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showS
                 buttons: [
                     {
                         label: 'Yes',
-                        onClick: () => getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar, setLoading)
+                        onClick: () => getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar, setLoading, radius)
                     },
                     {
                         label: 'No',
@@ -159,14 +174,16 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showS
     }
 }
 
-async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar, setLoading) {
+async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar, setLoading, radius) {
     // Get nearby agency with specific input
     setLoading(true);
     const data = await API.get("roof4all", '/findnearagency ', {
         "queryStringParameters": {
-            "inputString": inputVal
+            "inputString": inputVal,
+            "radius": radius
         }
     });
+    console.log(data);
     if (data["error"]){
         warningMsg("Invalid suburb input");
         setLoading(false);
@@ -177,8 +194,8 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showS
     if (hospitalData.length > 0) {
         for (let i = 0; i < hospitalData.length; i++) {
             const hospitalAgency = hospitalData[i];
-            for (let j = 0; j < data["results"].length; j++) {
-                const suburbAgency = data["results"][j];
+            for (let j = 0; j < data["output"].length; j++) {
+                const suburbAgency = data["output"][j];
                 if (hospitalAgency["Agency_Name"] === suburbAgency["Agency_Name"]) {
                     result.push(hospitalAgency);
                     break;
@@ -186,7 +203,7 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showS
             }
         }
     } else {
-        result = data["results"]
+        result = data["output"];
     }
     setLoading(false);
     // If no results, get results in the melbourne city
@@ -305,6 +322,7 @@ function FindAgency() {
     const [eligibleInput, setEligibleInput] = useState("");
     const [eligibleResult, setEligibleResult] = useState("");
     const [check, setCheck] = useState(false);
+    const [radius, setRadius] = useState(5);
 
     const mapContainer = useRef();
     const [lng] = useState(145.00916604815802);
@@ -318,6 +336,53 @@ function FindAgency() {
     const scrollRef = useRef(null);
     const [markerClicked, setMarkerClicked] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    const marks = [
+        {
+            value: 5,
+            label: '5KM',
+        },
+        {
+            value: 10,
+            label: '10KM',
+        },
+        {
+            value: 15,
+            label: '15KM',
+        },
+        {
+            value: 20,
+            label: '20KM',
+        },
+        {
+            value: 25,
+            label: '25KM',
+        },
+        {
+            value: 30,
+            label: '30KM',
+        },
+        {
+            value: 35,
+            label: '35KM',
+        },
+        {
+            value: 40,
+            label: '40KM',
+        },
+        {
+            value: 45,
+            label: '45KM',
+        },
+        {
+            value: 50,
+            label: '50KM',
+        }
+    ];
+
+    function valuetext(value) {
+        return `${value}KM`;
+    }
 
     useEffect(() => {
         const map = new mapboxgl.Map({
@@ -398,16 +463,32 @@ function FindAgency() {
                     <Search.InputArea onChange={e => setInput(e.target.value)}
                                       placeholder={"Please Enter PostCode/Suburb"}/>
                     <Search.SearchButton onClick={() => {
-                        agencySuburb(input, setResult, setWarningMsg, check, setScrollbarHidden, setLoading);
+                        agencySuburb(input, setResult, setWarningMsg, check, setScrollbarHidden, setLoading,radius);
                         setScrollbarHidden(true);
                     }}/>
                 </Search.SearchArea>
+                <RadiusLabel>Radius setting</RadiusLabel>
+                <SliderStyled
+                    defaultValue={5}
+                    getAriaValueText={valuetext}
+                    aria-labelledby="discrete-slider-always"
+                    step={5}
+                    marks={marks}
+                    valueLabelDisplay="on"
+                    min={5}
+                    max={50}
+                    onChange={(_, value) => {
+                        setRadius(value);
+                    }}
+                />
                 <CheckBoxArea>
                     <CheckBox type="checkbox" checked={check} onChange={() => {
                         setCheck(!check)
                     }}/>
                     <CheckBoxLabel>Near Hospital</CheckBoxLabel>
                 </CheckBoxArea>
+
+
                 <WarningTextArea>{warningMsg}</WarningTextArea>
             </Search.Area>
             <Search.Area>
@@ -426,7 +507,7 @@ function FindAgency() {
                     <Scrollbars ref={scrollRef} style={{ width: "35%", height: 800, background:"#f7f7f7"}}>
                         {result.map((x, i) => {
                             return(
-                                <AgencyInfo result={x} scrollbar={scrollRef} id={i} currentlyIdx={currentlyIdx} setCurrentIdx={setCurrentlyIdx} markerClicked={markerClicked} setMarkerClicked={setMarkerClicked}/>
+                                <AgencyInfo key={i} result={x} scrollbar={scrollRef} id={i} currentlyIdx={currentlyIdx} setCurrentIdx={setCurrentlyIdx} markerClicked={markerClicked} setMarkerClicked={setMarkerClicked}/>
                             );
                         })}
                     </Scrollbars> : null

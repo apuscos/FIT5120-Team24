@@ -248,14 +248,48 @@ app.get('/agencyinsuburb', function (req, res) {
 
 app.get('/findnearagency', function (req, res) {
     const inputString = req.query["inputString"];
-
+    const radius = req.query["radius"];
     handleSuburbInput(inputString).then(response => {
         if (response === ""){
             res.json({error: "Invalid Input"});
             return;
         }
-
-        var connection = mysql.createConnection({
+        return new Promise(resolve => {
+            let connection = mysql.createConnection({
+                host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
+                user: "admin",
+                password: "12345678",
+                port: 3306,
+                database: "fit5120"
+            });
+            connection.connect(function(err) {
+                if (err) {
+                    console.error('Database connection failed: ' + err.stack);
+                    return;
+                }
+                console.log('Connected to database.');
+            });
+            const numberReg = /^[0-9]*$/;
+            let queryString = "";
+            if (numberReg.test(inputString)){
+                queryString = `SELECT Lat, Lng FROM localityFinder where Post_Code="${inputString}"`;
+            } else {
+                queryString = `SELECT Lat, Lng FROM localityFinder where Locality_Name="${inputString}"`;
+            }
+            connection.query(queryString, function (error, results, fields){
+                    if (error){
+                        console.error(error)
+                    } else {
+                        const lat = results[0]["Lat"];
+                        const lng = results[0]["Lng"];
+                        resolve([lat, lng]);
+                    }
+            });
+        });
+    }).then(response => {
+        const suburbLat = response[0];
+        const suburbLng = response[1];
+        let connection = mysql.createConnection({
             host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
             user: "admin",
             password: "12345678",
@@ -269,39 +303,47 @@ app.get('/findnearagency', function (req, res) {
             }
             console.log('Connected to database.');
         });
-
-        let queryString = "";
-        let suburbName = "";
-        suburbName = response;
-        queryString = `SELECT Preferred_Loc FROM preferred_location where Suburbs="${suburbName}"`;
+        let queryString = `SELECT * FROM agencies`;
         connection.query(queryString, function (error, results, fields){
             if (error){
                 console.error(error)
             } else {
-                console.log(results);
-                let pref_loc = "";
-                if (results.length === 0){
-                    res.json({success: 'get call succeed!', results:[]});
-                    connection.destroy();
-                } else {
-                    pref_loc = results[0]["Preferred_Loc"]
-                    queryString = `SELECT * FROM agencies WHERE Pref_loc="${pref_loc}"`;
-                    connection.query(queryString, function (error, results, fields){
-                        if (error){
-                            console.error(error)
-                        } else {
-                            console.log(results)
-                            res.json({success: 'get call succeed!', results});
-                            connection.destroy();
-                        }
-                    })
+                let output = [];
+                for (let i = 0; i < results.length; i++){
+                    let agency = results[i];
+                    const agencyLat = agency["Lat"];
+                    const agencyLng = agency["Lng"];
+                    const distance = getDistanceFromLatLonInKm(suburbLat, suburbLng, agencyLat, agencyLng);
+                    if (distance <= radius){
+                        output.push(agency);
+                    }
                 }
+                res.json({success: 'get call succeed!', output});
+                connection.destroy();
             }
         });
+
     });
-
-
 });
+
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1);
+    var a =
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon/2) * Math.sin(dLon/2)
+    ;
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c; // Distance in km
+    return d;
+}
+function deg2rad(deg) {
+    return deg * (Math.PI/180)
+}
+
+
 app.get('/checkEligibility', function (req, res) {
     const inputParams = JSON.parse(req.query["inputParams"]);
     const citizenship = inputParams["citizenship"];
