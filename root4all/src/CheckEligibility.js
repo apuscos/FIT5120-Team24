@@ -40,7 +40,7 @@ const FormArea = styled.form`
 
 const InputBox = styled.input`
   line-height: 1;
-  width: 465px;
+  width: 365px;
   height: 40px;
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 600;
@@ -58,8 +58,16 @@ const Label = styled.label`
   font-size: 1.25em;
 `;
 
+const CheckBoxInput =styled.input`
+  margin-top: -21px;
+`;
+
+const CheckBoxLabel = styled(Label)`
+  margin-top: -30px;
+`;
+
 const SelectionBox = styled.select`
-  width: 500px;
+  width: 400px;
   height: 40px;
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 500;
@@ -77,7 +85,10 @@ const SelectionOption = styled.option`
 
 const SubmitButton = styled(Button)`
   width: 100px;
-  &&{margin-bottom: 50px;}
+  &&{
+    margin-bottom: 40px;
+    margin-top: 10px;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -97,13 +108,11 @@ const HiddenSection = styled.div`
 `;
 
 const ResultArea = styled.div`
-  width: 100%;
+  width: 1000px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  margin-left: 50px;
   flex-direction: column;
-  margin-top: 60px;
-  margin-bottom: 60px;
 `;
 
 const ResultTitle = styled.div`
@@ -119,9 +128,11 @@ const ResultContent = styled.div`
 `;
 
 const TableContainerStyled = styled(TableContainer)`
-      &&{
-        width: 1000px;
-      }
+      
+`;
+
+const WrapperPage = styled.div`
+    display: flex;
 `;
 
 
@@ -270,137 +281,139 @@ function CheckEligibility(){
             {loading ? <LinearProgressStyled color="secondary"/> : null}
             <Navbar/>
             <CheckEligibilityTitle>Check Eligibility</CheckEligibilityTitle>
-            <FormArea onSubmit={handleSubmit(onSubmit)}>
-                <Label>Citizenship</Label>
-                <Wrapper>
-                    <SelectionBox {...register("citizenship", {required: true })} onChange={(e) => {
-                        if (e.target.value === ""){
-                            setShowError(true);
-                        } else {
-                            setShowError(false);
-                        }
-                        if (e.target.value === "Others"){
-                            setDisabled(true);
-                        } else {
-                            setDisabled(false);
-                        }
-                        if (e.target.value === "Others" || e.target.value === ""){
-                            setDisplay(false);
-                        } else {
-                            setDisplay(true);
-                        }
-                    }}>
-                        <SelectionOption value="">Select...</SelectionOption>
-                        <SelectionOption value="Australian_citizen">Australian citizen</SelectionOption>
-                        <SelectionOption value="Permanent_resident">Permanent resident</SelectionOption>
-                        <SelectionOption value="Others">Others</SelectionOption>
-                    </SelectionBox>
-                    {(showError && submitClicked) && <WarningMsg>This field is required</WarningMsg>}
-                    {disabled && <WarningMsg>Sorry, since you are not a Australian Citizen, you are not eligible to apply for government housing</WarningMsg>}
-                </Wrapper>
-
-
-
-                <HiddenSection displayContent={display}>
-                    <Label>Residenship</Label>
+            <WrapperPage>
+                <FormArea onSubmit={handleSubmit(onSubmit)}>
+                    <Label>Citizenship</Label>
                     <Wrapper>
-                        <SelectionBox {...register("residenship" , {validate: value => valid(value)})} onChange={e => {
-                            if (e.target.value === "Others"){
-                                setResidentshipDisable(true);
+                        <SelectionBox {...register("citizenship", {required: true })} onChange={(e) => {
+                            if (e.target.value === ""){
+                                setShowError(true);
                             } else {
-                                setResidentshipDisable(false);
+                                setShowError(false);
+                            }
+                            if (e.target.value === "Others"){
+                                setDisabled(true);
+                            } else {
+                                setDisabled(false);
+                            }
+                            if (e.target.value === "Others" || e.target.value === ""){
+                                setDisplay(false);
+                            } else {
+                                setDisplay(true);
                             }
                         }}>
                             <SelectionOption value="">Select...</SelectionOption>
-                            <SelectionOption value="Victorian_resident">Victorian resident</SelectionOption>
+                            <SelectionOption value="Australian_citizen">Australian citizen</SelectionOption>
+                            <SelectionOption value="Permanent_resident">Permanent resident</SelectionOption>
                             <SelectionOption value="Others">Others</SelectionOption>
                         </SelectionBox>
-                        {errors.residenship && <WarningMsg>Please select the Residenship</WarningMsg>}
-                        {residentshipDisable && <WarningMsg>Sorry, since you are not a resident, you are not eligible to apply for government housing in Victoria</WarningMsg>}
+                        {(showError && submitClicked) && <WarningMsg>This field is required</WarningMsg>}
+                        {disabled && <WarningMsg>Sorry, since you are not a Australian Citizen, you are not eligible to apply for government housing</WarningMsg>}
                     </Wrapper>
-                </HiddenSection>
 
-                <Label>Household Type</Label>
-                <Wrapper>
-                    <SelectionBox {...register("household" , {required: true})} onChange={(e) => {
-                        if (e.target.value === ""){
-                            setShowHouseHoldError(true);
-                        } else {
-                            setShowHouseHoldError(false);
-                        }
 
-                        if (e.target.value === "Family"){
-                            setDependentDisplay(true);
-                        } else {
-                            setDependentDisplay(false);
-                        }
-                    }}>
-                        <SelectionOption value="">Select...</SelectionOption>
-                        <SelectionOption value="Single">Single person</SelectionOption>
-                        <SelectionOption value="Couple">Couple, no dependants</SelectionOption>
-                        <SelectionOption value="Family">Family (one or two parents) with up to two dependent children</SelectionOption>
-                    </SelectionBox>
-                    {(showHouseHoldError && submitClicked) && <WarningMsg>Please select the Household type</WarningMsg>}
-                </Wrapper>
 
-                <HiddenSection displayContent={dependentDisplay}>
-                    <Label>Number of Dependent Children</Label>
+                    <HiddenSection displayContent={display}>
+                        <Label>Residenship</Label>
+                        <Wrapper>
+                            <SelectionBox {...register("residenship" , {validate: value => valid(value)})} onChange={e => {
+                                if (e.target.value === "Others"){
+                                    setResidentshipDisable(true);
+                                } else {
+                                    setResidentshipDisable(false);
+                                }
+                            }}>
+                                <SelectionOption value="">Select...</SelectionOption>
+                                <SelectionOption value="Victorian_resident">Victorian resident</SelectionOption>
+                                <SelectionOption value="Others">Others</SelectionOption>
+                            </SelectionBox>
+                            {errors.residenship && <WarningMsg>Please select the Residenship</WarningMsg>}
+                            {residentshipDisable && <WarningMsg>Sorry, since you are not a resident, you are not eligible to apply for government housing in Victoria</WarningMsg>}
+                        </Wrapper>
+                    </HiddenSection>
+
+                    <Label>Household Type</Label>
                     <Wrapper>
-                        <SelectionBox {...register("numChildren" , {required: true, valueAsNumber: true})} >
+                        <SelectionBox {...register("household" , {required: true})} onChange={(e) => {
+                            if (e.target.value === ""){
+                                setShowHouseHoldError(true);
+                            } else {
+                                setShowHouseHoldError(false);
+                            }
+
+                            if (e.target.value === "Family"){
+                                setDependentDisplay(true);
+                            } else {
+                                setDependentDisplay(false);
+                            }
+                        }}>
+                            <SelectionOption value="">Select...</SelectionOption>
+                            <SelectionOption value="Single">Single person</SelectionOption>
+                            <SelectionOption value="Couple">Couple</SelectionOption>
+                            <SelectionOption value="Family">Family with up to two dependent children</SelectionOption>
+                        </SelectionBox>
+                        {(showHouseHoldError && submitClicked) && <WarningMsg>Please select the Household type</WarningMsg>}
+                    </Wrapper>
+
+                    <HiddenSection displayContent={dependentDisplay}>
+                        <Label>Number of Dependent Children</Label>
+                        <Wrapper>
+                            <SelectionBox {...register("numChildren" , {required: true, valueAsNumber: true})} >
+                                <SelectionOption value="0">0</SelectionOption>
+                                <SelectionOption value="1">1</SelectionOption>
+                                <SelectionOption value="2">2</SelectionOption>
+                            </SelectionBox>
+                            {errors.numChildren && <WarningMsg>Please select the Number of Children</WarningMsg>}
+                        </Wrapper>
+                    </HiddenSection>
+
+
+                    <Label>Number of Additional Dependent</Label>
+                    <Wrapper>
+                        <SelectionBox {...register("numDependent" , {required: true, valueAsNumber: true})} >
                             <SelectionOption value="0">0</SelectionOption>
                             <SelectionOption value="1">1</SelectionOption>
                             <SelectionOption value="2">2</SelectionOption>
+                            <SelectionOption value="3">3</SelectionOption>
+                            <SelectionOption value="4">4</SelectionOption>
                         </SelectionBox>
-                        {errors.numChildren && <WarningMsg>Please select the Number of Children</WarningMsg>}
+                        {errors.numDependent && <WarningMsg>Please select the Number of dependent</WarningMsg>}
                     </Wrapper>
-                </HiddenSection>
-
-
-                <Label>Number of Additional Dependent</Label>
-                <Wrapper>
-                    <SelectionBox {...register("numDependent" , {required: true, valueAsNumber: true})} >
-                        <SelectionOption value="0">0</SelectionOption>
-                        <SelectionOption value="1">1</SelectionOption>
-                        <SelectionOption value="2">2</SelectionOption>
-                        <SelectionOption value="3">3</SelectionOption>
-                        <SelectionOption value="4">4</SelectionOption>
-                    </SelectionBox>
-                    {errors.numDependent && <WarningMsg>Please select the Number of dependent</WarningMsg>}
-                </Wrapper>
 
 
 
 
 
-                <Label>Weekly Income</Label>
-                <Wrapper>
-                    <InputBox {...register("weeklyIncome", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} />
-                    {errors.weeklyIncome && <WarningMsg>Please enter valid weekly income</WarningMsg>}
-                </Wrapper>
+                    <Label>Weekly Income</Label>
+                    <Wrapper>
+                        <InputBox {...register("weeklyIncome", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} />
+                        {errors.weeklyIncome && <WarningMsg>Please enter valid weekly income</WarningMsg>}
+                    </Wrapper>
 
-                <Label>Asset</Label>
-                <Wrapper>
-                    <InputBox {...register("asset", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} />
-                    {errors.asset && <WarningMsg>Please enter valid asset number</WarningMsg>}
-                </Wrapper>
-                <Wrapper>
-                    <input {...register("check")} type={"checkbox"} />
-                    <Label>Need major or full disability modifications</Label>
-                </Wrapper>
+                    <Label>Asset</Label>
+                    <Wrapper>
+                        <InputBox {...register("asset", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} />
+                        {errors.asset && <WarningMsg>Please enter valid asset number</WarningMsg>}
+                    </Wrapper>
+                    <Wrapper>
+                        <CheckBoxInput {...register("check")} type={"checkbox"} />
+                        <CheckBoxLabel>Need major or full disability modifications</CheckBoxLabel>
+                    </Wrapper>
 
-                <SubmitButton disabled={disabled || residentshipDisable} variant="contained" type="submit" onClick={()=> setSubmitClicked(true)} > Check </SubmitButton>
-            </FormArea>
-            {result === -1 ? null :
-                <ResultArea>
-                    {result === 0 ? result0 : null}
-                    {result === 1 ? result1 : null}
-                    {result === 2 ? result2 : null}
-                    {result === 3 ? result3 : null}
-                    {result === 4 ? result4 : null}
-                    {result === 5 ? result5 : null}
-                    {result === 6 ? result6 : null}
-                </ResultArea>
-            }
+                    <SubmitButton disabled={disabled || residentshipDisable} variant="contained" type="submit" onClick={()=> setSubmitClicked(true)} > Check </SubmitButton>
+                </FormArea>
+                {result === -1 ? null :
+                    <ResultArea>
+                        {result === 0 ? result0 : null}
+                        {result === 1 ? result1 : null}
+                        {result === 2 ? result2 : null}
+                        {result === 3 ? result3 : null}
+                        {result === 4 ? result4 : null}
+                        {result === 5 ? result5 : null}
+                        {result === 6 ? result6 : null}
+                    </ResultArea>
+                }
+            </WrapperPage>
 
 
 
