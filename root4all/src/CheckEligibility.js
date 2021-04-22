@@ -12,7 +12,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import {Typography} from "@material-ui/core";
+import {Typography, withStyles} from "@material-ui/core";
 
 
 const LinearProgressStyled = styled(LinearProgress)`
@@ -34,7 +34,6 @@ const CheckEligibilityTitle = styled.div`
 `;
 
 const FormArea = styled.form`
-  margin-left: calc(15% + 40px);
   display: flex;
   flex-direction: column;
 `;
@@ -115,10 +114,7 @@ const ResultArea = styled.div`
   
   display: flex;
   align-items: center;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 100px;
   flex-direction: column;
   
 `;
@@ -142,8 +138,11 @@ const TableContainerStyled = styled(TableContainer)`
 const WrapperPage = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   padding-top: 60px;
   padding-bottom: 60px;
+  padding-left: 100px;
+  padding-right: 100px;
 `;
 
 
@@ -161,6 +160,12 @@ function CheckEligibility(){
     const [limit1, setLimit1] = useState(0);
     const [limit2, setLimit2] = useState(0);
     const [userInputData, setUserInputData] =useState({});
+    const StyledTableCell = withStyles((theme) => ({
+        head: {
+            backgroundColor: "#2BA837",
+
+        }
+    }))(TableCell);
     const onSubmit = async (data) => {
         if (data["citizenship"] === "Others"){
             data["residenship"] = "";
@@ -220,7 +225,7 @@ function CheckEligibility(){
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align={"left"}><Typography variant={"h5"}>Document checklist</Typography></TableCell>
+                            <StyledTableCell align={"left"}><Typography variant={"h5"}>Document checklist</Typography></StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -269,7 +274,7 @@ function CheckEligibility(){
                         <Table aria-label="simple table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell align={"left"}><Typography variant={"h5"}>Document checklist for additional dependents</Typography></TableCell>
+                                    <StyledTableCell align={"left"}><Typography variant={"h5"}>Document checklist for additional dependents</Typography></StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -332,7 +337,7 @@ function CheckEligibility(){
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell align={"left"}><Typography variant={"h5"}>Document checklist</Typography></TableCell>
+                            <StyledTableCell align={"left"}><Typography variant={"h5"}>Document checklist</Typography></StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
