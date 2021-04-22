@@ -151,6 +151,7 @@ function About() {
     const handleStepChange = (step) => {
         setActiveStep(step);
     };
+
     return (
         <>
             <Navbar />

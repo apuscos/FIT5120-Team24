@@ -384,9 +384,7 @@ function FindAgency() {
         return `${value}KM`;
     }
 
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    });
+
 
     useEffect(() => {
         const map = new mapboxgl.Map({

@@ -204,10 +204,11 @@ const ServiceCover = styled(Paper)`
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: scale(0.95);
+  transform: scale(1);
+  transition: transform 0.3s ease;
   &:hover{
-    transition: transform 0.1s ease;
-    transform: scale(1);
+    transition: transform 0.3s ease;
+    transform: scale(0.9);
   }
 `;
 

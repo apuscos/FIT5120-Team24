@@ -138,6 +138,8 @@ function Help() {
 
 
 
+
+
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : -1);
         if (searchResult[panel] === true){
