@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Navbar from "./Navigation/NavBar";
 import styled from "styled-components";
 import {useForm} from "react-hook-form";
@@ -295,6 +295,10 @@ function CheckEligibility(){
             </TableContainerStyled>
         </>
     )
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    });
     return(
         <>
             {loading ? <LinearProgressStyled color="secondary"/> : null}

@@ -7,6 +7,9 @@ import statImage2 from "./Image/statImage2.png"
 import statImage3 from "./Image/statImage3.png"
 import Navbar from "./Navigation/NavBar";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Grid from '@material-ui/core/Grid';
+import {makeStyles, Typography} from "@material-ui/core";
+import Paper from '@material-ui/core/Paper';
 
 // Slogan area
 //-------------------------------------------------------------------
@@ -65,14 +68,6 @@ const HorizontalLineShort = styled(HorizontalLine)`
   margin-bottom: 50px;
 `;
 
-const VerticalLine = styled.div`
-  height: 40px;
-  width: 2px;
-  background-color: #2BA837;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 19px;
-`;
 
 const SubTitle = styled.div`
   color: #2BA837;
@@ -88,10 +83,6 @@ const ArrowDown = styled(ExpandMoreIcon)`
   left: 50%;
 `;
 
-const LineWrapper = styled.div`
-  background-color: #fafafa;
-  padding-bottom: 30px;
-`;
 
 const SloganTextArea = styled.div`
   display: flex;
@@ -175,9 +166,53 @@ const StatTitle = styled.div`
 const StatLink = styled.a`
   text-decoration: none;
 `;
+
+const LinkNoUnderline = styled(Link)`
+  text-decoration: none;
+`
+
+const ServiceArea = styled.div`
+  flex-grow: 1;
+  background-color: #fafafa;
+`;
 //-------------------------------------------------------------------
+const useStyles = makeStyles((theme) => ({
+    title: {
+        paddingLeft: "calc(15% + 40px)",
+        marginBottom: 40,
+        paddingTop: 80
+    },
+    services: {
+        paddingLeft: "calc(15% + 40px)",
+        paddingRight: "calc(15% + 40px)",
+    },
+    service: {
+        display: "flex",
+        marginBottom: 20,
+    },
+    serviceIntro: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: 200
+    },
+}));
+
+const ServiceCover = styled(Paper)`
+  height: 200px;
+  background-color: rgba(43,168,55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.95);
+  &:hover{
+    transition: transform 0.1s ease;
+    transform: scale(1);
+  }
+`;
 
 function Home() {
+    const classes = useStyles();
     return (
         <>
             <Navbar positioning="fixed" />
@@ -189,9 +224,65 @@ function Home() {
                 </Trapezoid>
                 <ArrowDown style={{ color:  '#2BA837', height: 50, width: 50}}/>
             </Slogan>
-            <LineWrapper>
-                <VerticalLine/>
-            </LineWrapper>
+
+            <ServiceArea>
+                <Grid container md={12} lg={12} xl={12} className={classes.title}>
+                    <Typography variant={"h3"}>Services</Typography>
+                </Grid>
+                <Grid container className={classes.services}>
+                    <Grid  item md={12} lg={12} xl={12}>
+                        <Paper className={classes.service}>
+                            <Grid item md={2} lg={2} xl={2} >
+                                <LinkNoUnderline to={"/findAgency"}>
+                                    <ServiceCover elevation={0} >
+                                        <Typography variant={"h5"} gutterBottom>Find agency</Typography>
+                                    </ServiceCover>
+                                </LinkNoUnderline>
+                            </Grid>
+                            <Grid item md={10} lg={10} xl={10}>
+                                <Paper elevation={0} className={classes.serviceIntro}>
+                                    <Typography variant={"h6"} gutterBottom>Introduction to the find agency</Typography>
+                                </Paper>
+                            </Grid>
+                        </Paper>
+                    </Grid>
+
+                    <Grid  item md={12} lg={12} xl={12}>
+                        <Paper className={classes.service}>
+                            <Grid item md={2} lg={2} xl={2} >
+                                <LinkNoUnderline to={"/findAgency"}>
+                                    <ServiceCover elevation={0}>
+                                        <Typography variant={"h5"} gutterBottom>Check agency</Typography>
+                                    </ServiceCover>
+                                </LinkNoUnderline>
+                            </Grid>
+                            <Grid item md={10} lg={10} xl={10}>
+                                <Paper elevation={0} className={classes.serviceIntro}>
+                                    <Typography variant={"h6"} gutterBottom>Introduction to the check agency</Typography>
+                                </Paper>
+                            </Grid>
+                        </Paper>
+                    </Grid>
+
+                    <Grid  item md={12} lg={12} xl={12}>
+                        <Paper className={classes.service}>
+                            <Grid item md={2} lg={2} xl={2} >
+                                <LinkNoUnderline to={"/checkEligibility"}>
+                                    <ServiceCover elevation={0}>
+                                        <Typography variant={"h5"} gutterBottom>Check eligibility</Typography>
+                                    </ServiceCover>
+                                </LinkNoUnderline>
+                            </Grid>
+                            <Grid item md={10} lg={10} xl={10}>
+                                <Paper elevation={0} className={classes.serviceIntro}>
+                                    <Typography variant={"h6"} gutterBottom>Introduction to the check eligibility</Typography>
+                                </Paper>
+                            </Grid>
+                        </Paper>
+                    </Grid>
+                </Grid>
+
+            </ServiceArea>
             <StatTitle><HorizontalLineShort/>Help is around the corner</StatTitle>
             <StatArea>
                 <StatLink href = "https://www.dhhs.vic.gov.au/housing-and-homelessness" target="_blank"  rel="noreferrer">

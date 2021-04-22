@@ -385,6 +385,10 @@ function FindAgency() {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0)
+    });
+
+    useEffect(() => {
         const map = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v11?optimize=true',
