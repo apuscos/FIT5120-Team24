@@ -12,6 +12,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import {Typography, withStyles} from "@material-ui/core";
 
 
 const LinearProgressStyled = styled(LinearProgress)`
@@ -29,11 +30,10 @@ const CheckEligibilityTitle = styled.div`
   font-weight: 700;
   font-size: 5em;
   color: black;
-  margin-left: calc(15% + 40px);
+  text-align: center;
 `;
 
 const FormArea = styled.form`
-  margin-left: calc(15% + 40px);
   display: flex;
   flex-direction: column;
 `;
@@ -111,12 +111,11 @@ const HiddenSection = styled.div`
 `;
 
 const ResultArea = styled.div`
-  width: 1000px;
+  
   display: flex;
   align-items: center;
-  margin-left: 50px;
+  padding-left: 100px;
   flex-direction: column;
-  margin-top: -150px;
   
 `;
 
@@ -133,12 +132,17 @@ const ResultContent = styled.div`
 `;
 
 const TableContainerStyled = styled(TableContainer)`
- 
+  margin-bottom: 20px;
 `;
 
 const WrapperPage = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  padding-left: 100px;
+  padding-right: 100px;
 `;
 
 
@@ -155,11 +159,19 @@ function CheckEligibility(){
     const [residentshipDisable, setResidentshipDisable] = useState(false);
     const [limit1, setLimit1] = useState(0);
     const [limit2, setLimit2] = useState(0);
+    const [userInputData, setUserInputData] =useState({});
+    const StyledTableCell = withStyles((theme) => ({
+        head: {
+            backgroundColor: "#2BA837",
+
+        }
+    }))(TableCell);
     const onSubmit = async (data) => {
         if (data["citizenship"] === "Others"){
             data["residenship"] = "";
         }
         console.log(data);
+        setUserInputData(data);
         setLoading(true);
         try {
             // Get data with postcode 3000
@@ -205,95 +217,184 @@ function CheckEligibility(){
     const result3 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>Your weekly income has exceed the limit {limit1} AUD </ResultContent></>)
     const result4 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>Your asset has exceed the limit {limit1} AUD </ResultContent></>)
     const result7 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>Your weekly income has exceed the limit {limit1} AUD and your asset has exceed the limit {limit2} AUD</ResultContent></>)
-    const result5 = (
+    let result5 = (
         <>
-            <ResultTitle>You are eligible for registering interest housing!</ResultTitle>
-            <ResultContent>Below are some documents you need</ResultContent>
+            <Typography variant={"h5"}>You are eligible for registering for interest housing!</Typography>
+            <ResultContent>Registered of interest application form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/register-interest-application-pdf">https://www.housing.vic.gov.au/register-interest-application-pdf</a></ResultContent>
             <TableContainerStyled component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Document Name</TableCell>
-                            <TableCell>Link</TableCell>
+                            <StyledTableCell align={"left"}><Typography variant={"h5"}>Document checklist</Typography></StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         <TableRow key={"Documents Name"}>
-                            <TableCell component="th" scope="row">
-                                {"Priority Access application form"}
+                            <TableCell component="th" scope="row" >
+                                {"Proof of identity – Passport, driving licence or any government issued proof of identity."}
                             </TableCell>
-                            <TableCell><a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/register-interest-application-pdf">https://www.housing.vic.gov.au/register-interest-application-pdf</a></TableCell>
                         </TableRow>
                         <TableRow key={"Additional adult household member form"}>
                             <TableCell component="th" scope="row">
-                                {"Additional adult household member form"}
+                                {"Bank statement of past four weeks if not receiving payments from Centerlink"}
                             </TableCell>
-                            <TableCell><a target="_blank"  rel="noreferrer"  href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf</a></TableCell>
                         </TableRow>
                         <TableRow key={"Additional dependent children form"}>
                             <TableCell component="th" scope="row">
-                                {"Additional dependent children form"}
+                                {"Letter from a solicitor stating your property’s market value(if applicable)."}
                             </TableCell>
-                            <TableCell><a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf</a></TableCell>
                         </TableRow>
                         <TableRow key={"Special accommodation requirements form"}>
                             <TableCell component="th" scope="row">
-                                {"Special accommodation requirements form"}
+                                {"If the property stated above is on sale or under dispute, show the documents stating your ownership of the property."}
                             </TableCell>
-                            <TableCell><a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf</a></TableCell>
+                        </TableRow>
+                        <TableRow key={"Proof of assets owned – like shares, businesses."}>
+                            <TableCell component="th" scope="row">
+                                {"Proof of assets owned – like shares, businesses."}
+                            </TableCell>
+                        </TableRow>
+                        <TableRow key={"If expecting a child or adopting a child, provide proof of the same."}>
+                            <TableCell component="th" scope="row">
+                                {"If expecting a child or adopting a child, provide proof of the same."}
+                            </TableCell>
+                        </TableRow>
+                        <TableRow key={"Australian Citizenship Certificate"}>
+                            <TableCell component="th" scope="row">
+                                {"Australian Citizenship Certificate, immigration visa, passport or a letter from the Department of Immigration and Border Protection for each resident of household not born in India."}
+                            </TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
             </TableContainerStyled>
 
+            {userInputData["household"] === "Family" || userInputData["household"] === "Couple" ?
+                <>
+                    <TableContainerStyled component={Paper}>
+                        <Table aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <StyledTableCell align={"left"}><Typography variant={"h5"}>Document checklist for additional dependents</Typography></StyledTableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                <TableRow key={"Documents Name"}>
+                                    <TableCell component="th" scope="row" >
+                                        {"Proof of identity – Passport, driving licence or any government issued proof of identity."}
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow key={"Additional adult household member form"}>
+                                    <TableCell component="th" scope="row">
+                                        {"Bank statement of past four weeks if not receiving payments from Centerlink"}
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow key={"Additional dependent children form"}>
+                                    <TableCell component="th" scope="row">
+                                        {"Letter from a solicitor stating your property’s market value(if applicable)."}
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow key={"Special accommodation requirements form"}>
+                                    <TableCell component="th" scope="row">
+                                        {"If the property stated above is on sale or under dispute, show the documents stating your ownership of the property."}
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow key={"Proof of assets owned – like shares, businesses."}>
+                                    <TableCell component="th" scope="row">
+                                        {"Proof of assets owned – like shares, businesses."}
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow key={"If expecting a child or adopting a child, provide proof of the same."}>
+                                    <TableCell component="th" scope="row">
+                                        {"If expecting a child or adopting a child, provide proof of the same."}
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow key={"Australian Citizenship Certificate"}>
+                                    <TableCell component="th" scope="row">
+                                        {"Medicare card/ birth certificate of each dependent child."}
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </TableContainerStyled>
+                </>
+                : null}
+
+            {userInputData["numDependent"] > 0 ?
+                <>
+                    <Typography>If there are more than four dependent children, fill this form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf</a></Typography>
+                    <Typography>If there are more than one dependent adult, fill this form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf</a></Typography>
+                </>
+                :null }
+
         </>
     )
     const result6 = (
         <>
-            <ResultTitle>You are eligible for registering priority housing!</ResultTitle>
-            <ResultContent>Below are some documents you need</ResultContent>
+            <ResultTitle>You are eligible for registering for priority housing!</ResultTitle>
+            <ResultContent>Registered of priority access application form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/Priority-access-application.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/Priority-access-application.pdf</a></ResultContent>
+            <ResultContent>If not registed already with Victorian housing, needs to be filled along with Register of Interest form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/register-interest-application-pdf">https://www.housing.vic.gov.au/register-interest-application-pdf</a></ResultContent>
             <TableContainerStyled component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Document Name</TableCell>
-                            <TableCell>Link</TableCell>
+                            <StyledTableCell align={"left"}><Typography variant={"h5"}>Document checklist</Typography></StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableRow key={"Priority Access application form"}>
-                            <TableCell component="th" scope="row">
-                                {"Priority Access application form"}
+                        <TableRow key={"Documents Name"}>
+                            <TableCell component="th" scope="row" >
+                                {"Support letter from your tenancy worker or community support agency, if staying in a community housing"}
                             </TableCell>
-                            <TableCell><a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/priority-access-application-pdf">https://www.housing.vic.gov.au/priority-access-application-pdf</a></TableCell>
                         </TableRow>
                         <TableRow key={"Additional adult household member form"}>
                             <TableCell component="th" scope="row">
-                                {"Additional adult household member form"}
+                                {"If at risk if family violence, you need to provide an intervention order or an interim intervention order, or an application for one of these – a Family Court restraining order – a letter from a solicitor confirming that criminal proceedings have commenced against the alleged perpetrator of the violence."}
                             </TableCell>
-                            <TableCell><a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf</a></TableCell>
                         </TableRow>
                         <TableRow key={"Additional dependent children form"}>
                             <TableCell component="th" scope="row">
-                                {"Additional dependent children form"}
+                                {"An intervention order or an interim intervention order, or an application for one of these or a verbal or written report from a member of a federal, state or territory police service or a report from a community support worker(if subjected to physical violence by person not living with you)"}
                             </TableCell>
-                            <TableCell><a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf</a></TableCell>
-                        </TableRow>
-                        <TableRow key={"Insecure housing eligibility confirmation form"}>
-                            <TableCell component="th" scope="row">
-                                {"Insecure housing eligibility confirmation form"}
-                            </TableCell>
-                            <TableCell><a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201809/Insecure-housing-eligibility-confirmation.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201809/Insecure-housing-eligibility-confirmation.pdf</a></TableCell>
                         </TableRow>
                         <TableRow key={"Special accommodation requirements form"}>
                             <TableCell component="th" scope="row">
-                                {"Special accommodation requirements form"}
+                                {"If you require major or full modifications, a detailed report about the modifications required by the occupational therapist."}
                             </TableCell>
-                            <TableCell><a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf</a></TableCell>
+                        </TableRow>
+                        <TableRow key={"Proof of assets owned – like shares, businesses."}>
+                            <TableCell component="th" scope="row">
+                                {"Complete an Application for Special Accommodation Requirements, if you need major/minor modifications due to medical reasons."}
+                            </TableCell>
+                        </TableRow>
+                        <TableRow key={"If expecting a child or adopting a child, provide proof of the same."}>
+                            <TableCell component="th" scope="row">
+                                {"Letter from a community support worker or statutory declarations from you and the person with whom the children are residing will be required for family reunification situation or inappropriate condition of the current house where the children cannot reside."}
+                            </TableCell>
+                        </TableRow>
+                        <TableRow key={"Australian Citizenship Certificate"}>
+                            <TableCell component="th" scope="row">
+                                {"Written confirmation from the housing worker or the person you are staying with currently and would not be able to continue with them."}
+                            </TableCell>
+                        </TableRow>
+                        <TableRow key={"Australian Citizenship Certificate"}>
+                            <TableCell component="th" scope="row">
+                                {"A letter from the service that helped you to get alternative housing options(if applicable)"}
+                            </TableCell>
+                        </TableRow>
+                        <TableRow key={"Australian Citizenship Certificate"}>
+                            <TableCell component="th" scope="row">
+                                {"If not been helped with alternative housing then a written history of accommodation and attempts to get alternative housing options."}
+                            </TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
             </TableContainerStyled>
+
+            {userInputData["check"] ?
+                    <>
+                        <ResultContent>Special accommodation for modification, fill this form : <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf</a></ResultContent>
+                    </>
+                : null}
         </>
     )
 
@@ -308,6 +409,7 @@ function CheckEligibility(){
                     <Label>Citizenship</Label>
                     <Wrapper>
                         <SelectionBox {...register("citizenship", {required: true })} onChange={(e) => {
+                            setResult(-1);
                             if (e.target.value === ""){
                                 setShowError(true);
                             } else {
@@ -339,6 +441,7 @@ function CheckEligibility(){
                         <Label>Residenship</Label>
                         <Wrapper>
                             <SelectionBox {...register("residenship" , {validate: value => valid(value)})} onChange={e => {
+                                setResult(-1);
                                 if (e.target.value === "Others"){
                                     setResidentshipDisable(true);
                                 } else {
@@ -357,6 +460,7 @@ function CheckEligibility(){
                     <Label>Household Type</Label>
                     <Wrapper>
                         <SelectionBox {...register("household" , {required: true})} onChange={(e) => {
+                            setResult(-1);
                             if (e.target.value === ""){
                                 setShowHouseHoldError(true);
                             } else {
@@ -380,7 +484,7 @@ function CheckEligibility(){
                     <HiddenSection displayContent={dependentDisplay}>
                         <Label>Number of Dependent Children</Label>
                         <Wrapper>
-                            <SelectionBox {...register("numChildren" , {required: true, valueAsNumber: true})} >
+                            <SelectionBox {...register("numChildren" , {required: true, valueAsNumber: true})} onChange={(e) => {setResult(-1);}} >
                                 <SelectionOption value="0">0</SelectionOption>
                                 <SelectionOption value="1">1</SelectionOption>
                                 <SelectionOption value="2">2</SelectionOption>
@@ -392,7 +496,7 @@ function CheckEligibility(){
 
                     <Label>Number of Additional Dependent</Label>
                     <Wrapper>
-                        <SelectionBox {...register("numDependent" , {required: true, valueAsNumber: true})} >
+                        <SelectionBox {...register("numDependent" , {required: true, valueAsNumber: true})} onChange={(e) => {setResult(-1);}}>
                             <SelectionOption value="0">0</SelectionOption>
                             <SelectionOption value="1">1</SelectionOption>
                             <SelectionOption value="2">2</SelectionOption>
@@ -408,21 +512,21 @@ function CheckEligibility(){
 
                     <Label>Weekly Income</Label>
                     <Wrapper>
-                        <InputBox {...register("weeklyIncome", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} />
+                        <InputBox {...register("weeklyIncome", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} onChange={(e) => {setResult(-1);}} />
                         {errors.weeklyIncome && <WarningMsg>Please enter valid weekly income</WarningMsg>}
                     </Wrapper>
 
                     <Label>Asset</Label>
                     <Wrapper>
-                        <InputBox {...register("asset", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} />
+                        <InputBox {...register("asset", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} onChange={(e) => {setResult(-1);}} />
                         {errors.asset && <WarningMsg>Please enter valid asset number</WarningMsg>}
                     </Wrapper>
                     <Wrapper>
-                        <CheckBoxInput {...register("check")} type={"checkbox"} />
+                        <CheckBoxInput {...register("check")} type={"checkbox"} onChange={(e) => {setResult(-1);}} />
                         <CheckBoxLabel>Need major or full disability modifications</CheckBoxLabel>
                     </Wrapper>
 
-                    <SubmitButton disabled={disabled || residentshipDisable} variant="contained" type="submit" onClick={()=> setSubmitClicked(true)} > Check </SubmitButton>
+                    <SubmitButton disabled={disabled || residentshipDisable} variant="contained" type="submit" onClick={()=> {setSubmitClicked(true); setResult(-1);}} > Check </SubmitButton>
                 </FormArea>
                 {result === -1 ? null :
                     <ResultArea>
