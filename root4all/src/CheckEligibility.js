@@ -91,6 +91,7 @@ const SubmitButton = styled(Button)`
     margin-top: 10px;
     font-family: 'Baloo Bhai 2', cursive;
     font-weight: 700;
+    background-color:#2BA837;
   }
 `;
 
