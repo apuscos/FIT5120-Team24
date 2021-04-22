@@ -171,7 +171,7 @@ function Help() {
         root: {
             display: 'flex',
             alignItems: 'center',
-            width: 600,
+            width: 800,
             marginLeft: 'auto',
             marginRight: 'auto',
             height: "auto",
