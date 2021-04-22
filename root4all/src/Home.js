@@ -152,12 +152,14 @@ const StateText = styled.div`
   justify-content: center;
   font-weight: 500;
   font-size: 1vw;
+  color: black;
 `;
 
 const StateHead = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 600;
   font-size: 1.4vw;
+  color: black;
 `;
 
 const StatTitle = styled.div`
@@ -168,6 +170,10 @@ const StatTitle = styled.div`
   font-size: 42px;
   padding-left: calc(15% + 40px);
   padding-bottom: 40px;
+`;
+
+const StatLink = styled.a`
+  text-decoration: none;
 `;
 //-------------------------------------------------------------------
 
@@ -188,33 +194,33 @@ function Home() {
             </LineWrapper>
             <StatTitle><HorizontalLineShort/>Help is around the corner</StatTitle>
             <StatArea>
-                <a href = "https://www.dhhs.vic.gov.au/housing-and-homelessness" target="_blank"  rel="noreferrer">
-                <StateSection dark>
-                    <StateImage imageUrl={statImage1}/>
-                    <StateHead>Assist</StateHead>
-                    <StateText>
-                        Victorian Authorities assist more than 100,000 homeless people annually
-                    </StateText>
-                </StateSection>
-                </a>
-                <a href = "https://www.premier.vic.gov.au/homes-homeless-victorians-during-pandemic-and-beyond" target="_blank"  rel="noreferrer">
-                <StateSection>
-                    <StateImage imageUrl={statImage2}/>
-                    <StateHead>Home Package</StateHead>
-                    <StateText>
-                        During the pandemic, the government granted a Homelessness to A Home Package of $150 million
-                    </StateText>
-                </StateSection>
-                </a>
-                <a href= "https://www.premier.vic.gov.au/homes-homeless-victorians-during-pandemic-and-beyond" target="_blank"  rel="noreferrer">
-                <StateSection dark>
-                    <StateImage imageUrl={statImage3}/>
-                    <StateHead>New public housing</StateHead>
-                    <StateText>
-                        Funds worth $500 million to renew and create new public housing premises across the state.
-                    </StateText>
-                </StateSection>
-                </a>
+                <StatLink href = "https://www.dhhs.vic.gov.au/housing-and-homelessness" target="_blank"  rel="noreferrer">
+                    <StateSection dark>
+                        <StateImage imageUrl={statImage1}/>
+                        <StateHead>Assist</StateHead>
+                        <StateText>
+                            Victorian Authorities assist more than 100,000 homeless people annually
+                        </StateText>
+                    </StateSection>
+                </StatLink>
+                <StatLink href = "https://www.premier.vic.gov.au/homes-homeless-victorians-during-pandemic-and-beyond" target="_blank"  rel="noreferrer">
+                    <StateSection>
+                        <StateImage imageUrl={statImage2}/>
+                        <StateHead>Home Package</StateHead>
+                        <StateText>
+                            During the pandemic, the government granted a Homelessness to A Home Package of $150 million
+                        </StateText>
+                    </StateSection>
+                </StatLink>
+                <StatLink href= "https://www.premier.vic.gov.au/homes-homeless-victorians-during-pandemic-and-beyond" target="_blank"  rel="noreferrer">
+                    <StateSection dark>
+                        <StateImage imageUrl={statImage3}/>
+                        <StateHead>New public housing</StateHead>
+                        <StateText>
+                            Funds worth $500 million to renew and create new public housing premises across the state.
+                        </StateText>
+                    </StateSection>
+                </StatLink>
             </StatArea>
         </>
     );
