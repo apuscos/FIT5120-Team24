@@ -409,6 +409,7 @@ function CheckEligibility(){
                     <Label>Citizenship</Label>
                     <Wrapper>
                         <SelectionBox {...register("citizenship", {required: true })} onChange={(e) => {
+                            setResult(-1);
                             if (e.target.value === ""){
                                 setShowError(true);
                             } else {
@@ -440,6 +441,7 @@ function CheckEligibility(){
                         <Label>Residenship</Label>
                         <Wrapper>
                             <SelectionBox {...register("residenship" , {validate: value => valid(value)})} onChange={e => {
+                                setResult(-1);
                                 if (e.target.value === "Others"){
                                     setResidentshipDisable(true);
                                 } else {
@@ -458,6 +460,7 @@ function CheckEligibility(){
                     <Label>Household Type</Label>
                     <Wrapper>
                         <SelectionBox {...register("household" , {required: true})} onChange={(e) => {
+                            setResult(-1);
                             if (e.target.value === ""){
                                 setShowHouseHoldError(true);
                             } else {
@@ -481,7 +484,7 @@ function CheckEligibility(){
                     <HiddenSection displayContent={dependentDisplay}>
                         <Label>Number of Dependent Children</Label>
                         <Wrapper>
-                            <SelectionBox {...register("numChildren" , {required: true, valueAsNumber: true})} >
+                            <SelectionBox {...register("numChildren" , {required: true, valueAsNumber: true})} onChange={(e) => {setResult(-1);}} >
                                 <SelectionOption value="0">0</SelectionOption>
                                 <SelectionOption value="1">1</SelectionOption>
                                 <SelectionOption value="2">2</SelectionOption>
@@ -493,7 +496,7 @@ function CheckEligibility(){
 
                     <Label>Number of Additional Dependent</Label>
                     <Wrapper>
-                        <SelectionBox {...register("numDependent" , {required: true, valueAsNumber: true})} >
+                        <SelectionBox {...register("numDependent" , {required: true, valueAsNumber: true})} onChange={(e) => {setResult(-1);}}>
                             <SelectionOption value="0">0</SelectionOption>
                             <SelectionOption value="1">1</SelectionOption>
                             <SelectionOption value="2">2</SelectionOption>
@@ -509,21 +512,21 @@ function CheckEligibility(){
 
                     <Label>Weekly Income</Label>
                     <Wrapper>
-                        <InputBox {...register("weeklyIncome", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} />
+                        <InputBox {...register("weeklyIncome", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} onChange={(e) => {setResult(-1);}} />
                         {errors.weeklyIncome && <WarningMsg>Please enter valid weekly income</WarningMsg>}
                     </Wrapper>
 
                     <Label>Asset</Label>
                     <Wrapper>
-                        <InputBox {...register("asset", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} />
+                        <InputBox {...register("asset", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} onChange={(e) => {setResult(-1);}} />
                         {errors.asset && <WarningMsg>Please enter valid asset number</WarningMsg>}
                     </Wrapper>
                     <Wrapper>
-                        <CheckBoxInput {...register("check")} type={"checkbox"} />
+                        <CheckBoxInput {...register("check")} type={"checkbox"} onChange={(e) => {setResult(-1);}} />
                         <CheckBoxLabel>Need major or full disability modifications</CheckBoxLabel>
                     </Wrapper>
 
-                    <SubmitButton disabled={disabled || residentshipDisable} variant="contained" type="submit" onClick={()=> setSubmitClicked(true)} > Check </SubmitButton>
+                    <SubmitButton disabled={disabled || residentshipDisable} variant="contained" type="submit" onClick={()=> {setSubmitClicked(true); setResult(-1);}} > Check </SubmitButton>
                 </FormArea>
                 {result === -1 ? null :
                     <ResultArea>

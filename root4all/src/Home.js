@@ -10,6 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
 import {makeStyles, Typography} from "@material-ui/core";
 import Paper from '@material-ui/core/Paper';
+import SearchMin from "./Image/search-min.png"
 
 // Slogan area
 //-------------------------------------------------------------------
@@ -198,14 +199,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ServiceCover = styled(Paper)`
+const ServiceCover = styled.div`
   height: 200px;
-  background-color: rgba(43,168,55);
+  width: 200px;
+  background-image: url(${props => props.url});
+  background-repeat: no-repeat;
+  background-size: cover;
+  backdrop-filter: blur(100px);
   display: flex;
   align-items: center;
   justify-content: center;
   transform: scale(1);
   transition: transform 0.3s ease;
+  color: black;
   &:hover{
     transition: transform 0.3s ease;
     transform: scale(0.9);
@@ -235,7 +241,7 @@ function Home() {
                         <Paper className={classes.service}>
                             <Grid item md={2} lg={2} xl={2} >
                                 <LinkNoUnderline to={"/findAgency"}>
-                                    <ServiceCover elevation={0} >
+                                    <ServiceCover url={SearchMin} >
                                         <Typography variant={"h5"} gutterBottom>Find agency</Typography>
                                     </ServiceCover>
                                 </LinkNoUnderline>
