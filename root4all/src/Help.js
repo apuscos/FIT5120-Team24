@@ -9,7 +9,7 @@ import * as Search from "./SearchBar/searchBarComponents"
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import { makeStyles } from '@material-ui/core/styles';
-import {renderToString} from "react-dom/server";
+import {renderToStaticMarkup, renderToString} from "react-dom/server";
 
 const FaqTitle = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
@@ -110,11 +110,18 @@ function Help() {
 
     const searchContent = () => {
         const upperInput = input.toUpperCase();
+        if (input === ""){
+            setSearchResult([false, false, false, false, false, false, false, false, false, false, false, false, false]);
+            return;
+        }
         let idxResult = [];
         for (let idx = 0; idx < questionList.length; idx++){
             const qa = questionList[idx]
             const questionUpper = qa[0].toUpperCase();
+            const answerUpper = renderToStaticMarkup(qa[1]).replace(/\<(.+?)\>/g, "").toUpperCase();
             if(questionUpper.includes(upperInput)){
+                idxResult.push(idx);
+            } else if (answerUpper.includes(upperInput)) {
                 idxResult.push(idx);
             }
         }
@@ -130,6 +137,13 @@ function Help() {
 
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : -1);
+        if (searchResult[panel] === true){
+            let newResult = searchResult.slice();
+            newResult[panel] = false;
+            setSearchResult(newResult)
+        } else {
+            setSearchResult([false, false, false, false, false, false, false, false, false, false, false, false, false]);
+        }
     };
 
 
