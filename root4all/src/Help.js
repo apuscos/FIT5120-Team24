@@ -156,7 +156,7 @@ function Help() {
         root: {
             display: 'flex',
             alignItems: 'center',
-            width: 500,
+            width: 600,
             marginLeft: 'auto',
             marginRight: 'auto',
             height: "auto",
