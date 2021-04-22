@@ -8,9 +8,9 @@ export const Area = styled.div`
   height: 190px;
   align-items: center;
   justify-content: center;
-  background: #e3e3e3;
   flex-direction: column;
   padding-bottom: 20px;
+  background-color: transparent;
 `;
 
 

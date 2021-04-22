@@ -13,6 +13,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import {Typography, withStyles} from "@material-ui/core";
+import BackgroudImage from "./Image/checkEligibilityBackground.png"
 
 
 const LinearProgressStyled = styled(LinearProgress)`
@@ -28,9 +29,15 @@ const LinearProgressStyled = styled(LinearProgress)`
 const CheckEligibilityTitle = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 700;
+  height: 400px;
   font-size: 5em;
-  color: black;
-  text-align: center;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(${BackgroudImage});
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const FormArea = styled.form`

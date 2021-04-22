@@ -15,9 +15,19 @@ import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import Card from '@material-ui/core/Card';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Slider from '@material-ui/core/Slider';
+import FindAgencyBackground from "./Image/FindAgencyBackground.png"
+
 
 mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2Fvd2FuZyIsImEiOiJja215anpwaDIwMTcwMnZvMm8xcDU5eXcyIn0.FmAr1bkX7r19ygBIqsySUQ';
+
+const BackgroundWrapper = styled.div`
+  background-image: url(${FindAgencyBackground});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #7A7DA0;
+`;
+
 
 const LinearProgressStyled = styled(LinearProgress)`
   && {
@@ -459,51 +469,54 @@ function FindAgency() {
         <>
             {loading ? <LinearProgressStyled color="secondary"/> : null}
             <Navbar />
-            <Search.Area>
-                <Search.TextArea>Check if an agency is registered</Search.TextArea>
-                <Search.SearchArea>
-                    <Search.InputArea onChange={e => setEligibleInput(e.target.value)}
-                                      placeholder={"Please Enter Agency name"}/>
-                    <Search.SearchButton onClick={() => {checkEligibility(eligibleInput, setEligibleResult, setResult, setScrollbarHidden, setLoading);
-                        setScrollbarHidden(true);
-                    }}/>
-                </Search.SearchArea>
-                <ResultArea msg={eligibleResult}>{eligibleResult}</ResultArea>
-            </Search.Area>
-            <Search.Area>
-                <Search.TextArea>Search agency by Postcode or Suburb name</Search.TextArea>
-                <Search.SearchArea>
-                    <Search.InputArea onChange={e => setInput(e.target.value)}
-                                      placeholder={"Please Enter PostCode/Suburb"}/>
-                    <Search.SearchButton onClick={() => {
-                        agencySuburb(input, setResult, setWarningMsg, check, setScrollbarHidden, setLoading,radius);
-                        setScrollbarHidden(true);
-                    }}/>
-                </Search.SearchArea>
-                <RadiusLabel>Radius setting</RadiusLabel>
-                <SliderStyled
-                    defaultValue={5}
-                    getAriaValueText={valuetext}
-                    aria-labelledby="discrete-slider-always"
-                    step={5}
-                    marks={marks}
-                    valueLabelDisplay="on"
-                    min={5}
-                    max={50}
-                    onChange={(_, value) => {
-                        setRadius(value);
-                    }}
-                />
-                <CheckBoxArea>
-                    <CheckBox type="checkbox" checked={check} onChange={() => {
-                        setCheck(!check)
-                    }}/>
-                    <CheckBoxLabel>Near Hospital</CheckBoxLabel>
-                </CheckBoxArea>
+            <BackgroundWrapper>
+                <Search.Area>
+                    <Search.TextArea>Check if an agency is registered</Search.TextArea>
+                    <Search.SearchArea>
+                        <Search.InputArea onChange={e => setEligibleInput(e.target.value)}
+                                          placeholder={"Please Enter Agency name"}/>
+                        <Search.SearchButton onClick={() => {checkEligibility(eligibleInput, setEligibleResult, setResult, setScrollbarHidden, setLoading);
+                            setScrollbarHidden(true);
+                        }}/>
+                    </Search.SearchArea>
+                    <ResultArea msg={eligibleResult}>{eligibleResult}</ResultArea>
+                </Search.Area>
+                <Search.Area>
+                    <Search.TextArea>Search agency by Postcode or Suburb name</Search.TextArea>
+                    <Search.SearchArea>
+                        <Search.InputArea onChange={e => setInput(e.target.value)}
+                                          placeholder={"Please Enter PostCode/Suburb"}/>
+                        <Search.SearchButton onClick={() => {
+                            agencySuburb(input, setResult, setWarningMsg, check, setScrollbarHidden, setLoading,radius);
+                            setScrollbarHidden(true);
+                        }}/>
+                    </Search.SearchArea>
+                    <RadiusLabel>Radius setting</RadiusLabel>
+                    <SliderStyled
+                        defaultValue={5}
+                        getAriaValueText={valuetext}
+                        aria-labelledby="discrete-slider-always"
+                        step={5}
+                        marks={marks}
+                        valueLabelDisplay="on"
+                        min={5}
+                        max={50}
+                        onChange={(_, value) => {
+                            setRadius(value);
+                        }}
+                    />
+                    <CheckBoxArea>
+                        <CheckBox type="checkbox" checked={check} onChange={() => {
+                            setCheck(!check)
+                        }}/>
+                        <CheckBoxLabel>Near Hospital</CheckBoxLabel>
+                    </CheckBoxArea>
 
 
-                <WarningTextArea>{warningMsg}</WarningTextArea>
-            </Search.Area>
+                    <WarningTextArea>{warningMsg}</WarningTextArea>
+                </Search.Area>
+            </BackgroundWrapper>
+
             <AgencyInfoArea>
                 {!scrollbarHidden ?
                     <Scrollbars ref={scrollRef} style={{ width: "35%", height: 800, background:"#f7f7f7"}}>

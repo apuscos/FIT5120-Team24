@@ -7,6 +7,10 @@ const Theme = createMuiTheme({
             fontFamily: '"Baloo Bhai 2", cursive',
             fontWeight: 600
         },
+        h4: {
+            fontFamily: '"Baloo Bhai 2", cursive',
+            fontWeight: 700
+        },
         h5: {
             fontFamily: '"Baloo Bhai 2", cursive',
             fontWeight: 500

@@ -11,15 +11,30 @@ import InputBase from '@material-ui/core/InputBase';
 import { makeStyles } from '@material-ui/core/styles';
 import {renderToStaticMarkup} from "react-dom/server";
 import Highlighter from "react-highlight-words";
+import FAQBackground from "./Image/faqBackground.png"
 
 const FaqTitle = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 700;
   font-size: 5em;
-  color: black;
-  margin-bottom: 100px;
-  margin-top: 50px;
-  text-align: center;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(${FAQBackground});
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 400px;
+  margin-bottom: 70px;
+`;
+
+const SquareBlur = styled.div`
+  width: 100%;
+  height: 400px;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const FaqArea = styled.div`
@@ -173,7 +188,11 @@ function Help() {
     return (
         <>
             <Navbar />
-            <FaqTitle>Facts</FaqTitle>
+            <FaqTitle>
+                <SquareBlur>
+                    FAQ
+                </SquareBlur>
+            </FaqTitle>
             <Paper className={classes.root}>
                 <InputBase
                     className={classes.input}
