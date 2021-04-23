@@ -190,7 +190,7 @@ function Help() {
             <Navbar />
             <FaqTitle>
                 <SquareBlur>
-                    FAQ
+                    FAQs
                 </SquareBlur>
             </FaqTitle>
             <Paper className={classes.root}>

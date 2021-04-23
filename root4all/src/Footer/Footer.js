@@ -40,7 +40,8 @@ const FooterExternalLink = styled.div`
 const Section = styled.div`
   height: 80%;
   width: 30vw;
-  
+  display: flex;
+  flex-direction: column;
 `;
 
 const SectionTitle = styled.div`
@@ -74,10 +75,13 @@ const Footer = () => {
                 <Section>
                     <SectionTitle>Solutions</SectionTitle>
                     <FooterLink to={"/findAgency"}>Find Agency</FooterLink>
+                    <FooterLink to={"/findAgency"}>Check registered agency</FooterLink>
+                    <FooterLink to={"/checkEligibility"}>Check Eligibility</FooterLink>
                 </Section>
                 <Section>
                     <SectionTitle>Connect</SectionTitle>
                     <FooterLink to={"/about"}>About</FooterLink>
+                    <FooterLink to={"/help"}>FAQs</FooterLink>
                 </Section>
                 <Section>
                     <SectionTitle>Resources</SectionTitle>

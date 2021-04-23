@@ -154,11 +154,14 @@ const WrapperPage = styled.div`
 
 
 function CheckEligibility(){
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm({});
     const [display, setDisplay] = useState(false);
     const [dependentDisplay, setDependentDisplay] = useState(false)
     const [showError, setShowError] = useState(true);
     const [showHouseHoldError, setShowHouseHoldError] = useState(true);
+    const [showResidentError, setShowResidentError] = useState(true);
+    const [showWeeklyIncomeError, setShowWeeklyIncomeError] = useState(true);
+    const [showAssetError, setShowAssetError] = useState(true);
     const [submitClicked, setSubmitClicked] = useState(false);
     const [result, setResult] = useState(-1);
     const [loading, setLoading] = useState(false);
@@ -335,7 +338,7 @@ function CheckEligibility(){
 
         </>
     )
-    const result6 = (
+    let result6 = (
         <>
             <ResultTitle>You are eligible for registering for priority housing!</ResultTitle>
             <ResultContent>Registered of priority access application form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/Priority-access-application.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/Priority-access-application.pdf</a></ResultContent>
@@ -439,7 +442,7 @@ function CheckEligibility(){
                             <SelectionOption value="Others">Others</SelectionOption>
                         </SelectionBox>
                         {(showError && submitClicked) && <WarningMsg>This field is required</WarningMsg>}
-                        {disabled && <WarningMsg>Sorry, since you are not a Australian Citizen, you are not eligible to apply for government housing</WarningMsg>}
+                        {disabled && <WarningMsg>Only Australian Citizen can apply for government housing</WarningMsg>}
                     </Wrapper>
 
 
@@ -447,20 +450,25 @@ function CheckEligibility(){
                     <HiddenSection displayContent={display}>
                         <Label>Residenship</Label>
                         <Wrapper>
-                            <SelectionBox {...register("residenship" , {validate: value => valid(value)})} onChange={e => {
+                            <SelectionBox {...register("residenship" , {require: true})} onChange={e => {
                                 setResult(-1);
                                 if (e.target.value === "Others"){
                                     setResidentshipDisable(true);
                                 } else {
                                     setResidentshipDisable(false);
                                 }
+                                if (!valid(e.target.value)){
+                                    setShowResidentError(true);
+                                } else {
+                                    setShowResidentError(false);
+                                }
                             }}>
                                 <SelectionOption value="">Select...</SelectionOption>
                                 <SelectionOption value="Victorian_resident">Victorian resident</SelectionOption>
                                 <SelectionOption value="Others">Others</SelectionOption>
                             </SelectionBox>
-                            {errors.residenship && <WarningMsg>Please select the Residenship</WarningMsg>}
-                            {residentshipDisable && <WarningMsg>Sorry, since you are not a resident, you are not eligible to apply for government housing in Victoria</WarningMsg>}
+                            {(showResidentError && submitClicked) && <WarningMsg>Please select the Residenship</WarningMsg>}
+                            {residentshipDisable && <WarningMsg>Only Victoria resident can apply for government housing</WarningMsg>}
                         </Wrapper>
                     </HiddenSection>
 
@@ -519,17 +527,33 @@ function CheckEligibility(){
 
                     <Label>Weekly Income</Label>
                     <Wrapper>
-                        <InputBox {...register("weeklyIncome", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} onChange={(e) => {setResult(-1);}} />
-                        {errors.weeklyIncome && <WarningMsg>Please enter valid weekly income</WarningMsg>}
+                        <InputBox {...register("weeklyIncome", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} onChange={(e) => {
+                            setResult(-1);
+                            if (isNaN(e.target.value)){
+                                setShowWeeklyIncomeError(true);
+                            } else {
+                                setShowWeeklyIncomeError(false);
+                            }
+                        }} />
+                        {(showWeeklyIncomeError && submitClicked) && <WarningMsg>Please enter valid weekly income</WarningMsg>}
                     </Wrapper>
 
                     <Label>Asset</Label>
                     <Wrapper>
-                        <InputBox {...register("asset", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} onChange={(e) => {setResult(-1);}} />
-                        {errors.asset && <WarningMsg>Please enter valid asset number</WarningMsg>}
+                        <InputBox {...register("asset", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} onChange={(e) => {
+                            setResult(-1);
+                            if (isNaN(e.target.value)){
+                                setShowAssetError(true);
+                            } else {
+                                setShowAssetError(false);
+                            }
+                        }} />
+                        {(showAssetError && submitClicked) && <WarningMsg>Please enter valid asset number</WarningMsg>}
                     </Wrapper>
                     <Wrapper>
-                        <CheckBoxInput {...register("check")} type={"checkbox"} onChange={(e) => {setResult(-1);}} />
+                        <CheckBoxInput {...register("check")} type={"checkbox"} onChange={(e) => {
+                            setResult(-1);
+                        }} />
                         <CheckBoxLabel>Need major or full disability modifications</CheckBoxLabel>
                     </Wrapper>
 
