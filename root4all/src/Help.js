@@ -26,6 +26,7 @@ const FaqTitle = styled.div`
   background-size: cover;
   height: 400px;
   margin-bottom: 70px;
+  background-color: #7A7DA0;
 `;
 
 const SquareBlur = styled.div`
