@@ -449,7 +449,7 @@ function CheckEligibility(){
 
 
                     <HiddenSection displayContent={display}>
-                        <Label>Residenship</Label>
+                        <Label>Residentship</Label>
                         <Wrapper>
                             <SelectionBox {...register("residenship" , {require: true})} onChange={e => {
                                 setResult(-1);
