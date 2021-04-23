@@ -96,7 +96,7 @@ function Help() {
     const a1p4 = "3. Does not allow them to have control of, and access to space for social relations’ (ABS 2012).";
     const a2p1 = "Yes. A person who is homeless may face violations of the right to an adequate standard of living, the right to education, the right to liberty and security of the person, the right to privacy, the right to social security, " +
         "the right to freedom from discrimination, the right to vote, and many more.";
-    const a3p1 = "Due to the pandemic, homelessness in Melbourne has become increasingly serious. There are currently 120,000 homeless people in Victory.";
+    const a3p1 = "Due to the pandemic, homelessness in Melbourne has become increasingly serious. There are currently 120,000 homeless people in Victoria.";
     const a4p1 = "Poverty and the inability to afford adequate housing are central to the causes of homelessness. These circumstances may result from a number of different experiences, including long-term or short-term unemployment, " +
         "debt and other financial pressures, and housing market pressures, such as rising rental and house prices and the lack of public housing. " +
         "Financial difficulty is often accompanied by other personal or family problems, such as family breakdown, domestic violence, poor physical and mental health, substance and other addictions. " +
