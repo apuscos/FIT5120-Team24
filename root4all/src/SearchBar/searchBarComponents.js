@@ -53,7 +53,7 @@ export const SearchButton = styled.button`
 export const InputArea = styled.input`
   line-height: 1;
   width: 50%;
-  height: 50px;
+  height: 48px;
   border: none;
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 600;

@@ -137,7 +137,7 @@ function Help() {
         for (let idx = 0; idx < questionList.length; idx++){
             const qa = questionList[idx]
             const questionUpper = qa[0].toUpperCase();
-            const answerUpper = renderToStaticMarkup(qa[1]).replace(/<(.+?)>/g, "").toUpperCase();
+            const answerUpper = renderToStaticMarkup(qa[1]).toUpperCase();
             console.log(answerUpper);
             if(questionUpper.includes(upperInput) || answerUpper.includes(upperInput)){
                 idxResult.push(idx);

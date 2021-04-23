@@ -111,7 +111,8 @@ const MapArea = styled.div`
 `;
 
 const SliderStyled = styled(Slider)`
-    && {width: 400px;}
+  color: green;
+  && {width: 400px;}
 `
 
 
@@ -498,7 +499,6 @@ function FindAgency() {
                         aria-labelledby="discrete-slider-always"
                         step={5}
                         marks={marks}
-                        valueLabelDisplay="on"
                         min={5}
                         max={50}
                         onChange={(_, value) => {
