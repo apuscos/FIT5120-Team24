@@ -13,6 +13,14 @@ var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware'
 var mysql = require("mysql");
 // declare a new express app
 var app = express()
+
+const databaseConfig = {
+    host: process.env.host,
+    user: process.env.user,
+    password: process.env.password,
+    port: process.env.port,
+    database: process.env.database
+}
 app.use(bodyParser.json())
 app.use(awsServerlessExpressMiddleware.eventContext())
 
@@ -27,13 +35,7 @@ app.use(function (req, res, next) {
 function handleSuburbInput(input){
     console.log("RUN Handle");
     return new Promise(function (resolve, reject){
-        let connection = mysql.createConnection({
-            host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
-            user: "admin",
-            password: "12345678",
-            port: 3306,
-            database: "fit5120"
-        });
+        let connection = mysql.createConnection(databaseConfig);
 
         const numberReg = /^[0-9]*$/
 
@@ -90,13 +92,7 @@ function handleSuburbInput(input){
 
 app.get('/checkAgency', function (req, res) {
     // Add your code here
-    var connection = mysql.createConnection({
-        host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
-        user: "admin",
-        password: "12345678",
-        port: 3306,
-        database: "fit5120"
-    });
+    var connection = mysql.createConnection(databaseConfig);
     connection.connect(function(err) {
         if (err) {
             console.error('Database connection failed: ' + err.stack);
@@ -126,13 +122,7 @@ app.get('/checkAgency', function (req, res) {
 
 app.get('/checkagencynearhospital', function (req, res) {
     // Add your code here
-    var connection = mysql.createConnection({
-        host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
-        user: "admin",
-        password: "12345678",
-        port: 3306,
-        database: "fit5120"
-    });
+    var connection = mysql.createConnection(databaseConfig);
     connection.connect(function(err) {
         if (err) {
             console.error('Database connection failed: ' + err.stack);
@@ -208,13 +198,7 @@ app.get('/agencyinsuburb', function (req, res) {
             }
 
             console.log("Run main");
-            let connection = mysql.createConnection({
-                host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
-                user: "admin",
-                password: "12345678",
-                port: 3306,
-                database: "fit5120"
-            });
+            let connection = mysql.createConnection(databaseConfig);
             connection.connect(function(err) {
                 if (err) {
                     console.error('Database connection failed: ' + err.stack);
@@ -255,13 +239,7 @@ app.get('/findnearagency', function (req, res) {
             return;
         }
         return new Promise(resolve => {
-            let connection = mysql.createConnection({
-                host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
-                user: "admin",
-                password: "12345678",
-                port: 3306,
-                database: "fit5120"
-            });
+            let connection = mysql.createConnection(databaseConfig);
             connection.connect(function(err) {
                 if (err) {
                     console.error('Database connection failed: ' + err.stack);
@@ -289,13 +267,7 @@ app.get('/findnearagency', function (req, res) {
     }).then(response => {
         const suburbLat = response[0];
         const suburbLng = response[1];
-        let connection = mysql.createConnection({
-            host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
-            user: "admin",
-            password: "12345678",
-            port: 3306,
-            database: "fit5120"
-        });
+        let connection = mysql.createConnection(databaseConfig);
         connection.connect(function(err) {
             if (err) {
                 console.error('Database connection failed: ' + err.stack);
