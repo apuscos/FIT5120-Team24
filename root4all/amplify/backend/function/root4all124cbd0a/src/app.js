@@ -16,6 +16,14 @@ var app = express()
 app.use(bodyParser.json())
 app.use(awsServerlessExpressMiddleware.eventContext())
 
+const databaseConfig = {
+    host: process.env.host,
+    user: process.env.user,
+    password: process.env.password,
+    port: process.env.port,
+    database: process.env.database
+}
+
 // Enable CORS for all methods
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*")
@@ -26,13 +34,7 @@ app.use(function (req, res, next) {
 
 app.get('/checkAgency', function (req, res) {
     // Add your code here
-    var connection = mysql.createConnection({
-        host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
-        user: "admin",
-        password: "12345678",
-        port: 3306,
-        database: "fit5120"
-    });
+    var connection = mysql.createConnection(databaseConfig);
     connection.connect(function(err) {
         if (err) {
             console.error('Database connection failed: ' + err.stack);
@@ -62,13 +64,7 @@ app.get('/checkAgency', function (req, res) {
 
 app.get('/checkagencynearhospital', function (req, res) {
     // Add your code here
-    var connection = mysql.createConnection({
-        host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
-        user: "admin",
-        password: "12345678",
-        port: 3306,
-        database: "fit5120"
-    });
+    var connection = mysql.createConnection(databaseConfig);
     connection.connect(function(err) {
         if (err) {
             console.error('Database connection failed: ' + err.stack);
@@ -135,13 +131,7 @@ app.get('/checkagencynearhospital', function (req, res) {
 
 app.get('/agencyinsuburb', function (req, res) {
     // Add your code here
-    var connection = mysql.createConnection({
-        host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
-        user: "admin",
-        password: "12345678",
-        port: 3306,
-        database: "fit5120"
-    });
+    var connection = mysql.createConnection(databaseConfig);
     connection.connect(function(err) {
         if (err) {
             console.error('Database connection failed: ' + err.stack);
@@ -174,13 +164,7 @@ app.get('/agencyinsuburb', function (req, res) {
 
 app.get('/findnearagency', function (req, res) {
     // Add your code here
-    var connection = mysql.createConnection({
-        host: "database-roof4all.c6idfdnguvns.us-east-1.rds.amazonaws.com",
-        user: "admin",
-        password: "12345678",
-        port: 3306,
-        database: "fit5120"
-    });
+    var connection = mysql.createConnection(databaseConfig);
     connection.connect(function(err) {
         if (err) {
             console.error('Database connection failed: ' + err.stack);
