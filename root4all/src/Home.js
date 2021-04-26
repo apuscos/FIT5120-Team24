@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import {NavLink as Link} from 'react-router-dom';
-import image1 from "./Image/homePageImage.webp"
+import image1 from "./Image/homePageImage.webp";
 import statImage1 from "./Image/statImage1.webp"
 import statImage2 from "./Image/statImage2.webp"
 import statImage3 from "./Image/statImage3.webp"
@@ -13,6 +13,8 @@ import Paper from '@material-ui/core/Paper';
 import SearchMin from "./Image/search-min.webp"
 import FindAgency from "./Image/checkAgency.webp"
 import Eligibility from "./Image/eligibility.webp"
+
+
 
 // Slogan area
 //-------------------------------------------------------------------
@@ -239,8 +241,15 @@ const ServiceCover = styled.div`
 
 function Home() {
     const classes = useStyles();
+    const [sourceLoaded, setSourceLoaded] = useState(false);
+    useEffect(()=>{
+        const img = new Image();
+        img.src = image1;
+        img.onload = () => setSourceLoaded(true);
+    }, [])
+    const style = sourceLoaded ? {} : {visibility: 'hidden'};
     return (
-        <>
+        <div style={style}>
             <Navbar positioning="fixed" />
             <Slogan>
                 <Trapezoid>
@@ -353,7 +362,7 @@ function Home() {
                     </StatLink>
                 </PaperWrapper>
             </StatArea>
-        </>
+        </div>
     );
 }
 

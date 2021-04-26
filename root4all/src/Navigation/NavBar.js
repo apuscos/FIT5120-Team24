@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
     Nav,
     NavLink
@@ -17,16 +17,8 @@ const Logo = styled.div`
 `;
 
 const NavBar = (props) => {
-    const [sourceLoaded, setSourceLoaded] = useState(false);
-    useEffect(() => {
-        const img = new Image();
-        img.src = logo;
-        img.onload = () => setSourceLoaded(true)
-    })
-    const style = sourceLoaded ? {} : {visibility: 'hidden'}
-
     return (
-        <div style={style}>
+        <div>
             <Nav position={props.positioning}>
                 <NavLink to={"/home"}>  <Logo /> </NavLink>
                 <NavLink to={"/home"}> Home</NavLink>
