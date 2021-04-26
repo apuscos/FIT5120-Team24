@@ -1,18 +1,18 @@
 import React from 'react';
 import styled from "styled-components";
 import {NavLink as Link} from 'react-router-dom';
-import image1 from "./Image/homePageImage.jpg"
-import statImage1 from "./Image/statImage1.png"
-import statImage2 from "./Image/statImage2.png"
-import statImage3 from "./Image/statImage3.png"
+import image1 from "./Image/homePageImage.webp"
+import statImage1 from "./Image/statImage1.webp"
+import statImage2 from "./Image/statImage2.webp"
+import statImage3 from "./Image/statImage3.webp"
 import Navbar from "./Navigation/NavBar";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
 import {makeStyles, Typography} from "@material-ui/core";
 import Paper from '@material-ui/core/Paper';
-import SearchMin from "./Image/search-min.png"
-import FindAgency from "./Image/checkAgency.png"
-import Eligibility from "./Image/eligibility.png"
+import SearchMin from "./Image/search-min.webp"
+import FindAgency from "./Image/checkAgency.webp"
+import Eligibility from "./Image/eligibility.webp"
 
 // Slogan area
 //-------------------------------------------------------------------

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import "../font/font.css"
-import searchIcon from "../Image/search.png";
+import searchIcon from "../Image/search.webp";
 
 
 export const Area = styled.div`

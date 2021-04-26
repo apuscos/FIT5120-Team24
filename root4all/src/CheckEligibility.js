@@ -13,7 +13,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import {Typography, withStyles} from "@material-ui/core";
-import BackgroudImage from "./Image/checkEligibilityBackground.png"
+import BackgroundImage from "./Image/checkEligibilityBackground.webp"
 
 
 const LinearProgressStyled = styled(LinearProgress)`
@@ -35,7 +35,7 @@ const CheckEligibilityTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url(${BackgroudImage});
+  background-image: url(${BackgroundImage});
   background-repeat: no-repeat;
   background-size: cover;
   background-color: #7A7DA0;

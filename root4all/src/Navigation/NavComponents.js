@@ -1,6 +1,6 @@
 import { NavLink as Link } from 'react-router-dom';
 import styled from 'styled-components';
-import logo from "../Image/logo.png"
+import logo from "../Image/logo.webp"
 import "../font/font.css"
 
 

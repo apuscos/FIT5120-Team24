@@ -11,7 +11,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { makeStyles } from '@material-ui/core/styles';
 import {renderToStaticMarkup} from "react-dom/server";
 import Highlighter from "react-highlight-words";
-import FAQBackground from "./Image/faqBackground.png"
+import FAQBackground from "./Image/faqBackground.webp"
 
 const FaqTitle = styled.div`
   font-family: 'Baloo Bhai 2', cursive;

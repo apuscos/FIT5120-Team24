@@ -15,7 +15,7 @@ import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import Card from '@material-ui/core/Card';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Slider from '@material-ui/core/Slider';
-import FindAgencyBackground from "./Image/FindAgencyBackground.png"
+import FindAgencyBackground from "./Image/FindAgencyBackground.webp"
 
 
 mapboxgl.workerClass = MapboxWorker;
