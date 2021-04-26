@@ -1,20 +1,9 @@
 import React from 'react';
 import {
     Nav,
-    NavLink
+    NavLink,
+    Logo
 } from './NavComponents';
-import styled from "styled-components";
-import logo from "../Image/logo.webp";
-
-
-const Logo = styled.div`
-  background-image: url(${logo});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  height: 60px;
-  width: 175px;
-`;
 
 const NavBar = (props) => {
     return (

@@ -1,6 +1,7 @@
 import { NavLink as Link } from 'react-router-dom';
 import styled from 'styled-components';
 import "../font/font.css"
+import logo from "../Image/logo.webp";
 
 
 export const Nav = styled.nav`
@@ -32,6 +33,15 @@ export const NavLink = styled(Link)`
   &:hover{
     text-decoration: underline;
   }
+`;
+
+export const Logo = styled.div`
+  background-image: url(${logo});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 60px;
+  width: 175px;
 `;
 
 
