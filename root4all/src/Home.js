@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import {NavLink as Link} from 'react-router-dom';
 import image1 from "./Image/homePageImage.webp";
@@ -196,7 +196,7 @@ const SquareBlur = styled.div`
   justify-content: center;
 `;
 //-------------------------------------------------------------------
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     title: {
         paddingLeft: "calc(15% + 40px)",
         marginBottom: 40,
@@ -241,15 +241,8 @@ const ServiceCover = styled.div`
 
 function Home() {
     const classes = useStyles();
-    const [sourceLoaded, setSourceLoaded] = useState(false);
-    useEffect(()=>{
-        const img = new Image();
-        img.src = image1;
-        img.onload = () => setSourceLoaded(true);
-    }, [])
-    const style = sourceLoaded ? {} : {visibility: 'hidden'};
     return (
-        <div style={style}>
+        <div>
             <Navbar positioning="fixed" />
             <Slogan>
                 <Trapezoid>

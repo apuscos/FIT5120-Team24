@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import backgroundImg from "./Image/aboutBackground.webp"
 import Navbar from "./Navigation/NavBar";
@@ -152,16 +152,8 @@ function About() {
         setActiveStep(step);
     };
 
-    const [sourceLoaded, setSourceLoaded] = useState(false);
-    useEffect(()=>{
-        const img = new Image();
-        img.src = backgroundImg;
-        img.onload = () => setSourceLoaded(true);
-    }, [])
-    const style = sourceLoaded ? {} : {visibility: 'hidden'};
-
     return (
-        <div style={style}>
+        <div>
             <Navbar />
             <AreaWrapper>
                 <ProductDesc>

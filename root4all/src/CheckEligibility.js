@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Navbar from "./Navigation/NavBar";
 import styled from "styled-components";
 import {useForm} from "react-hook-form";
@@ -172,13 +172,6 @@ function CheckEligibility(){
     const [limit1, setLimit1] = useState(0);
     const [limit2, setLimit2] = useState(0);
     const [userInputData, setUserInputData] =useState({});
-    const [sourceLoaded, setSourceLoaded] = useState(false);
-    useEffect(()=>{
-        const img = new Image();
-        img.src = BackgroundImage;
-        img.onload = () => setSourceLoaded(true);
-    }, [])
-    const style = sourceLoaded ? {} : {visibility: 'hidden'};
     const StyledTableCell = withStyles(() => ({
         head: {
             backgroundColor: "#2BA837",
@@ -419,7 +412,7 @@ function CheckEligibility(){
 
 
     return(
-        <div style={style}>
+        <div>
             {loading ? <LinearProgressStyled color="secondary"/> : null}
             <Navbar/>
             <CheckEligibilityTitle>Check Eligibility</CheckEligibilityTitle>
