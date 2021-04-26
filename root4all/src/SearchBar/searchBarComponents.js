@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import "../font/font.css"
-import searchIcon from "../Image/search.webp";
+import SearchIcon from '@material-ui/icons/Search';
 
 
 export const Area = styled.div`
@@ -34,14 +34,10 @@ export const SearchArea = styled.div`
   margin-top: -20px;
 `;
 
-export const SearchButton = styled.button`
-  background-image: url(${searchIcon});
-  background-size: 25px 25px;
-  background-repeat: no-repeat;
-  background-position: center;
-  border: none;
-  height: 50px;
-  width: 50px;
+export const SearchButton = styled(SearchIcon)`
+  height: 30px;
+  width: 30px;
+  padding: 10px;
   background-color: #a226a2;
   filter: invert(100%);
   cursor:pointer;
