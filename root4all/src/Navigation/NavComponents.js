@@ -1,6 +1,5 @@
 import { NavLink as Link } from 'react-router-dom';
 import styled from 'styled-components';
-import logo from "../Image/logo.webp"
 import "../font/font.css"
 
 
@@ -15,8 +14,8 @@ export const Nav = styled.nav`
   align-items: center;
   z-index: 12;
   position: ${props => props.position || "static"};
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
 `;
 
 export const NavLink = styled(Link)`
@@ -34,15 +33,7 @@ export const NavLink = styled(Link)`
     text-decoration: underline;
   }
 `;
-export const Logo = styled.div`
-  background-image: url(${logo});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  height: 60px;
-  width: 175px;
-  
-`;
+
 
 
 
