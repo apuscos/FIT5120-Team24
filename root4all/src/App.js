@@ -29,7 +29,7 @@ function App() {
         <ThemeProvider theme={Theme}>
             <Router>
                 <ScrollToTop />
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<div/>}>
                     <Switch>
                         <Route path='/' exact component={Home} />
                         <Route path='/home' exact component={Home} />
