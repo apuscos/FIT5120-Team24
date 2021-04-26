@@ -349,6 +349,13 @@ function FindAgency() {
     const scrollRef = useRef(null);
     const [markerClicked, setMarkerClicked] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [sourceLoaded, setSourceLoaded] = useState(false);
+    useEffect(()=>{
+        const img = new Image();
+        img.src = FindAgencyBackground;
+        img.onload = () => setSourceLoaded(true);
+    }, [])
+    const style = sourceLoaded ? {} : {visibility: 'hidden'};
 
     const marks = [
         {
@@ -469,7 +476,7 @@ function FindAgency() {
     }, [allBound,globalMap,markerList, currentlyIdx]);
 
     return (
-        <>
+        <div style={style}>
             {loading ? <LinearProgressStyled color="secondary"/> : null}
             <Navbar />
             <BackgroundWrapper>
@@ -531,7 +538,7 @@ function FindAgency() {
                 }
                 <MapArea ref={mapContainer}/>
             </AgencyInfoArea>
-        </>
+        </div>
 
     )
 }

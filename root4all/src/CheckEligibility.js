@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Navbar from "./Navigation/NavBar";
 import styled from "styled-components";
 import {useForm} from "react-hook-form";
@@ -172,7 +172,14 @@ function CheckEligibility(){
     const [limit1, setLimit1] = useState(0);
     const [limit2, setLimit2] = useState(0);
     const [userInputData, setUserInputData] =useState({});
-    const StyledTableCell = withStyles((theme) => ({
+    const [sourceLoaded, setSourceLoaded] = useState(false);
+    useEffect(()=>{
+        const img = new Image();
+        img.src = BackgroundImage;
+        img.onload = () => setSourceLoaded(true);
+    }, [])
+    const style = sourceLoaded ? {} : {visibility: 'hidden'};
+    const StyledTableCell = withStyles(() => ({
         head: {
             backgroundColor: "#2BA837",
 
@@ -412,7 +419,7 @@ function CheckEligibility(){
 
 
     return(
-        <>
+        <div style={style}>
             {loading ? <LinearProgressStyled color="secondary"/> : null}
             <Navbar/>
             <CheckEligibilityTitle>Check Eligibility</CheckEligibilityTitle>
@@ -501,7 +508,7 @@ function CheckEligibility(){
                     <HiddenSection displayContent={dependentDisplay}>
                         <Label>Number of Dependent Children</Label>
                         <Wrapper>
-                            <SelectionBox {...register("numChildren" , {required: true, valueAsNumber: true})} onChange={(e) => {setResult(-1);}} >
+                            <SelectionBox {...register("numChildren" , {required: true, valueAsNumber: true})} onChange={() => {setResult(-1);}} >
                                 <SelectionOption value="0">0</SelectionOption>
                                 <SelectionOption value="1">1</SelectionOption>
                                 <SelectionOption value="2">2</SelectionOption>
@@ -513,7 +520,7 @@ function CheckEligibility(){
 
                     <Label>Number of Additional Dependent</Label>
                     <Wrapper>
-                        <SelectionBox {...register("numDependent" , {required: true, valueAsNumber: true})} onChange={(e) => {setResult(-1);}}>
+                        <SelectionBox {...register("numDependent" , {required: true, valueAsNumber: true})} onChange={() => {setResult(-1);}}>
                             <SelectionOption value="0">0</SelectionOption>
                             <SelectionOption value="1">1</SelectionOption>
                             <SelectionOption value="2">2</SelectionOption>
@@ -553,7 +560,7 @@ function CheckEligibility(){
                         {(showAssetError && submitClicked) && <WarningMsg>Please enter valid asset number</WarningMsg>}
                     </Wrapper>
                     <Wrapper>
-                        <CheckBoxInput {...register("check")} type={"checkbox"} onChange={(e) => {
+                        <CheckBoxInput {...register("check")} type={"checkbox"} onChange={() => {
                             setResult(-1);
                         }} />
                         <CheckBoxLabel>Need major or full disability modifications</CheckBoxLabel>
@@ -582,7 +589,7 @@ function CheckEligibility(){
 
 
 
-        </>
+        </div>
     );
 }
 

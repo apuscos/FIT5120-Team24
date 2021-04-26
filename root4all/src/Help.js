@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Navbar from "./Navigation/NavBar";
 import styled from "styled-components";
 import Accordion from '@material-ui/core/Accordion';
@@ -186,9 +186,17 @@ function Help() {
         },
     }));
 
+    const [sourceLoaded, setSourceLoaded] = useState(false);
+    useEffect(()=>{
+        const img = new Image();
+        img.src = FAQBackground;
+        img.onload = () => setSourceLoaded(true);
+    }, [])
+    const style = sourceLoaded ? {} : {visibility: 'hidden'};
+
     const classes = useStyles();
     return (
-        <>
+        <div style={style}>
             <Navbar />
             <FaqTitle>
                 <SquareBlur>
@@ -249,7 +257,7 @@ function Help() {
                     )
                 })}
             </FaqArea>
-        </>
+        </div>
     );
 }
 
