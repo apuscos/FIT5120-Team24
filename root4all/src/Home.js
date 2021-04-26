@@ -239,11 +239,9 @@ const ServiceCover = styled.div`
   }
 `;
 
-function Home() {
-    const classes = useStyles();
+function LegendPage () {
     return (
-        <div>
-            <Navbar positioning="fixed" />
+        <>
             <Slogan>
                 <Trapezoid>
                     <SloganTextArea> <HorizontalLine/>  <SubTitle>Victoria</SubTitle> Experiencing homelessness or rough sleeping?</SloganTextArea>
@@ -252,7 +250,16 @@ function Home() {
                 </Trapezoid>
                 <ArrowDown style={{ color:  '#2BA837', height: 50, width: 50}}/>
             </Slogan>
+        </>
+    )
+}
 
+function Home() {
+    const classes = useStyles();
+    return (
+        <div>
+            <Navbar positioning="fixed" />
+            <LegendPage/>
             <ServiceArea>
                 <Grid container md={12} lg={12} xl={12} className={classes.title}>
                     <Typography variant={"h3"}>Services</Typography>
