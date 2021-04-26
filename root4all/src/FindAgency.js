@@ -16,6 +16,7 @@ import Card from '@material-ui/core/Card';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Slider from '@material-ui/core/Slider';
 import FindAgencyBackground from "./Image/FindAgencyBackground.webp"
+import "mapbox-gl/dist/mapbox-gl.css"
 
 
 mapboxgl.workerClass = MapboxWorker;
