@@ -23,6 +23,7 @@ const FaqTitle = styled.div`
   justify-content: center;
   background-image: url(${FAQBackground});
   background-repeat: no-repeat;
+  background-position: top;
   background-size: cover;
   height: 400px;
   margin-bottom: 70px;

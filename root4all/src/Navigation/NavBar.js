@@ -9,7 +9,7 @@ const NavBar = (props) => {
     return (
         <>
             <Nav position={props.positioning}>
-                <NavLink to={"/home"}> <Logo/></NavLink>
+                <NavLink to={"/home"}>  <Logo /> </NavLink>
                 <NavLink to={"/home"}> Home</NavLink>
                 <NavLink to={"/findAgency"} > Find agency</NavLink>
                 <NavLink to={"/checkEligibility"}> Check Eligibility</NavLink>

@@ -39,6 +39,7 @@ const CheckEligibilityTitle = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-color: #7A7DA0;
+  background-position: top;
 `;
 
 const FormArea = styled.form`

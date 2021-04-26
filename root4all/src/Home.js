@@ -225,6 +225,7 @@ const ServiceCover = styled.div`
   background-image: url(${props => props.url});
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   backdrop-filter: blur(100px);
   transform: scale(1);
   transition: transform 0.3s ease;
