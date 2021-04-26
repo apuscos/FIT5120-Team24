@@ -1,16 +1,14 @@
-import React, {useLayoutEffect, Suspense, lazy} from 'react';
+import React, {useLayoutEffect} from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
+import Home from "./Home";
+import Help from "./Help";
+import About from "./About"
+import FindAgency from "./FindAgency";
 import Footer from "./Footer/Footer"
+import CheckEligibility from "./CheckEligibility";
 import { ThemeProvider } from '@material-ui/core/styles'
 import Theme from "./Theme";
 import { useLocation } from "react-router-dom";
-
-const Home = lazy(() => import("./Home"));
-const FindAgency = lazy(() => import("./FindAgency"));
-const Help = lazy(() => import("./Help"));
-const About = lazy(() => import("./About"));
-const CheckEligibility = lazy(() => import("./CheckEligibility"));
 
 function ScrollToTop() {
     const { pathname } = useLocation();
@@ -29,17 +27,15 @@ function App() {
         <ThemeProvider theme={Theme}>
             <Router>
                 <ScrollToTop />
-                <Suspense fallback={<div/>}>
-                    <Switch>
-                        <Route path='/' exact component={Home} />
-                        <Route path='/home' exact component={Home} />
-                        <Route path={"/findAgency"} exact component={FindAgency}/>
-                        <Route path='/help' exact component={Help} />
-                        <Route path='/about' exact component={About} />
-                        <Route path='/checkEligibility' exact component={CheckEligibility} />
-                    </Switch>
-                    <Footer />
-                </Suspense>
+                <Switch>
+                    <Route path='/' exact component={Home} />
+                    <Route path='/home' exact component={Home} />
+                    <Route path={"/findAgency"} exact component={FindAgency}/>
+                    <Route path='/help' exact component={Help} />
+                    <Route path='/about' exact component={About} />
+                    <Route path='/checkEligibility' exact component={CheckEligibility} />
+                </Switch>
+                <Footer />
             </Router>
         </ThemeProvider>
     );
