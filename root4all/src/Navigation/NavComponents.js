@@ -1,7 +1,7 @@
 import { NavLink as Link } from 'react-router-dom';
 import styled from 'styled-components';
 import "../font/font.css"
-import logo from "../Image/logo.webp";
+import logo from "../Image/logo.png";
 
 
 export const Nav = styled.nav`
