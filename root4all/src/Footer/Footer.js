@@ -85,17 +85,17 @@ const Footer = () => {
                 </Section>
                 <Section>
                     <SectionTitle>Resources</SectionTitle>
-                    <ExternalLink target="_blank" href="https://www.housing.vic.gov.au">
+                    <ExternalLink target="_blank" rel="noreferrer" href="https://www.housing.vic.gov.au">
                         <FooterExternalLink>
                             Housing Vic Website
                         </FooterExternalLink>
                     </ExternalLink>
-                    <ExternalLink target="_blank" href="https://www.healthcollect.vic.gov.au/HospitalLists/MainHospitalList.aspx">
+                    <ExternalLink target="_blank" rel="noreferrer" href="https://www.healthcollect.vic.gov.au/HospitalLists/MainHospitalList.aspx">
                         <FooterExternalLink>
                             Victorian Hospital Lists
                         </FooterExternalLink>
                     </ExternalLink>
-                    <ExternalLink target="_blank" href="https://www.premier.vic.gov.au/homes-homeless-victorians-during-pandemic-and-beyond">
+                    <ExternalLink target="_blank" rel="noreferrer" href="https://www.premier.vic.gov.au/homes-homeless-victorians-during-pandemic-and-beyond">
                         <FooterExternalLink>
                             Homes For Homeless Victorians During Pandemic And Beyond
                         </FooterExternalLink>
