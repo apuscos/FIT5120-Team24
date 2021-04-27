@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import styled from "styled-components";
 import * as Search from "./SearchBar/searchBarComponents"
 import {API} from "aws-amplify";
-import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Navbar from "./Navigation/NavBar";
 import mapboxgl from 'mapbox-gl';
@@ -17,6 +16,12 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Slider from '@material-ui/core/Slider';
 import FindAgencyBackground from "./Image/FindAgencyBackground.webp"
 import "mapbox-gl/dist/mapbox-gl.css"
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 
 
 mapboxgl.workerClass = MapboxWorker;
@@ -45,13 +50,11 @@ const CheckBoxArea = styled.div`
   height: 20px;
   display: flex;
   margin-left: calc(-50% + 80px);
-  margin-top: -15px;
 `;
 
 const CheckBox = styled.input`
   height: 20px;
   width: 20px;
-  margin-top: -55px;
 
   &:checked {
     background: blue;
@@ -65,18 +68,7 @@ const CheckBoxLabel = styled.div`
   font-weight: 600;
   line-height: 30px;
   font-size: 1.5em;
-  margin-top: -55px;
 `;
-
-const RadiusLabel = styled.div`
-  height: 20px;
-  color: black;
-  font-family: 'Baloo Bhai 2', cursive;
-  font-weight: 600;
-  line-height: 30px;
-  font-size: 1.5em;
-`;
-
 
 const WarningTextArea = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
@@ -88,7 +80,6 @@ const WarningTextArea = styled.div`
   font-size: 1.5em;
   width: 100%;
   height: 30px;
-  margin-bottom: -20px;
 `;
 
 const ResultArea = styled.div`
@@ -113,14 +104,17 @@ const MapArea = styled.div`
 `;
 
 const SliderStyled = styled(Slider)`
-  color: green;
-  && {width: 400px;}
+  
+  && {
+    width: 400px;
+    color: green;
+  }
 `
 
 
 
 
-async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showScrollbar, setLoading, radius) {
+async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showScrollbar, setLoading, setNearByDialogs, setHospitalData, setRadius) {
     if (!checkInputValid(inputVal)) {
         warningMsg("Invalid input");
     } else {
@@ -140,11 +134,11 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showS
         const suburbResult = data["results"];
         console.log(suburbResult)
         let result = [];
-        let hospitalData = [];
         if (hospitalCheck) {
             // Get all agencies that near hospital
             const hospital = await API.get("roof4all", '/checkagencynearhospital', {});
-            hospitalData = hospital["output"]
+            const hospitalData = hospital["output"];
+            setHospitalData(hospitalData);
             // Matching the agencies near hospital with the agencies in the specific suburb
             for (let i = 0; i < hospitalData.length; i++) {
                 const hospitalAgency = hospitalData[i];
@@ -163,23 +157,9 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showS
         setLoading(false);
         // If No results got, get Nearby agency
         if (result.length === 0) {
+            setRadius(5);
             callback([]);
-            const options = {
-                title: 'No Record Found',
-                message: 'Do you want to find agency nearby?',
-                buttons: [
-                    {
-                        label: 'Yes',
-                        onClick: () => getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar, setLoading, radius)
-                    },
-                    {
-                        label: 'No',
-                        onClick: () => warningMsg("Try another postcode or suburb")
-                    }
-                ]
-
-            };
-            confirmAlert(options)
+            setNearByDialogs(true)
         } else {
             callback(result);
             showScrollbar(false);
@@ -187,7 +167,7 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showS
     }
 }
 
-async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar, setLoading, radius) {
+async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar, setLoading, radius, check, setSuggestDialog) {
     // Get nearby agency with specific input
     setLoading(true);
     const data = await API.get("roof4all", '/findnearagency ', {
@@ -204,7 +184,8 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showS
     }
     let result = [];
     // Compare with hospital data just get
-    if (hospitalData.length > 0) {
+    if (check) {
+        console.log(hospitalData);
         for (let i = 0; i < hospitalData.length; i++) {
             const hospitalAgency = hospitalData[i];
             for (let j = 0; j < data["output"].length; j++) {
@@ -221,22 +202,7 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showS
     setLoading(false);
     // If no results, get results in the melbourne city
     if (result.length === 0) {
-        const options = {
-            title: 'No nearby agency Found',
-            message: 'Sorry, there are no nearby agencies . We can still suggest you some agencies,if you would like',
-            buttons: [
-                {
-                    label: 'Yes',
-                    onClick: () => getAgencyInMelbourne(callback, showScrollbar, setLoading)
-                },
-                {
-                    label: 'No',
-                    onClick: () => warningMsg("Try another postcode or suburb")
-                }
-            ]
-
-        };
-        confirmAlert(options)
+        setSuggestDialog(true);
     } else {
         showScrollbar(false)
         callback(result)
@@ -260,7 +226,7 @@ async function getAgencyInMelbourne(callback, showScrollbar, setLoading) {
     }
 }
 
-async function checkEligibility(inputVal, callback, listInfo, setScrollbarHidden, setLoading) {
+async function checkEligibility(inputVal, callback, listInfo, setScrollbarHidden, setLoading, setCheckEligibilityDialog) {
     if (inputVal.length <= 0) {
         callback(`Please enter the agency name`);
         return
@@ -276,22 +242,7 @@ async function checkEligibility(inputVal, callback, listInfo, setScrollbarHidden
         if (data["found"]) {
             callback(`${inputVal} agency is a government registered agency`)
         } else {
-            const options = {
-                title: 'Oops!',
-                message: `${inputVal} agency is not a government registered agency, if you would like, we may suggest you some agencies in the city`,
-                buttons: [
-                    {
-                        label: 'Yes',
-                        onClick: () => getAgencyInMelbourne(listInfo, setScrollbarHidden, setLoading)
-                    },
-                    {
-                        label: 'No',
-                        onClick: () => callback(`You can still search for agencies in suburb using the find agency feature`)
-                    }
-                ]
-
-            };
-            confirmAlert(options)
+            setCheckEligibilityDialog(true);
         }
     } catch (err) {
         console.log("Error:", err)
@@ -336,11 +287,7 @@ function FindAgency() {
     const [eligibleResult, setEligibleResult] = useState("");
     const [check, setCheck] = useState(false);
     const [radius, setRadius] = useState(5);
-
     const mapContainer = useRef();
-    const [lng] = useState(145.00916604815802);
-    const [lat] = useState(-37.78036799990421);
-    const [zoom] = useState(9);
     const [scrollbarHidden, setScrollbarHidden] = useState(true);
     const [globalMap, setMap]= useState(null);
     const [allBound, setAllBound] = useState([]);
@@ -349,6 +296,10 @@ function FindAgency() {
     const scrollRef = useRef(null);
     const [markerClicked, setMarkerClicked] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [nearByDialogs, setNearByDialogs] = useState(false);
+    const [hospitalData, setHospitalData] = useState([]);
+    const [suggestDialog, setSuggestDialog] = useState(false);
+    const [checkEligibilityDialog, setCheckEligibilityDialog] = useState(false);
 
     const marks = [
         {
@@ -398,13 +349,12 @@ function FindAgency() {
     }
 
 
-
     useEffect(() => {
         const map = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v11?optimize=true',
-            center: [lng, lat],
-            zoom: zoom
+            center: [145.00916604815802, -37.78036799990421],
+            zoom: 9
         });
         setMap(map);
         setCurrentlyIdx(-1);
@@ -446,7 +396,7 @@ function FindAgency() {
         }
 
         return () => map.remove();
-    }, [lng, lat, zoom, result]);
+    }, [result]);
 
     useEffect(()=> {
         if (currentlyIdx !== -1) {
@@ -468,17 +418,126 @@ function FindAgency() {
 
     }, [allBound,globalMap,markerList, currentlyIdx]);
 
+    const closeNearByDisagree = () => {
+        setNearByDialogs(false);
+        setWarningMsg("Try another postcode or suburb");
+    }
+
+    const closeNearByAgree = () => {
+        setNearByDialogs(false);
+        getNearAgency(input, setResult, setWarningMsg, hospitalData, setScrollbarHidden, setLoading, radius, check, setSuggestDialog).then(_ => {})
+    }
+    const closeSuggestDisagree = () => {
+        setSuggestDialog(false);
+        setWarningMsg("Try another postcode or suburb");
+    }
+
+    const closeSuggestAgree = () => {
+        setSuggestDialog(false);
+        getAgencyInMelbourne(setResult, setScrollbarHidden, setLoading).then(_ =>{})
+    }
+
+
+    const closeCheckDisagree = () => {
+        setCheckEligibilityDialog(false);
+        setEligibleResult("You can still search for agencies in suburb using the find agency feature");
+    }
+
+    const closeCheckAgree = () => {
+        setCheckEligibilityDialog(false);
+        getAgencyInMelbourne(setResult, setScrollbarHidden, setLoading).then(_ => {});
+
+    }
+
+
     return (
         <div>
             {loading ? <LinearProgressStyled color="secondary"/> : null}
             <Navbar />
+            <Dialog
+                open={nearByDialogs}
+                onClose={closeNearByDisagree}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{"No Record Found"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Do you want to find agency nearby?
+                        <div>Set your desired radius:</div>
+                        <SliderStyled
+                            defaultValue={5}
+                            getAriaValueText={valuetext}
+                            aria-labelledby="discrete-slider-always"
+                            step={5}
+                            marks={marks}
+                            min={5}
+                            max={50}
+                            onChange={(_, value) => {
+                                setRadius(value);
+                            }}
+                        />
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={closeNearByDisagree} color="primary">
+                        Disagree
+                    </Button>
+                    <Button onClick={closeNearByAgree} color="primary" autoFocus>
+                        Agree
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            <Dialog
+                open={suggestDialog}
+                onClose={closeSuggestDisagree}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{"No nearby agency found"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Sorry, there are no nearby agencies. We can still suggest you some agencies, if you would like
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={closeSuggestDisagree} color="primary">
+                        Disagree
+                    </Button>
+                    <Button onClick={closeSuggestAgree} color="primary" autoFocus>
+                        Agree
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            <Dialog
+                open={checkEligibilityDialog}
+                onClose={closeCheckDisagree}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{"Oops!"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {eligibleInput} agency is not a government registered agency, if you would like, we may suggest you some agencies in the city
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={closeCheckDisagree} color="primary">
+                        Disagree
+                    </Button>
+                    <Button onClick={closeCheckAgree} color="primary" autoFocus>
+                        Agree
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
             <BackgroundWrapper>
                 <Search.Area>
                     <Search.TextArea>Check if an agency is registered</Search.TextArea>
                     <Search.SearchArea>
                         <Search.InputArea onChange={e => setEligibleInput(e.target.value)}
                                           placeholder={"Please Enter Agency name"}/>
-                        <Search.SearchButton onClick={() => {checkEligibility(eligibleInput, setEligibleResult, setResult, setScrollbarHidden, setLoading);
+                        <Search.SearchButton onClick={() => {checkEligibility(eligibleInput, setEligibleResult, setResult, setScrollbarHidden, setLoading, setCheckEligibilityDialog);
                             setScrollbarHidden(true);
                         }}/>
                     </Search.SearchArea>
@@ -490,31 +549,16 @@ function FindAgency() {
                         <Search.InputArea onChange={e => setInput(e.target.value)}
                                           placeholder={"Please Enter PostCode/Suburb"}/>
                         <Search.SearchButton onClick={() => {
-                            agencySuburb(input, setResult, setWarningMsg, check, setScrollbarHidden, setLoading,radius);
+                            agencySuburb(input, setResult, setWarningMsg, check, setScrollbarHidden, setLoading, setNearByDialogs, setHospitalData, setRadius);
                             setScrollbarHidden(true);
                         }}/>
                     </Search.SearchArea>
-                    <RadiusLabel>Radius setting</RadiusLabel>
-                    <SliderStyled
-                        defaultValue={5}
-                        getAriaValueText={valuetext}
-                        aria-labelledby="discrete-slider-always"
-                        step={5}
-                        marks={marks}
-                        min={5}
-                        max={50}
-                        onChange={(_, value) => {
-                            setRadius(value);
-                        }}
-                    />
                     <CheckBoxArea>
                         <CheckBox type="checkbox" checked={check} onChange={() => {
                             setCheck(!check)
                         }}/>
                         <CheckBoxLabel>Near Hospital</CheckBoxLabel>
                     </CheckBoxArea>
-
-
                     <WarningTextArea>{warningMsg}</WarningTextArea>
                 </Search.Area>
             </BackgroundWrapper>

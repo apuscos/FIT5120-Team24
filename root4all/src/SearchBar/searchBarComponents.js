@@ -35,9 +35,11 @@ export const SearchArea = styled.div`
 `;
 
 export const SearchButton = styled(SearchIcon)`
-  height: 30px;
-  width: 30px;
-  padding: 10px;
+  && {
+    height: 30px;
+    width: 30px;
+    padding: 10px;
+  }
   background-color: #a226a2;
   filter: invert(100%);
   cursor:pointer;
