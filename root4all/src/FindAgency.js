@@ -2,7 +2,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import styled from "styled-components";
 import * as Search from "./SearchBar/searchBarComponents"
 import {API} from "aws-amplify";
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import Navbar from "./Navigation/NavBar";
 import mapboxgl from 'mapbox-gl';
 // eslint-disable-next-line import/no-webpack-loader-syntax
