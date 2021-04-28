@@ -34,6 +34,10 @@ const BackgroundWrapper = styled.div`
   background-position: center;
 `;
 
+const GreenButton = styled(Button)`
+    color: #2BA837;
+`;
+
 
 const LinearProgressStyled = styled(LinearProgress)`
   && {
@@ -479,12 +483,12 @@ function FindAgency() {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={closeNearByDisagree} color="primary">
+                    <GreenButton onClick={closeNearByDisagree} color="primary">
                         Disagree
-                    </Button>
-                    <Button onClick={closeNearByAgree} color="primary" autoFocus>
+                    </GreenButton>
+                    <GreenButton onClick={closeNearByAgree} color="primary" autoFocus>
                         Agree
-                    </Button>
+                    </GreenButton>
                 </DialogActions>
             </Dialog>
             <Dialog
@@ -500,12 +504,12 @@ function FindAgency() {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={closeSuggestDisagree} color="primary">
+                    <GreenButton onClick={closeSuggestDisagree} color="primary">
                         Disagree
-                    </Button>
-                    <Button onClick={closeSuggestAgree} color="primary" autoFocus>
+                    </GreenButton>
+                    <GreenButton onClick={closeSuggestAgree} color="primary" autoFocus>
                         Agree
-                    </Button>
+                    </GreenButton>
                 </DialogActions>
             </Dialog>
             <Dialog
@@ -521,12 +525,12 @@ function FindAgency() {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={closeCheckDisagree} color="primary">
+                    <GreenButton onClick={closeCheckDisagree} color="primary">
                         Disagree
-                    </Button>
-                    <Button onClick={closeCheckAgree} color="primary" autoFocus>
+                    </GreenButton>
+                    <GreenButton onClick={closeCheckAgree} color="primary" autoFocus>
                         Agree
-                    </Button>
+                    </GreenButton>
                 </DialogActions>
             </Dialog>
 
