@@ -92,7 +92,7 @@ const ResultArea = styled.div`
   margin-bottom: 20px;
   margin-top: 10px;
   color: ${props => 
-     props.msg === `You can still search for agencies in suburb using the find agency feature` ? "red": "#2BA837"
+     props.msg === "You can still search for agencies in suburb using the find agency feature" ? "red": "#2BA837"
   };
 `;
 
@@ -118,56 +118,47 @@ const SliderStyled = styled(Slider)`
 
 
 async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showScrollbar, setLoading, setNearByDialogs, setHospitalData, setRadius) {
-    if (!checkInputValid(inputVal)) {
-        warningMsg("Invalid input");
-    } else {
-        warningMsg("");
-        // Get agencies in the specific suburb
-        setLoading(true);
-        const data = await API.get("roof4all", '/agencyinsuburb', {
-            "queryStringParameters": {
-                "inputString": inputVal
-            }
-        });
-        if (data["error"]){
-            warningMsg("Invalid suburb input");
-            setLoading(false);
-            return;
+    const data = await API.get("roof4all", '/agencyinsuburb', {
+        "queryStringParameters": {
+            "inputString": inputVal
         }
-        const suburbResult = data["results"];
-        console.log(suburbResult)
-        let result = [];
-        if (hospitalCheck) {
-            // Get all agencies that near hospital
-            const hospital = await API.get("roof4all", '/checkagencynearhospital', {});
-            const hospitalData = hospital["output"];
-            setHospitalData(hospitalData);
-            // Matching the agencies near hospital with the agencies in the specific suburb
-            for (let i = 0; i < hospitalData.length; i++) {
-                const hospitalAgency = hospitalData[i];
-                for (let j = 0; j < suburbResult.length; j++) {
-                    const suburbAgency = suburbResult[j];
-                    if (hospitalAgency["Agency_Name"] === suburbAgency["Agency_Name"]) {
-                        result.push(suburbAgency);
-                        break;
-                    }
+    });
+    if (data["error"]){
+        warningMsg("Invalid suburb input");
+        setLoading(false);
+        return;
+    }
+    const suburbResult = data["results"];
+    let result = [];
+    if (hospitalCheck) {
+        // Get all agencies that near hospital
+        const hospital = await API.get("roof4all", '/checkagencynearhospital', {});
+        const hospitalData = hospital["output"];
+        setHospitalData(hospitalData);
+        // Matching the agencies near hospital with the agencies in the specific suburb
+        for (const hospitalAgency of hospitalData) {
+            for (const suburbAgency of suburbResult) {
+                if (hospitalAgency["Agency_Name"] === suburbAgency["Agency_Name"]) {
+                    result.push(suburbAgency);
+                    break;
                 }
             }
-        } else {
-            // No hospital check, just return the agencies in specific suburb
-            result = suburbResult
         }
-        setLoading(false);
-        // If No results got, get Nearby agency
-        if (result.length === 0) {
-            setRadius(5);
-            callback([]);
-            setNearByDialogs(true)
-        } else {
-            callback(result);
-            showScrollbar(false);
-        }
+    } else {
+        // No hospital check, just return the agencies in specific suburb
+        result = suburbResult
     }
+    setLoading(false);
+    // If No results got, get Nearby agency
+    if (result.length === 0) {
+        setRadius(5);
+        callback([]);
+        setNearByDialogs(true)
+    } else {
+        callback(result);
+        showScrollbar(false);
+    }
+
 }
 
 async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar, setLoading, radius, check, setSuggestDialog) {
@@ -179,7 +170,6 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showS
             "radius": radius
         }
     });
-    console.log(data);
     if (data["error"]){
         warningMsg("Invalid suburb input");
         setLoading(false);
@@ -188,11 +178,8 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showS
     let result = [];
     // Compare with hospital data just get
     if (check) {
-        console.log(hospitalData);
-        for (let i = 0; i < hospitalData.length; i++) {
-            const hospitalAgency = hospitalData[i];
-            for (let j = 0; j < data["output"].length; j++) {
-                const suburbAgency = data["output"][j];
+        for (const hospitalAgency of hospitalData) {
+            for (const suburbAgency of data["output"]) {
                 if (hospitalAgency["Agency_Name"] === suburbAgency["Agency_Name"]) {
                     result.push(hospitalAgency);
                     break;
@@ -263,22 +250,14 @@ function checkInputValid(inputVal) {
 
 function getBoundingBox (data) {
     let bounds = {},latitude, longitude;
-    for (let j = 0; j < data.length; j++) {
-
-        longitude = data[j][0];
-        latitude = data[j][1];
-
-        // Update the bounds recursively by comparing the current
-        // xMin/xMax and yMin/yMax with the coordinate
-        // we're currently checking
+    for (const latlng of data) {
+        longitude = latlng[0];
+        latitude = latlng[1];
         bounds.xMin = bounds.xMin < longitude ? bounds.xMin : longitude;
         bounds.xMax = bounds.xMax > longitude ? bounds.xMax : longitude;
         bounds.yMin = bounds.yMin < latitude ? bounds.yMin : latitude;
         bounds.yMax = bounds.yMax > latitude ? bounds.yMax : latitude;
     }
-    // Returns an object that contains the bounds of this GeoJSON
-    // data. The keys of this object describe a box formed by the
-    // northwest (xMin, yMin) and southeast (xMax, yMax) coordinates.
     return bounds;
 }
 
@@ -413,8 +392,8 @@ function FindAgency() {
             globalMap.fitBounds([[lngItem - 0.001, latItem - 0.001], [lngItem + 0.001, latItem + 0.001]], {padding: 40});
             markerList[currentlyIdx].getPopup().addTo(globalMap);
         } else if (allBound.length > 0){
-            for(let i = 0; i < markerList.length; i++){
-                markerList[i].getPopup().remove();
+            for(const marker of markerList){
+                marker.getPopup().remove();
             }
             globalMap.fitBounds(allBound, {padding: 40});
         }
@@ -428,7 +407,9 @@ function FindAgency() {
 
     const closeNearByAgree = () => {
         setNearByDialogs(false);
-        getNearAgency(input, setResult, setWarningMsg, hospitalData, setScrollbarHidden, setLoading, radius, check, setSuggestDialog).then(_ => {})
+        getNearAgency(input, setResult, setWarningMsg, hospitalData, setScrollbarHidden, setLoading, radius, check, setSuggestDialog).then(_ => {
+            // This is intentional
+        })
     }
     const closeSuggestDisagree = () => {
         setSuggestDialog(false);
@@ -437,7 +418,9 @@ function FindAgency() {
 
     const closeSuggestAgree = () => {
         setSuggestDialog(false);
-        getAgencyInMelbourne(setResult, setScrollbarHidden, setLoading).then(_ =>{})
+        getAgencyInMelbourne(setResult, setScrollbarHidden, setLoading).then(_ =>{
+            // This is intentional
+        })
     }
 
 
@@ -448,8 +431,23 @@ function FindAgency() {
 
     const closeCheckAgree = () => {
         setCheckEligibilityDialog(false);
-        getAgencyInMelbourne(setResult, setScrollbarHidden, setLoading).then(_ => {});
+        getAgencyInMelbourne(setResult, setScrollbarHidden, setLoading).then(_ => {
+            // This is intentional
+        });
 
+    }
+
+    const handleAgencySearch = () => {
+        if (!checkInputValid(input)) {
+            setWarningMsg("Invalid input");
+        } else {
+            setWarningMsg("");
+            setLoading(true);
+            setScrollbarHidden(true);
+            agencySuburb(input, setResult, setWarningMsg, check, setScrollbarHidden, setLoading, setNearByDialogs, setHospitalData, setRadius).then(_ => {
+                //Undefined
+            });
+        }
     }
 
 
@@ -540,7 +538,9 @@ function FindAgency() {
                     <Search.SearchArea>
                         <Search.InputArea onChange={e => setEligibleInput(e.target.value)}
                                           placeholder={"Please Enter Agency name"}/>
-                        <Search.SearchButton onClick={() => {checkEligibility(eligibleInput, setEligibleResult, setResult, setScrollbarHidden, setLoading, setCheckEligibilityDialog);
+                        <Search.SearchButton onClick={() => {checkEligibility(eligibleInput, setEligibleResult, setResult, setScrollbarHidden, setLoading, setCheckEligibilityDialog).then(_ => {
+                            // This is intentional
+                        });
                             setScrollbarHidden(true);
                         }}/>
                     </Search.SearchArea>
@@ -551,10 +551,7 @@ function FindAgency() {
                     <Search.SearchArea>
                         <Search.InputArea onChange={e => setInput(e.target.value)}
                                           placeholder={"Please Enter PostCode/Suburb"}/>
-                        <Search.SearchButton onClick={() => {
-                            agencySuburb(input, setResult, setWarningMsg, check, setScrollbarHidden, setLoading, setNearByDialogs, setHospitalData, setRadius);
-                            setScrollbarHidden(true);
-                        }}/>
+                        <Search.SearchButton onClick={handleAgencySearch}/>
                     </Search.SearchArea>
                     <CheckBoxArea>
                         <CheckBox type="checkbox" checked={check} onChange={() => {
