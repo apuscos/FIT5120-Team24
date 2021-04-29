@@ -281,13 +281,17 @@ app.get('/findnearagency', function (req, res) {
                 console.error(error)
             } else {
                 let output = [];
-                for (let i = 0; i < results.length; i++){
-                    let agency = results[i];
-                    const agencyLat = agency["Lat"];
-                    const agencyLng = agency["Lng"];
-                    const distance = getDistanceFromLatLonInKm(suburbLat, suburbLng, agencyLat, agencyLng);
-                    if (distance <= radius){
-                        output.push(agency);
+                if (radius > 50){
+                    output = results;
+                } else {
+                    for (let i = 0; i < results.length; i++){
+                        let agency = results[i];
+                        const agencyLat = agency["Lat"];
+                        const agencyLng = agency["Lng"];
+                        const distance = getDistanceFromLatLonInKm(suburbLat, suburbLng, agencyLat, agencyLng);
+                        if (distance <= radius){
+                            output.push(agency);
+                        }
                     }
                 }
                 res.json({success: 'get call succeed!', output});

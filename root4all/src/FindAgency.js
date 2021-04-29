@@ -35,7 +35,7 @@ const BackgroundWrapper = styled.div`
 `;
 
 const GreenButton = styled(Button)`
-    color: #2BA837;
+    && {color: #2BA837;}
 `;
 
 
@@ -109,7 +109,7 @@ const MapArea = styled.div`
 const SliderStyled = styled(Slider)`
   
   && {
-    width: 400px;
+    width: 500px;
     color: green;
   }
 `
@@ -164,6 +164,7 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showS
 async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar, setLoading, radius, check, setSuggestDialog) {
     // Get nearby agency with specific input
     setLoading(true);
+    console.log(radius);
     const data = await API.get("roof4all", '/findnearagency ', {
         "queryStringParameters": {
             "inputString": inputVal,
@@ -189,6 +190,7 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showS
     } else {
         result = data["output"];
     }
+    console.log(result);
     setLoading(false);
     // If no results, get results in the melbourne city
     if (result.length === 0) {
@@ -323,6 +325,10 @@ function FindAgency() {
         {
             value: 50,
             label: '50KM',
+        },
+        {
+            value: 55,
+            label: '>50KM'
         }
     ];
 
@@ -473,7 +479,7 @@ function FindAgency() {
                             step={5}
                             marks={marks}
                             min={5}
-                            max={50}
+                            max={55}
                             onChange={(_, value) => {
                                 setRadius(value);
                             }}
