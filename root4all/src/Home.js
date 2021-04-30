@@ -214,7 +214,7 @@ const useStyles = makeStyles(() => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        height: 200,
+        height: 250,
         paddingLeft: 30,
         paddingRight: 30,
         flexDirection: "column"
@@ -278,9 +278,9 @@ function Home() {
                                     </ServiceCover>
                                 </LinkNoUnderline>
                             </Grid>
-                            <Grid item >
+                            <Grid item md={12} lg={12} xl={12}>
                                 <Paper elevation={0} className={classes.serviceIntro}>
-                                    <Typography variant={"h4"} >Looking for a Government Housing Agency?</Typography>
+                                    <Typography align={"center"} variant={"h4"} >Looking for a Government Housing Agency?</Typography>
                                     <br/>
                                     <Typography variant={"h5"}>Let us help you. Type in your postal code or your suburb to find the agencies that are nearby.</Typography>
                                 </Paper>
@@ -299,7 +299,7 @@ function Home() {
                                     </ServiceCover>
                                 </LinkNoUnderline>
                             </Grid>
-                            <Grid item >
+                            <Grid item md={12} lg={12} xl={12}>
                                 <Paper elevation={0} className={classes.serviceIntro}>
                                     <Typography variant={"h4"} >Is your agency legit?</Typography>
                                     <br/>
@@ -320,7 +320,7 @@ function Home() {
                                     </ServiceCover>
                                 </LinkNoUnderline>
                             </Grid>
-                            <Grid item >
+                            <Grid item md={12} lg={12} xl={12}>
                                 <Paper elevation={0} className={classes.serviceIntro}>
                                     <Typography variant={"h4"} >Are you eligible for Social Housing?</Typography>
                                     <br/>
