@@ -1,21 +1,29 @@
 import { createMuiTheme }  from '@material-ui/core/styles'
+import {responsiveFontSizes} from "@material-ui/core";
 
-const Theme = createMuiTheme({
+let Theme = createMuiTheme({
     typography: {
         fontFamily: '"Baloo Bhai 2", cursive',
         h3: {
-            fontFamily: '"Baloo Bhai 2", cursive',
             fontWeight: 600
         },
         h4: {
-            fontFamily: '"Baloo Bhai 2", cursive',
             fontWeight: 700
         },
         h5: {
-            fontFamily: '"Baloo Bhai 2", cursive',
             fontWeight: 500
+        },
+        button: {
+            fontWeight:600,
+            fontSize: 16
         }
     },
+    palette: {
+        secondary: {
+            main: "#2BA837",
+        }
+    }
 })
+Theme = responsiveFontSizes(Theme);
 
 export default Theme

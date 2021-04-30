@@ -21,6 +21,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import {TextField, Typography} from "@material-ui/core";
 
 
 mapboxgl.workerClass = MapboxWorker;
@@ -92,7 +93,7 @@ const ResultArea = styled.div`
   margin-bottom: 20px;
   margin-top: 10px;
   color: ${props => 
-     props.msg === "You can still search for agencies in suburb using the find agency feature" ? "red": "#2BA837"
+     !props.msg ? "red": "#2BA837"
   };
 `;
 
@@ -218,9 +219,10 @@ async function getAgencyInMelbourne(callback, showScrollbar, setLoading) {
     }
 }
 
-async function checkEligibility(inputVal, callback, listInfo, setScrollbarHidden, setLoading, setCheckEligibilityDialog) {
+async function checkEligibility(inputVal, callback, setScrollbarHidden, setLoading, setEligibleValid) {
     if (inputVal.length <= 0) {
         callback(`Please enter the agency name`);
+        setEligibleValid(false);
         return
     }
     try {
@@ -233,8 +235,10 @@ async function checkEligibility(inputVal, callback, listInfo, setScrollbarHidden
         setLoading(false);
         if (data["found"]) {
             callback(`${inputVal} agency is a government registered agency`)
+            setEligibleValid(true);
         } else {
-            setCheckEligibilityDialog(true);
+            callback(`${inputVal} agency is not a government registered agency`)
+            setEligibleValid(false);
         }
     } catch (err) {
         console.log("Error:", err)
@@ -284,6 +288,7 @@ function FindAgency() {
     const [hospitalData, setHospitalData] = useState([]);
     const [suggestDialog, setSuggestDialog] = useState(false);
     const [checkEligibilityDialog, setCheckEligibilityDialog] = useState(false);
+    const [eligibleValid, setEligibleValid] = useState(false);
 
     const marks = [
         {
@@ -432,14 +437,15 @@ function FindAgency() {
 
     const closeCheckDisagree = () => {
         setCheckEligibilityDialog(false);
-        setEligibleResult("You can still search for agencies in suburb using the find agency feature");
     }
 
     const closeCheckAgree = () => {
+        setEligibleResult("");
+        setEligibleValid(false);
         setCheckEligibilityDialog(false);
-        getAgencyInMelbourne(setResult, setScrollbarHidden, setLoading).then(_ => {
-            // This is intentional
-        });
+        checkEligibility(eligibleInput, setEligibleResult, setScrollbarHidden, setLoading, setEligibleValid).then(_ => {
+            //Blank
+        })
 
     }
 
@@ -454,6 +460,10 @@ function FindAgency() {
                 //Undefined
             });
         }
+    }
+
+    const handleCheckAgencyRegistered = () => {
+        setCheckEligibilityDialog(true);
     }
 
 
@@ -519,38 +529,39 @@ function FindAgency() {
             <Dialog
                 open={checkEligibilityDialog}
                 onClose={closeCheckDisagree}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
+                aria-labelledby="form-dialog-title"
+                aria-describedby="form-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{"Oops!"}</DialogTitle>
+                <DialogTitle id="form-dialog-title">{"Check agency is registered"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        {eligibleInput} agency is not a government registered agency, if you would like, we may suggest you some agencies in the city
+                        To check if agency is registered, please enter the agency name here.
                     </DialogContentText>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Agency name"
+                        type="Agency name"
+                        fullWidth
+                        onChange={e => setEligibleInput(e.target.value)}
+                    />
                 </DialogContent>
                 <DialogActions>
-                    <GreenButton onClick={closeCheckDisagree} color="primary">
-                        Disagree
-                    </GreenButton>
-                    <GreenButton onClick={closeCheckAgree} color="primary" autoFocus>
-                        Agree
-                    </GreenButton>
+                    <Button onClick={closeCheckDisagree} color="secondary">
+                        Cancel
+                    </Button>
+                    <Button onClick={closeCheckAgree} color="secondary" autoFocus>
+                        Submit
+                    </Button>
                 </DialogActions>
             </Dialog>
 
             <BackgroundWrapper>
                 <Search.Area>
-                    <Search.TextArea>Check if an agency is registered</Search.TextArea>
-                    <Search.SearchArea>
-                        <Search.InputArea onChange={e => setEligibleInput(e.target.value)}
-                                          placeholder={"Please Enter Agency name"}/>
-                        <Search.SearchButton onClick={() => {checkEligibility(eligibleInput, setEligibleResult, setResult, setScrollbarHidden, setLoading, setCheckEligibilityDialog).then(_ => {
-                            // This is intentional
-                        });
-                            setScrollbarHidden(true);
-                        }}/>
-                    </Search.SearchArea>
-                    <ResultArea msg={eligibleResult}>{eligibleResult}</ResultArea>
+                    <Search.TextArea>Already know your agency? Click to see if it is registered.</Search.TextArea>
+                    <Button variant="contained" type="submit" color={"secondary"}  onClick={handleCheckAgencyRegistered}><Typography variant={"button"} color={"textPrimary"}>Check</Typography></Button>
+                    <ResultArea msg={eligibleValid}>{eligibleResult}</ResultArea>
                 </Search.Area>
                 <Search.Area>
                     <Search.TextArea>Search agency by Postcode or Suburb name</Search.TextArea>

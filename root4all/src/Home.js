@@ -230,12 +230,14 @@ const ServiceCover = styled.div`
   background-position: center;
   backdrop-filter: blur(100px);
   transform: scale(1);
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
   color: white;
+  overflow: hidden;
 
   &:hover {
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
     transform: scale(0.9);
+    border-radius: 19px;
   }
 `;
 
@@ -271,7 +273,7 @@ function Home() {
                                 <LinkNoUnderline to={"/findAgency"}>
                                     <ServiceCover url={SearchMin} >
                                         <SquareBlur>
-                                            <Typography variant={"h5"} gutterBottom>Find agency</Typography>
+                                            <Typography variant={"h5"}>Find agency</Typography>
                                         </SquareBlur>
                                     </ServiceCover>
                                 </LinkNoUnderline>
@@ -280,7 +282,7 @@ function Home() {
                                 <Paper elevation={0} className={classes.serviceIntro}>
                                     <Typography variant={"h4"} >Looking for a Government Housing Agency?</Typography>
                                     <br/>
-                                    <Typography variant={"h5"} gutterBottom>Let us help you. Type in your postal code or your suburb to find the agencies that are nearby.</Typography>
+                                    <Typography variant={"h5"}>Let us help you. Type in your postal code or your suburb to find the agencies that are nearby.</Typography>
                                 </Paper>
                             </Grid>
                         </Paper>
@@ -292,7 +294,7 @@ function Home() {
                                 <LinkNoUnderline to={"/findAgency"}>
                                     <ServiceCover url={FindAgency}>
                                         <SquareBlur>
-                                            <Typography variant={"h5"} gutterBottom>Check agency</Typography>
+                                            <Typography variant={"h5"}>Check agency</Typography>
                                         </SquareBlur>
                                     </ServiceCover>
                                 </LinkNoUnderline>
@@ -301,7 +303,7 @@ function Home() {
                                 <Paper elevation={0} className={classes.serviceIntro}>
                                     <Typography variant={"h4"} >Is your agency legit?</Typography>
                                     <br/>
-                                    <Typography variant={"h5"} gutterBottom>Let us save you from the scams surrounding the public housing area. Type in the agency name, and check if it is registered with the government.</Typography>
+                                    <Typography variant={"h5"}>Let us save you from the scams surrounding the public housing area. Type in the agency name, and check if it is registered with the government.</Typography>
                                 </Paper>
                             </Grid>
                         </Paper>
@@ -313,7 +315,7 @@ function Home() {
                                 <LinkNoUnderline to={"/checkEligibility"}>
                                     <ServiceCover url={Eligibility}>
                                         <SquareBlur>
-                                            <Typography variant={"h5"} gutterBottom>Check eligibility</Typography>
+                                            <Typography variant={"h5"} >Check eligibility</Typography>
                                         </SquareBlur>
                                     </ServiceCover>
                                 </LinkNoUnderline>
@@ -322,7 +324,7 @@ function Home() {
                                 <Paper elevation={0} className={classes.serviceIntro}>
                                     <Typography variant={"h4"} >Are you eligible for Social Housing?</Typography>
                                     <br/>
-                                    <Typography variant={"h5"} gutterBottom>Check your eligibility and the options available to you. Don’t you stress about the tiresome job of finding the required documents. We provide you with information on the forms and the supplementary documents you require for your application.</Typography>
+                                    <Typography variant={"h5"} >Check your eligibility and the options available to you. Don’t you stress about the tiresome job of finding the required documents. We provide you with information on the forms and the supplementary documents you require for your application.</Typography>
                                 </Paper>
                             </Grid>
                         </Paper>

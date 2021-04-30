@@ -1,5 +1,5 @@
 import React, {useLayoutEffect} from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
 import Home from "./Home";
 import Help from "./Help";
 import About from "./About"
@@ -8,7 +8,6 @@ import Footer from "./Footer/Footer"
 import CheckEligibility from "./CheckEligibility";
 import { ThemeProvider } from '@material-ui/core/styles'
 import Theme from "./Theme";
-import { useLocation } from "react-router-dom";
 
 function ScrollToTop() {
     const { pathname } = useLocation();
