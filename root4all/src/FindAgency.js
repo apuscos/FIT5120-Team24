@@ -24,6 +24,7 @@ import Button from '@material-ui/core/Button';
 import {TextField, Typography} from "@material-ui/core";
 
 
+
 mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2Fvd2FuZyIsImEiOiJja215anpwaDIwMTcwMnZvMm8xcDU5eXcyIn0.FmAr1bkX7r19ygBIqsySUQ';
 
@@ -104,7 +105,6 @@ const MapArea = styled.div`
   margin-right: auto;
   width: 65%;
   height: 800px;
-  margin-bottom: 60px;
 `;
 
 const SliderStyled = styled(Slider)`
@@ -114,6 +114,12 @@ const SliderStyled = styled(Slider)`
     color: green;
   }
 `
+
+const MapWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 800px;
+`;
 
 
 
@@ -342,6 +348,9 @@ function FindAgency() {
     }
 
 
+
+
+
     useEffect(() => {
         const map = new mapboxgl.Map({
             container: mapContainer.current,
@@ -390,6 +399,20 @@ function FindAgency() {
 
         return () => map.remove();
     }, [result]);
+
+    useEffect(()=> {
+        const getInitialData = async () => {
+            const data = await API.get("roof4all", '/agencyinsuburb', {
+                "queryStringParameters": {
+                    "inputString": 3000
+                }
+            });
+            setResult(data["results"]);
+        }
+        getInitialData().then(_ => {
+            //Blank
+        });
+    },[])
 
     useEffect(()=> {
         if (currentlyIdx !== -1) {
@@ -579,19 +602,18 @@ function FindAgency() {
                     <WarningTextArea>{warningMsg}</WarningTextArea>
                 </Search.Area>
             </BackgroundWrapper>
-
-            <AgencyInfoArea>
-                {!scrollbarHidden ?
+            <MapWrapper>
+                <AgencyInfoArea>
                     <Scrollbars ref={scrollRef} style={{ width: "35%", height: 800, background:"#f7f7f7"}}>
                         {result.map((x, i) => {
                             return(
                                 <AgencyInfo key={i} result={x} scrollbar={scrollRef} id={i} currentlyIdx={currentlyIdx} setCurrentIdx={setCurrentlyIdx} markerClicked={markerClicked} setMarkerClicked={setMarkerClicked}/>
                             );
                         })}
-                    </Scrollbars> : null
-                }
-                <MapArea ref={mapContainer}/>
-            </AgencyInfoArea>
+                    </Scrollbars>
+                    <MapArea ref={mapContainer}/>
+                </AgencyInfoArea>
+            </MapWrapper>
         </div>
 
     )
@@ -612,7 +634,13 @@ const LinkIconWrapper = styled.div`
 
 const AgencyInfoArea = styled.div`
   display: flex;
-  height: 1000px;
+  visibility: ${props => props.hidden? "hidden": "visible"};
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
 `;
 
 const AgencyInfoBlock = styled(Card)`
