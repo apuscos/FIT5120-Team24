@@ -30,6 +30,12 @@ import {Alert, Skeleton} from "@material-ui/lab";
 mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2Fvd2FuZyIsImEiOiJja215anpwaDIwMTcwMnZvMm8xcDU5eXcyIn0.FmAr1bkX7r19ygBIqsySUQ';
 
+const AllResultButton = styled(Button)`
+  &&{
+    margin-bottom: 20px;
+    margin-left: 20px;
+  }
+`;
 
 const SkeletonStyled = styled(Skeleton)`
   &&{
@@ -154,10 +160,9 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showS
 
 }
 
-async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar, setLoading, radius, check, setSuggestDialog) {
+async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar, setLoading, radius, check, setSuggestDialog, setNearAllAgency) {
     // Get nearby agency with specific input
     setLoading(true);
-    console.log(radius);
     const data = await API.get("roof4all", '/findnearagency ', {
         "queryStringParameters": {
             "inputString": inputVal,
@@ -184,8 +189,9 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showS
     if (result.length === 0) {
         setSuggestDialog(true);
     } else {
-        showScrollbar(false)
-        callback(result)
+        showScrollbar(false);
+        callback(result.slice(0,5));
+        setNearAllAgency(result);
     }
 }
 
@@ -280,6 +286,8 @@ function FindAgency() {
     const [eligibleValid, setEligibleValid] = useState(false);
     const [warningMsgOpen, setWarningMsgOpen] = useState(false);
     const [refresh, setRefresh] = useState(false);
+    const [nearAllAgency, setNearAllAgency] = useState([]);
+    const [showAll, setShowAll] = useState(false);
 
     const marks = [
         {
@@ -332,8 +340,24 @@ function FindAgency() {
         return `${value}KM`;
     }
 
+    useEffect(()=> {
+        const getInitialData = async () => {
+            const data = await API.get("roof4all", '/agencyinsuburb', {
+                "queryStringParameters": {
+                    "inputString": 3000
+                }
+            });
+            if (data){
+                setResult(data["results"]);
+            } else {
+                setResult([]);
+            }
 
-
+        }
+        getInitialData().then(_ => {
+            setScrollbarHidden(false);
+        });
+    },[])
 
 
     useEffect(() => {
@@ -385,19 +409,13 @@ function FindAgency() {
         return () => map.remove();
     }, [result]);
 
-    useEffect(()=> {
-        const getInitialData = async () => {
-            const data = await API.get("roof4all", '/agencyinsuburb', {
-                "queryStringParameters": {
-                    "inputString": 3000
-                }
-            });
-            setResult(data["results"]);
+
+
+    useEffect(() => {
+        if (showAll) {
+            setResult(nearAllAgency);
         }
-        getInitialData().then(_ => {
-            setScrollbarHidden(false);
-        });
-    },[])
+    }, [showAll, nearAllAgency])
 
     useEffect(()=> {
         if (currentlyIdx !== -1) {
@@ -427,7 +445,8 @@ function FindAgency() {
 
     const closeNearByAgree = () => {
         setNearByDialogs(false);
-        getNearAgency(input, setResult, setWarningMsg, hospitalData, setScrollbarHidden, setLoading, radius, check, setSuggestDialog).then(_ => {
+        setShowAll(false);
+        getNearAgency(input, setResult, setWarningMsg, hospitalData, setScrollbarHidden, setLoading, radius, check, setSuggestDialog, setNearAllAgency).then(_ => {
             // This is intentional
         })
     }
@@ -484,6 +503,10 @@ function FindAgency() {
             return;
         }
         setWarningMsgOpen(false);
+    }
+
+    const handleShowAll = () => {
+        setShowAll(true);
     }
 
 
@@ -647,7 +670,7 @@ function FindAgency() {
                                     );
                                 })
                         }
-
+                        {!showAll && nearAllAgency.length > 5 ? <AllResultButton variant="contained" type="submit" color={"secondary"} onClick={handleShowAll}>Show all results</AllResultButton> : null}
                     </Scrollbars>
                     <MapArea ref={mapContainer}/>
                 </AgencyInfoArea>

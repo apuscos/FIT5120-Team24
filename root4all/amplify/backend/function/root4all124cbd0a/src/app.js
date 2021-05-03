@@ -281,26 +281,31 @@ app.get('/findnearagency', function (req, res) {
                 console.error(error)
             } else {
                 let output = [];
-                if (radius > 50){
-                    output = results;
-                } else {
-                    for (let i = 0; i < results.length; i++){
-                        let agency = results[i];
-                        const agencyLat = agency["Lat"];
-                        const agencyLng = agency["Lng"];
-                        const distance = getDistanceFromLatLonInKm(suburbLat, suburbLng, agencyLat, agencyLng);
-                        if (distance <= radius){
-                            output.push(agency);
-                        }
+                for (const agency of results){
+                    const agencyLat = agency["Lat"];
+                    const agencyLng = agency["Lng"];
+                    const distance = getDistanceFromLatLonInKm(suburbLat, suburbLng, agencyLat, agencyLng);
+                    if (radius > 50) {
+                        agency["distance"] = distance;
+                        output.push(agency);
+                    } else if (distance <= radius){
+                        agency["distance"] = distance;
+                        output.push(agency);
                     }
                 }
-                res.json({success: 'get call succeed!', output});
+                output.sort(function(a,b){
+                    let value1 = a.distance,
+                        value2 = b.distance;
+                    return value1 - value2;
+                })
+                res.json({success: 'get call succeed!', output : output});
                 connection.destroy();
             }
         });
 
     });
 });
+
 
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
     var R = 6371; // Radius of the earth in km
