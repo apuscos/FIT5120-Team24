@@ -116,11 +116,16 @@ const MapWrapper = styled.div`
 
 
 async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showScrollbar, setLoading, setNearByDialogs, setHospitalData, setRadius, setWarningMsgOpen) {
-    const data = await API.get("roof4all", '/agencyinsuburb', {
-        "queryStringParameters": {
-            "inputString": inputVal
-        }
-    });
+    let data;
+    try{
+        data = await API.get("roof4all", '/agencyinsuburb', {
+            "queryStringParameters": {
+                "inputString": inputVal
+            }
+        });
+    } catch (err) {
+        data = []
+    }
     if (data["error"]){
         warningMsg("Invalid suburb");
         setWarningMsgOpen(true);
@@ -131,7 +136,13 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showS
     let result = [];
     if (hospitalCheck) {
         // Get all agencies that near hospital
-        const hospital = await API.get("roof4all", '/checkagencynearhospital', {});
+        let hospital;
+        try {
+            hospital = await API.get("roof4all", '/checkagencynearhospital', {});
+        } catch {
+            hospital = [];
+        }
+
         const hospitalData = hospital["output"];
         setHospitalData(hospitalData);
         // Matching the agencies near hospital with the agencies in the specific suburb
@@ -163,12 +174,17 @@ async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showS
 async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showScrollbar, setLoading, radius, check, setSuggestDialog, setNearAllAgency) {
     // Get nearby agency with specific input
     setLoading(true);
-    const data = await API.get("roof4all", '/findnearagency ', {
-        "queryStringParameters": {
-            "inputString": inputVal,
-            "radius": radius
-        }
-    });
+    let data;
+    try {
+         data = await API.get("roof4all", '/findnearagency ', {
+            "queryStringParameters": {
+                "inputString": inputVal,
+                "radius": radius
+            }
+        });
+    } catch (err) {
+        data = [];
+    }
     let result = [];
     // Compare with hospital data just get
     if (check) {
