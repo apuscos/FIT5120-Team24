@@ -342,16 +342,17 @@ function FindAgency() {
 
     useEffect(()=> {
         const getInitialData = async () => {
-            const data = await API.get("roof4all", '/agencyinsuburb', {
-                "queryStringParameters": {
-                    "inputString": 3000
-                }
-            });
-            if (data){
+            try {
+                const data = await API.get("roof4all", '/agencyinsuburb', {
+                    "queryStringParameters": {
+                        "inputString": 3000
+                    }
+                });
                 setResult(data["results"]);
-            } else {
+            } catch (err) {
                 setResult([]);
             }
+
 
         }
         getInitialData().then(_ => {

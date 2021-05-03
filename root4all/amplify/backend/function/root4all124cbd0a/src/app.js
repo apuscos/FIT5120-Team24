@@ -21,6 +21,7 @@ const databaseConfig = {
     port: process.env.port,
     database: process.env.database
 }
+
 app.use(bodyParser.json())
 app.use(awsServerlessExpressMiddleware.eventContext())
 
@@ -54,6 +55,7 @@ function handleSuburbInput(input){
             connection.query(queryString, function (error, results, fields){
                 if (error){
                     console.error(error)
+                    connection.destroy();
                     resolve("");
                 } else {
                     if (results.length === 0) {
@@ -61,6 +63,7 @@ function handleSuburbInput(input){
                         resolve("");
 
                     } else {
+                        connection.destroy();
                         resolve(results[0]["Locality_Name"]);
 
                     }
@@ -71,13 +74,15 @@ function handleSuburbInput(input){
             connection.query(queryString, function (error, results, fields){
                 if (error){
                     console.error(error)
-                    return  "";
+                    connection.destroy();
+                    resolve("");
                 } else {
                     if (results.length === 0) {
                         connection.destroy();
                         resolve("");
 
                     } else {
+                        connection.destroy();
                         resolve(results[0]["Locality_Name"]);
                     }
                 }
@@ -106,6 +111,7 @@ app.get('/checkAgency', function (req, res) {
     connection.query(queryString, function (error, results, fields){
         if (error){
             console.error(error)
+            connection.destroy();
         } else {
             console.log(results);
             var num_agency = results[0].num_agency;
@@ -135,6 +141,7 @@ app.get('/checkagencynearhospital', function (req, res) {
     connection.query(queryString, function (error, results, fields){
         if (error){
             console.error(error)
+            connection.destroy();
         } else {
             var hospital_suburb = "(";
             for (let i = 0; i < results.length; i++){
@@ -149,12 +156,14 @@ app.get('/checkagencynearhospital', function (req, res) {
             connection.query(queryString, function (error, results, fields){
                 if (error){
                     console.error(error)
+                    connection.destroy();
                 } else {
                     output = output.concat(results)
                     queryString = `SELECT DISTINCT(Pref_loc) FROM hospital WHERE Pref_loc IS NOT NULL`;
                     connection.query(queryString, function (error, results, fields){
                         if (error){
                             console.error(error)
+                            connection.destroy();
                         } else {
                             var hospital_loc = "(";
                             for (let i = 0; i < results.length; i++){
@@ -165,10 +174,10 @@ app.get('/checkagencynearhospital', function (req, res) {
                             }
                             hospital_loc = hospital_loc + `)`;
                             queryString = `SELECT * FROM agencies WHERE Pref_loc IN ${hospital_loc}`;
-                            console.log("process complete");
                             connection.query(queryString, function (error, results, fields){
                                 if (error){
                                     console.error(error)
+                                    connection.destroy();
                                 } else {
                                     output = output.concat(results)
                                     res.json({success: 'get call succeed!', output});
@@ -217,6 +226,7 @@ app.get('/agencyinsuburb', function (req, res) {
             connection.query(queryString, function (error, results, fields){
                 if (error){
                     console.error(error)
+                    connection.destroy();
                 } else {
                     res.json({success: 'get call succeed!', results});
                     connection.destroy();
@@ -233,20 +243,20 @@ app.get('/agencyinsuburb', function (req, res) {
 app.get('/findnearagency', function (req, res) {
     const inputString = req.query["inputString"];
     const radius = req.query["radius"];
+    let connection = mysql.createConnection(databaseConfig);
+    connection.connect(function(err) {
+        if (err) {
+            console.error('Database connection failed: ' + err.stack);
+            return;
+        }
+        console.log('Connected to database.');
+    });
     handleSuburbInput(inputString).then(response => {
         if (response === ""){
             res.json({error: "Invalid Input"});
             return;
         }
         return new Promise(resolve => {
-            let connection = mysql.createConnection(databaseConfig);
-            connection.connect(function(err) {
-                if (err) {
-                    console.error('Database connection failed: ' + err.stack);
-                    return;
-                }
-                console.log('Connected to database.');
-            });
             const numberReg = /^[0-9]*$/;
             let queryString = "";
             if (numberReg.test(inputString)){
@@ -257,6 +267,7 @@ app.get('/findnearagency', function (req, res) {
             connection.query(queryString, function (error, results, fields){
                     if (error){
                         console.error(error)
+                        connection.destroy();
                     } else {
                         const lat = results[0]["Lat"];
                         const lng = results[0]["Lng"];
@@ -267,18 +278,11 @@ app.get('/findnearagency', function (req, res) {
     }).then(response => {
         const suburbLat = response[0];
         const suburbLng = response[1];
-        let connection = mysql.createConnection(databaseConfig);
-        connection.connect(function(err) {
-            if (err) {
-                console.error('Database connection failed: ' + err.stack);
-                return;
-            }
-            console.log('Connected to database.');
-        });
         let queryString = `SELECT * FROM agencies`;
         connection.query(queryString, function (error, results, fields){
             if (error){
                 console.error(error)
+                connection.destroy();
             } else {
                 let output = [];
                 for (const agency of results){
