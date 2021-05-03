@@ -496,6 +496,8 @@ function FindAgency() {
 
     const handleAgencySearch = () => {
         setEligibleValid(false);
+        setShowAll(true);
+        setNearAllAgency([]);
         if (!checkInputValid(input)) {
             setWarningMsg("Invalid Suburb");
             setWarningMsgOpen(true);
