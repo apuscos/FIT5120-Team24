@@ -419,9 +419,8 @@ function FindAgency() {
             setResult(data["results"]);
         }
         getInitialData().then(_ => {
-            //Blank
+            setScrollbarHidden(false);
         });
-        setScrollbarHidden(false);
     },[])
 
     useEffect(()=> {
