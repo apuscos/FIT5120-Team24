@@ -21,8 +21,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import {TextField, Typography} from "@material-ui/core";
-import {Skeleton} from "@material-ui/lab";
+import {Snackbar, TextField, Typography} from "@material-ui/core";
+import {Alert, Skeleton} from "@material-ui/lab";
 
 
 
@@ -84,30 +84,6 @@ const CheckBoxLabel = styled.div`
   font-size: 1.5em;
 `;
 
-const WarningTextArea = styled.div`
-  font-family: 'Baloo Bhai 2', cursive;
-  font-weight: 600;
-  color: red;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5em;
-  width: 100%;
-  height: 30px;
-`;
-
-const ResultArea = styled.div`
-  font-family: 'Baloo Bhai 2', cursive;
-  font-weight: 600;
-  font-size: 1.5em;
-  margin-bottom: 20px;
-  margin-top: 10px;
-  color: ${props => 
-     !props.msg ? "red": "#2BA837"
-  };
-`;
-
-
 const MapArea = styled.div`
   display: flex;
   margin-left: auto;
@@ -133,14 +109,15 @@ const MapWrapper = styled.div`
 
 
 
-async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showScrollbar, setLoading, setNearByDialogs, setHospitalData, setRadius) {
+async function agencySuburb(inputVal, callback, warningMsg, hospitalCheck, showScrollbar, setLoading, setNearByDialogs, setHospitalData, setRadius, setWarningMsgOpen) {
     const data = await API.get("roof4all", '/agencyinsuburb', {
         "queryStringParameters": {
             "inputString": inputVal
         }
     });
     if (data["error"]){
-        warningMsg("Invalid suburb input");
+        warningMsg("Invalid suburb");
+        setWarningMsgOpen(true);
         setLoading(false);
         return;
     }
@@ -187,11 +164,6 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showS
             "radius": radius
         }
     });
-    if (data["error"]){
-        warningMsg("Invalid suburb input");
-        setLoading(false);
-        return;
-    }
     let result = [];
     // Compare with hospital data just get
     if (check) {
@@ -234,10 +206,11 @@ async function getAgencyInMelbourne(callback, showScrollbar, setLoading) {
     }
 }
 
-async function checkEligibility(inputVal, callback, setScrollbarHidden, setLoading, setEligibleValid) {
+async function checkEligibility(inputVal, callback, setScrollbarHidden, setLoading, setEligibleValid, setWarningMsgOpen) {
     if (inputVal.length <= 0) {
         callback(`Please enter the agency name`);
         setEligibleValid(false);
+        setWarningMsgOpen(true);
         return
     }
     try {
@@ -251,9 +224,11 @@ async function checkEligibility(inputVal, callback, setScrollbarHidden, setLoadi
         if (data["found"]) {
             callback(`${inputVal} agency is a government registered agency`)
             setEligibleValid(true);
+            setWarningMsgOpen(true);
         } else {
             callback(`${inputVal} agency is not a government registered agency`)
             setEligibleValid(false);
+            setWarningMsgOpen(true);
         }
     } catch (err) {
         console.log("Error:", err)
@@ -287,7 +262,6 @@ function FindAgency() {
     const [result, setResult] = useState([]);
     const [warningMsg, setWarningMsg] = useState("");
     const [eligibleInput, setEligibleInput] = useState("");
-    const [eligibleResult, setEligibleResult] = useState("");
     const [check, setCheck] = useState(false);
     const [radius, setRadius] = useState(5);
     const mapContainer = useRef();
@@ -304,6 +278,8 @@ function FindAgency() {
     const [suggestDialog, setSuggestDialog] = useState(false);
     const [checkEligibilityDialog, setCheckEligibilityDialog] = useState(false);
     const [eligibleValid, setEligibleValid] = useState(false);
+    const [warningMsgOpen, setWarningMsgOpen] = useState(false);
+    const [refresh, setRefresh] = useState(false);
 
     const marks = [
         {
@@ -446,6 +422,7 @@ function FindAgency() {
     const closeNearByDisagree = () => {
         setNearByDialogs(false);
         setWarningMsg("Try another postcode or suburb");
+        setWarningMsgOpen(true);
     }
 
     const closeNearByAgree = () => {
@@ -457,6 +434,7 @@ function FindAgency() {
     const closeSuggestDisagree = () => {
         setSuggestDialog(false);
         setWarningMsg("Try another postcode or suburb");
+        setWarningMsgOpen(true);
     }
 
     const closeSuggestAgree = () => {
@@ -472,30 +450,40 @@ function FindAgency() {
     }
 
     const closeCheckAgree = () => {
-        setEligibleResult("");
         setEligibleValid(false);
         setCheckEligibilityDialog(false);
-        checkEligibility(eligibleInput, setEligibleResult, setScrollbarHidden, setLoading, setEligibleValid).then(_ => {
+        checkEligibility(eligibleInput, setWarningMsg, setScrollbarHidden, setLoading, setEligibleValid, setWarningMsgOpen).then(_ => {
             //Blank
         })
 
     }
 
     const handleAgencySearch = () => {
+        setEligibleValid(false);
         if (!checkInputValid(input)) {
-            setWarningMsg("Invalid input");
+            setWarningMsg("Invalid Suburb");
+            setWarningMsgOpen(true);
+            setRefresh(!refresh);
         } else {
-            setWarningMsg("");
+            setWarningMsgOpen(false);
             setLoading(true);
             setScrollbarHidden(true);
-            agencySuburb(input, setResult, setWarningMsg, check, setScrollbarHidden, setLoading, setNearByDialogs, setHospitalData, setRadius).then(_ => {
+            agencySuburb(input, setResult, setWarningMsg, check, setScrollbarHidden, setLoading, setNearByDialogs, setHospitalData, setRadius, setWarningMsgOpen).then(_ => {
                 //Undefined
             });
         }
     }
 
     const handleCheckAgencyRegistered = () => {
+        setWarningMsgOpen(false);
         setCheckEligibilityDialog(true);
+    }
+
+    const handleWarningClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setWarningMsgOpen(false);
     }
 
 
@@ -589,11 +577,22 @@ function FindAgency() {
                 </DialogActions>
             </Dialog>
 
+            <Snackbar
+                anchorOrigin={{vertical: "top", horizontal: "center"}}
+                open={warningMsgOpen}
+                autoHideDuration={6000}
+                onClose={handleWarningClose}
+                key={refresh}
+            >
+                <Alert severity={eligibleValid ? "success" : "error"} onClose={handleWarningClose}>{warningMsg}</Alert>
+            </Snackbar>
+
+
+
             <BackgroundWrapper>
                 <Search.Area>
                     <Search.TextArea>Already know your agency? Click to see if it is registered.</Search.TextArea>
                     <Button variant="contained" type="submit" color={"secondary"}  onClick={handleCheckAgencyRegistered}><Typography variant={"button"} color={"textPrimary"}>Check</Typography></Button>
-                    <ResultArea msg={eligibleValid}>{eligibleResult}</ResultArea>
                 </Search.Area>
                 <Search.Area>
                     <Search.TextArea>Search agency by Postcode or Suburb name</Search.TextArea>
@@ -608,7 +607,6 @@ function FindAgency() {
                         }}/>
                         <CheckBoxLabel>Near Hospital</CheckBoxLabel>
                     </CheckBoxArea>
-                    <WarningTextArea>{warningMsg}</WarningTextArea>
                 </Search.Area>
             </BackgroundWrapper>
             <MapWrapper>
