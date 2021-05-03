@@ -188,10 +188,10 @@ async function getNearAgency(inputVal, callback, warningMsg, hospitalData, showS
     let result = [];
     // Compare with hospital data just get
     if (check) {
-        for (const hospitalAgency of hospitalData) {
-            for (const suburbAgency of data["output"]) {
+        for (const suburbAgency of data["output"]) {
+            for (const hospitalAgency of hospitalData) {
                 if (hospitalAgency["Agency_Name"] === suburbAgency["Agency_Name"]) {
-                    result.push(hospitalAgency);
+                    result.push(suburbAgency);
                     break;
                 }
             }
