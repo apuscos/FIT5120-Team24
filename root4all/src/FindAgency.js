@@ -22,11 +22,20 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import {TextField, Typography} from "@material-ui/core";
+import {Skeleton} from "@material-ui/lab";
+
 
 
 
 mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2Fvd2FuZyIsImEiOiJja215anpwaDIwMTcwMnZvMm8xcDU5eXcyIn0.FmAr1bkX7r19ygBIqsySUQ';
+
+
+const SkeletonStyled = styled(Skeleton)`
+  &&{
+    margin-bottom: ${props => props.first ? "10px" : "0px"};
+  }
+`;
 
 const BackgroundWrapper = styled.div`
   background-image: url(${FindAgencyBackground});
@@ -412,6 +421,7 @@ function FindAgency() {
         getInitialData().then(_ => {
             //Blank
         });
+        setScrollbarHidden(false);
     },[])
 
     useEffect(()=> {
@@ -605,11 +615,42 @@ function FindAgency() {
             <MapWrapper>
                 <AgencyInfoArea>
                     <Scrollbars ref={scrollRef} style={{ width: "35%", height: 800, background:"#f7f7f7"}}>
-                        {result.map((x, i) => {
-                            return(
-                                <AgencyInfo key={i} result={x} scrollbar={scrollRef} id={i} currentlyIdx={currentlyIdx} setCurrentIdx={setCurrentlyIdx} markerClicked={markerClicked} setMarkerClicked={setMarkerClicked}/>
-                            );
-                        })}
+                        {scrollbarHidden ?
+                            <div>
+                                <AgencyInfoBlock>
+                                    <SkeletonStyled variant={"text"} width={400} height={40} first/>
+                                    <SkeletonStyled variant={"text"} width={500} height={30}/>
+                                    <SkeletonStyled variant={"text"} width={200} height={30}/>
+                                    <SkeletonStyled variant={"text"} width={200} height={30}/>
+                                </AgencyInfoBlock>
+                                <AgencyInfoBlock>
+                                    <SkeletonStyled variant={"text"} width={400} height={40} first/>
+                                    <SkeletonStyled variant={"text"} width={500} height={30}/>
+                                    <SkeletonStyled variant={"text"} width={200} height={30}/>
+                                    <SkeletonStyled variant={"text"} width={200} height={30}/>
+                                </AgencyInfoBlock>
+                                <AgencyInfoBlock>
+                                    <SkeletonStyled variant={"text"} width={400} height={40} first/>
+                                    <SkeletonStyled variant={"text"} width={500} height={30}/>
+                                    <SkeletonStyled variant={"text"} width={200} height={30}/>
+                                    <SkeletonStyled variant={"text"} width={200} height={30}/>
+                                </AgencyInfoBlock>
+                                <AgencyInfoBlock>
+                                    <SkeletonStyled variant={"text"} width={400} height={40} first/>
+                                    <SkeletonStyled variant={"text"} width={500} height={30}/>
+                                    <SkeletonStyled variant={"text"} width={200} height={30}/>
+                                    <SkeletonStyled variant={"text"} width={200} height={30}/>
+                                </AgencyInfoBlock>
+                            </div>
+
+                        :
+                            result.map((x, i) => {
+                                    return(
+                                        <AgencyInfo key={i} result={x} scrollbar={scrollRef} id={i} currentlyIdx={currentlyIdx} setCurrentIdx={setCurrentlyIdx} markerClicked={markerClicked} setMarkerClicked={setMarkerClicked}/>
+                                    );
+                                })
+                        }
+
                     </Scrollbars>
                     <MapArea ref={mapContainer}/>
                 </AgencyInfoArea>
@@ -650,6 +691,9 @@ const AgencyInfoBlock = styled(Card)`
   position: relative;
   cursor: pointer;
   flex-direction: column;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
 
   &:hover {
     &::before {
@@ -676,17 +720,13 @@ const AgencyInfoTitle = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 600;
   font-size: 28px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 20px;
 `;
 
 const AgencyInfoContent = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 500;
   font-size: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
+  
 `;
 
 
