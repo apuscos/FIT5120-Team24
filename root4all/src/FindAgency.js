@@ -498,6 +498,7 @@ function FindAgency() {
         setEligibleValid(false);
         setShowAll(true);
         setNearAllAgency([]);
+        setScrollbarHidden(true);
         if (!checkInputValid(input)) {
             setWarningMsg("Invalid Suburb");
             setWarningMsgOpen(true);
@@ -505,7 +506,6 @@ function FindAgency() {
         } else {
             setWarningMsgOpen(false);
             setLoading(true);
-            setScrollbarHidden(true);
             agencySuburb(input, setResult, setWarningMsg, check, setScrollbarHidden, setLoading, setNearByDialogs, setHospitalData, setRadius, setWarningMsgOpen).then(_ => {
                 //Undefined
             });
