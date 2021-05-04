@@ -68,6 +68,10 @@ const ExternalLink = styled.a`
   margin-bottom: 5px;
 `;
 
+const HouseVicLink = styled.a`
+  color: gray;
+`;
+
 const Footer = () => {
     return (
         <>
@@ -103,7 +107,7 @@ const Footer = () => {
 
                 </Section>
             </FooterArea>
-            <Disclaimer>The information on this website is based on the data from the HousingVic website</Disclaimer>
+            <Disclaimer>The information on this website is based on the data from the <HouseVicLink target="_blank" rel="noreferrer" href="https://www.housing.vic.gov.au">HousingVic website</HouseVicLink></Disclaimer>
         </>
     );
 };
