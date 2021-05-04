@@ -11,6 +11,7 @@ export const Area = styled.div`
   flex-direction: column;
   padding-bottom: 20px;
   background-color: transparent;
+  width: 80%;
 `;
 
 

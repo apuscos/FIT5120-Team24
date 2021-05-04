@@ -49,6 +49,10 @@ const BackgroundWrapper = styled.div`
   background-size: cover;
   background-color: #7A7DA0;
   background-position: center;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const GreenButton = styled(Button)`
@@ -112,6 +116,14 @@ const MapWrapper = styled.div`
   height: 800px;
 `;
 
+const CheckAgencyArea = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 400px;
+  background-color: rgba(205, 205, 205, 0.6);
+`;
 
 
 
@@ -633,10 +645,6 @@ function FindAgency() {
 
             <BackgroundWrapper>
                 <Search.Area>
-                    <Search.TextArea>Already know your agency? Click to see if it is registered.</Search.TextArea>
-                    <Button variant="contained" type="submit" color={"secondary"}  onClick={handleCheckAgencyRegistered}><Typography variant={"button"} color={"textPrimary"}>Check</Typography></Button>
-                </Search.Area>
-                <Search.Area>
                     <Search.TextArea>Search agency by Postcode or Suburb name</Search.TextArea>
                     <Search.SearchArea>
                         <Search.InputArea onChange={e => setInput(e.target.value)}
@@ -694,6 +702,10 @@ function FindAgency() {
                     <MapArea ref={mapContainer}/>
                 </AgencyInfoArea>
             </MapWrapper>
+            <CheckAgencyArea>
+                <Search.TextArea>Already know your agency? Click to see if it is registered.</Search.TextArea>
+                <Button variant="contained" type="submit" color={"secondary"}  onClick={handleCheckAgencyRegistered}><Typography variant={"button"} color={"textPrimary"}>Check</Typography></Button>
+            </CheckAgencyArea>
         </div>
 
     )
