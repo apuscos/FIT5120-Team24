@@ -224,11 +224,11 @@ function CheckEligibility(){
     }
 
     const result0 = (<><ResultTitle>Input Error</ResultTitle></>)
-    const result1 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>You have to be the Australian citizen or Permanent resident</ResultContent></>)
-    const result2 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>You have to be the victorian resident</ResultContent></>)
-    const result3 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>Your weekly income has exceed the limit {limit1} AUD </ResultContent></>)
-    const result4 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>Your asset has exceed the limit {limit1} AUD </ResultContent></>)
-    const result7 = (<><ResultTitle>You are not eligible</ResultTitle><ResultContent>Your weekly income has exceed the limit {limit1} AUD and your asset has exceed the limit {limit2} AUD</ResultContent></>)
+    const result1 = (<><ResultTitle>No options according to your criteria</ResultTitle><ResultContent>You have to be the Australian citizen or Permanent resident</ResultContent></>)
+    const result2 = (<><ResultTitle>No options according to your criteria</ResultTitle><ResultContent>You have to be the victorian resident</ResultContent></>)
+    const result3 = (<><ResultTitle>No options according to your criteria</ResultTitle><ResultContent>Your weekly income has exceed the limit {limit1} AUD </ResultContent></>)
+    const result4 = (<><ResultTitle>No options according to your criteria</ResultTitle><ResultContent>Your asset has exceed the limit {limit1} AUD </ResultContent></>)
+    const result7 = (<><ResultTitle>No options according to your criteria</ResultTitle><ResultContent>Your weekly income has exceed the limit {limit1} AUD and your asset has exceed the limit {limit2} AUD</ResultContent></>)
     let result5 = (
         <>
             <Typography variant={"h5"}>You are eligible for registering for interest housing!</Typography>
