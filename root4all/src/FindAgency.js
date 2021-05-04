@@ -122,7 +122,7 @@ const CheckAgencyArea = styled.div`
   justify-content: center;
   flex-direction: column;
   height: 400px;
-  background-color: rgba(205, 205, 205, 0.6);
+  background-color: rgba(205, 205, 205, 0.2);
 `;
 
 
