@@ -291,7 +291,7 @@ function getBoundingBox (data) {
     return bounds;
 }
 
-function FindAgency() {
+function FindAgency(props) {
     const [input, setInput] = useState("");
     const [result, setResult] = useState([]);
     const [warningMsg, setWarningMsg] = useState("");
@@ -299,6 +299,7 @@ function FindAgency() {
     const [check, setCheck] = useState(false);
     const [radius, setRadius] = useState(5);
     const mapContainer = useRef();
+    const checkAgencyRef = useRef();
     const [scrollbarHidden, setScrollbarHidden] = useState(true);
     const [globalMap, setMap]= useState(null);
     const [allBound, setAllBound] = useState([]);
@@ -367,6 +368,13 @@ function FindAgency() {
     function valuetext(value) {
         return `${value}KM`;
     }
+    useEffect(()=> {
+        console.log(props.location);
+        if (props.location.bottom) {
+            checkAgencyRef.current.scrollIntoView({behavior: "smooth"});
+            props.location.bottom= false;
+        };
+    }, [props.location])
 
     useEffect(()=> {
         const getInitialData = async () => {
@@ -702,7 +710,7 @@ function FindAgency() {
                     <MapArea ref={mapContainer}/>
                 </AgencyInfoArea>
             </MapWrapper>
-            <CheckAgencyArea>
+            <CheckAgencyArea ref={checkAgencyRef}>
                 <Search.TextArea>Already know your agency? Click to see if it is registered.</Search.TextArea>
                 <Button variant="contained" type="submit" color={"secondary"}  onClick={handleCheckAgencyRegistered}><Typography variant={"button"} color={"textPrimary"}>Check</Typography></Button>
             </CheckAgencyArea>

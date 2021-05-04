@@ -291,7 +291,11 @@ function Home() {
                     <Grid  item md={12} lg={12} xl={12}>
                         <Paper className={classes.service}>
                             <Grid item >
-                                <LinkNoUnderline to={"/findAgency"}>
+                                <LinkNoUnderline to={{
+                                    pathname: "/findAgency",
+                                    bottom: true
+                                }
+                                }>
                                     <ServiceCover url={FindAgency}>
                                         <SquareBlur>
                                             <Typography variant={"h5"}>Check agency</Typography>
@@ -308,6 +312,7 @@ function Home() {
                             </Grid>
                         </Paper>
                     </Grid>
+
 
                     <Grid  item md={12} lg={12} xl={12}>
                         <Paper className={classes.service}>
