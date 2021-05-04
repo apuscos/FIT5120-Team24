@@ -232,7 +232,6 @@ function CheckEligibility(){
     let result5 = (
         <>
             <Typography variant={"h5"}>You are eligible for registering for interest housing!</Typography>
-            <ResultContent>Registered of interest application form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/register-interest-application-pdf">https://www.housing.vic.gov.au/register-interest-application-pdf</a></ResultContent>
             <TableContainerStyled component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
@@ -241,6 +240,11 @@ function CheckEligibility(){
                         </TableRow>
                     </TableHead>
                     <TableBody>
+                        <TableRow key={"Documents Name"}>
+                            <TableCell component="th" scope="row" >
+                                {"Registered of interest application form"}
+                            </TableCell>
+                        </TableRow>
                         <TableRow key={"Documents Name"}>
                             <TableCell component="th" scope="row" >
                                 {"Proof of identity – Passport, driving licence or any government issued proof of identity."}
@@ -276,6 +280,15 @@ function CheckEligibility(){
                                 {"Australian Citizenship Certificate, immigration visa, passport or a letter from the Department of Immigration and Border Protection for each resident of household not born in India."}
                             </TableCell>
                         </TableRow>
+                        {userInputData["numDependent"] > 0 ?
+                            <>
+                                <TableRow key={"link2"}>
+                                    <TableCell component="th" scope="row" >
+                                        Additional dependent form
+                                    </TableCell>
+                                </TableRow>
+                            </>
+                            :null }
                     </TableBody>
                 </Table>
             </TableContainerStyled>
@@ -286,7 +299,7 @@ function CheckEligibility(){
                         <Table aria-label="simple table">
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell align={"left"}><Typography variant={"h5"}>Document checklist for additional dependents</Typography></StyledTableCell>
+                                    <StyledTableCell align={"left"}><Typography variant={"h5"}>Document checklist for dependents</Typography></StyledTableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -331,20 +344,44 @@ function CheckEligibility(){
                 </>
                 : null}
 
-            {userInputData["numDependent"] > 0 ?
-                <>
-                    <Typography>If there are more than four dependent children, fill this form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf</a></Typography>
-                    <Typography>If there are more than one dependent adult, fill this form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf</a></Typography>
-                </>
-                :null }
+            <TableContainerStyled component={Paper}>
+                <Table aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell align={"left"}><Typography variant={"h5"}>Useful links</Typography></StyledTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow key={"link1"}>
+                            <TableCell component="th" scope="row" >
+                                Registered of interest application form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/register-interest-application-pdf">https://www.housing.vic.gov.au/register-interest-application-pdf</a>
+                            </TableCell>
+                        </TableRow>
+                        {userInputData["numDependent"] > 0 ?
+                            <>
+                                <TableRow key={"link2"}>
+                                    <TableCell component="th" scope="row" >
+                                        Additional dependent children, please fill this form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf</a>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow key={"link3"}>
+                                    <TableCell component="th" scope="row" >
+                                        Additional dependent adult, please fill this form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf</a>
+                                    </TableCell>
+                                </TableRow>
+                            </>
+                            :null }
+                    </TableBody>
+                </Table>
+            </TableContainerStyled>
+
+
 
         </>
     )
     let result6 = (
         <>
             <ResultTitle>You are eligible for registering for priority housing!</ResultTitle>
-            <ResultContent>Registered of priority access application form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/Priority-access-application.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/Priority-access-application.pdf</a></ResultContent>
-            <ResultContent>If not registed already with Victorian housing, needs to be filled along with Register of Interest form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/register-interest-application-pdf">https://www.housing.vic.gov.au/register-interest-application-pdf</a></ResultContent>
             <TableContainerStyled component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
@@ -353,6 +390,11 @@ function CheckEligibility(){
                         </TableRow>
                     </TableHead>
                     <TableBody>
+                        <TableRow key={"Documents Name"}>
+                            <TableCell component="th" scope="row" >
+                                {"Registered of priority access application form"}
+                            </TableCell>
+                        </TableRow>
                         <TableRow key={"Documents Name"}>
                             <TableCell component="th" scope="row" >
                                 {"Support letter from your tenancy worker or community support agency, if staying in a community housing"}
@@ -398,15 +440,54 @@ function CheckEligibility(){
                                 {"If not been helped with alternative housing then a written history of accommodation and attempts to get alternative housing options."}
                             </TableCell>
                         </TableRow>
+                        <TableRow key={"Australian Citizenship Certificate"}>
+                            <TableCell component="th" scope="row">
+                                {"If not registered already with Victorian housing, needs to be filled along with Register of Interest form"}
+                            </TableCell>
+                        </TableRow>
+                        {userInputData["check"] ?
+                            <>
+                                <TableRow key={"Australian Citizenship Certificate"}>
+                                    <TableCell component="th" scope="row">
+                                        {"Special accommodation for modification"}
+                                    </TableCell>
+                                </TableRow>
+                            </>
+                            : null }
+                    </TableBody>
+                </Table>
+            </TableContainerStyled>
+            <TableContainerStyled component={Paper}>
+                <Table aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell align={"left"}><Typography variant={"h5"}>Useful links</Typography></StyledTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow key={"link1"}>
+                            <TableCell component="th" scope="row" >
+                                Registered of priority access application form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/Priority-access-application.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/Priority-access-application.pdf</a>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow key={"link1"}>
+                            <TableCell component="th" scope="row" >
+                                Register of Interest form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/register-interest-application-pdf">https://www.housing.vic.gov.au/register-interest-application-pdf</a>
+                            </TableCell>
+                        </TableRow>
+                        {userInputData["check"] ?
+                            <>
+                                <TableRow key={"link1"}>
+                                    <TableCell component="th" scope="row" >
+                                        Special accommodation for modification, fill this form : <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf</a>
+                                    </TableCell>
+                                </TableRow>
+                            </>
+                            : null}
                     </TableBody>
                 </Table>
             </TableContainerStyled>
 
-            {userInputData["check"] ?
-                    <>
-                        <ResultContent>Special accommodation for modification, fill this form : <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf</a></ResultContent>
-                    </>
-                : null}
         </>
     )
 
