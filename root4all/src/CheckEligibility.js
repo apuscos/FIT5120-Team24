@@ -12,9 +12,19 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import {Typography, withStyles} from "@material-ui/core";
+import {StepLabel, Step, Stepper, Typography, withStyles} from "@material-ui/core";
 import BackgroundImage from "./Image/checkEligibilityBackground.webp"
 
+const ButtonNextStyled = styled(Button)`
+  && {margin-left: 16px;}
+
+`;
+
+const StepperStyled = styled(Stepper)`
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+`;
 
 const LinearProgressStyled = styled(LinearProgress)`
   && {
@@ -92,16 +102,7 @@ const SelectionOption = styled.option`
   font-size: 1em;
 `;
 
-const SubmitButton = styled(Button)`
-  width: 100px;
-  &&{
-    margin-bottom: 40px;
-    margin-top: 10px;
-    font-family: 'Baloo Bhai 2', cursive;
-    font-weight: 700;
-    background-color:#2BA837;
-  }
-`;
+
 
 const Wrapper = styled.div`
   display: flex;
@@ -123,7 +124,6 @@ const ResultArea = styled.div`
   
   display: flex;
   align-items: center;
-  padding-left: 100px;
   flex-direction: column;
   
 `;
@@ -138,6 +138,7 @@ const ResultContent = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 500;
   font-size: 16px;
+  margin-bottom: 16px;
 `;
 
 const TableContainerStyled = styled(TableContainer)`
@@ -172,6 +173,8 @@ function CheckEligibility(){
     const [limit1, setLimit1] = useState(0);
     const [limit2, setLimit2] = useState(0);
     const [userInputData, setUserInputData] =useState({});
+    const [activeStep, setActiveStep] = useState(0);
+    const steps = ['Fill in your criteria', 'Get the result', 'Get documents']
     const StyledTableCell = withStyles(() => ({
         head: {
             backgroundColor: "#2BA837",
@@ -179,12 +182,12 @@ function CheckEligibility(){
         }
     }))(TableCell);
     const onSubmit = async (data) => {
-        if (data["citizenship"] === "Others"){
+        setLoading(true);
+        if (data["citizenship"] === "Others") {
             data["residenship"] = "";
         }
         console.log(data);
         setUserInputData(data);
-        setLoading(true);
         try {
             // Get data with postcode 3000
             const response = await API.get("roof4all", '/checkEligibility', {
@@ -192,18 +195,18 @@ function CheckEligibility(){
                     "inputParams": JSON.stringify(data)
                 }
             });
-            if (response["limit"]){
+            if (response["limit"]) {
                 setLimit1(response["limit"]);
             }
 
-            if (response["limit1"]){
+            if (response["limit1"]) {
                 setLimit1(response["limit1"]);
             }
-            if (response["limit2"]){
+            if (response["limit2"]) {
                 setLimit2(response["limit2"]);
             }
 
-            if (response["error"]){
+            if (response["error"]) {
                 setResult(0);
             } else {
                 setResult(response["result"])
@@ -211,8 +214,8 @@ function CheckEligibility(){
         } catch (err) {
             console.log("Error:", err)
         }
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
         setLoading(false);
-
     };
 
     const valid = (value) => {
@@ -229,9 +232,14 @@ function CheckEligibility(){
     const result3 = (<><ResultTitle>No options according to your criteria</ResultTitle><ResultContent>Your weekly income has exceed the limit {limit1} AUD </ResultContent></>)
     const result4 = (<><ResultTitle>No options according to your criteria</ResultTitle><ResultContent>Your asset has exceed the limit {limit1} AUD </ResultContent></>)
     const result7 = (<><ResultTitle>No options according to your criteria</ResultTitle><ResultContent>Your weekly income has exceed the limit {limit1} AUD and your asset has exceed the limit {limit2} AUD</ResultContent></>)
-    let result5 = (
+    let result5Text = (
         <>
             <Typography variant={"h5"}>You are eligible for registering for interest housing!</Typography>
+            <ResultContent> You can check the required documents </ResultContent>
+        </>
+    );
+    let result5 = (
+        <>
             <TableContainerStyled component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
@@ -379,9 +387,14 @@ function CheckEligibility(){
 
         </>
     )
-    let result6 = (
+    let result6Text = (
         <>
             <ResultTitle>You are eligible for registering for priority housing!</ResultTitle>
+            <ResultContent> You can check the required documents </ResultContent>
+        </>
+    );
+    let result6 = (
+        <>
             <TableContainerStyled component={Paper}>
                 <Table aria-label="simple table">
                     <TableHead>
@@ -491,14 +504,23 @@ function CheckEligibility(){
         </>
     )
 
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1)
+    }
 
-    return(
-        <div>
-            {loading ? <LinearProgressStyled color="secondary"/> : null}
-            <Navbar/>
-            <CheckEligibilityTitle>Check Eligibility</CheckEligibilityTitle>
-            <WrapperPage>
-                <FormArea onSubmit={handleSubmit(onSubmit)}>
+    const handleNext = () => {
+        if (activeStep === 0){
+            setSubmitClicked(true);
+            setResult(-1);
+        } else {
+            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
+    }
+
+    const getStepContent = (step) => {
+        switch (step){
+            case 0:
+                return (<FormArea onSubmit={handleSubmit(onSubmit)}>
                     <Label>Citizenship</Label>
                     <Wrapper>
                         <SelectionBox {...register("citizenship", {required: true })} onChange={(e) => {
@@ -639,21 +661,92 @@ function CheckEligibility(){
                         }} />
                         <CheckBoxLabel>Need major or full disability modifications</CheckBoxLabel>
                     </Wrapper>
+                    <div>
+                        <Button variant="contained"  disabled={true} onClick={handleBack}>
+                            Back
+                        </Button>
+                        <ButtonNextStyled
+                            variant="contained"
+                            color="secondary"
+                            onClick={handleNext}
+                            type={"submit"}
+                            disabled={ disabled || residentshipDisable|| loading }
+                        >
+                            Next
+                        </ButtonNextStyled>
+                    </div>
 
-                    <SubmitButton disabled={disabled || residentshipDisable} variant="contained" type="submit" onClick={()=> {setSubmitClicked(true); setResult(-1);}} > Check </SubmitButton>
-                </FormArea>
-                {result === -1 ? null :
+                </FormArea>);
+            case 1:
+                return(
                     <ResultArea>
                         {result === 0 ? result0 : null}
                         {result === 1 ? result1 : null}
                         {result === 2 ? result2 : null}
                         {result === 3 ? result3 : null}
                         {result === 4 ? result4 : null}
+                        {result === 5 ? result5Text : null}
+                        {result === 6 ? result6Text : null}
+                        {result === 7 ? result7 : null}
+                        <div>
+                            <Button variant="contained"  onClick={handleBack}>
+                                Back
+                            </Button>
+                            <ButtonNextStyled
+                                variant="contained"
+                                color="secondary"
+                                onClick={handleNext}
+                                disabled={(result !== 5 && result !== 6)}
+                            >
+                                Next
+                            </ButtonNextStyled>
+                        </div>
+                    </ResultArea>
+                );
+            case 2:
+                return (
+                    <ResultArea>
                         {result === 5 ? result5 : null}
                         {result === 6 ? result6 : null}
-                        {result === 7 ? result7 : null}
+                        <div>
+                            <Button variant="contained"  onClick={handleBack}>
+                                Back
+                            </Button>
+                            <ButtonNextStyled
+                                variant="contained"
+                                color="secondary"
+                                onClick={handleNext}
+                                disabled={true}
+                            >
+                                Next
+                            </ButtonNextStyled>
+                        </div>
                     </ResultArea>
-                }
+                );
+            default:
+                return "Unknown step"
+        }
+    }
+
+
+
+
+    return(
+        <div>
+            {loading ? <LinearProgressStyled color="secondary"/> : null}
+            <Navbar/>
+            <CheckEligibilityTitle>Check Eligibility</CheckEligibilityTitle>
+            <StepperStyled activeStep={activeStep} >
+                {steps.map((label, index) => {
+                    return(
+                        <Step key={label}>
+                            <StepLabel>{label}</StepLabel>
+                        </Step>
+                    );
+                })}
+            </StepperStyled>
+            <WrapperPage>
+                {getStepContent(activeStep)}
             </WrapperPage>
 
 
