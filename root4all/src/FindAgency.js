@@ -369,7 +369,6 @@ function FindAgency(props) {
         return `${value}KM`;
     }
     useEffect(()=> {
-        console.log(props.location);
         if (props.location.bottom) {
             checkAgencyRef.current.scrollIntoView({behavior: "smooth"});
             props.location.bottom= false;
@@ -379,12 +378,13 @@ function FindAgency(props) {
     useEffect(()=> {
         const getInitialData = async () => {
             try {
-                const data = await API.get("roof4all", '/agencyinsuburb', {
+                const data = await API.get("roof4all", '/findnearagency ', {
                     "queryStringParameters": {
-                        "inputString": 3000
+                        "inputString": 3000,
+                        "radius": 55
                     }
                 });
-                setResult(data["results"]);
+                setResult(data["output"]);
             } catch (err) {
                 setResult([]);
             }
