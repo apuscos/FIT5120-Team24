@@ -178,7 +178,6 @@ function CheckEligibility(){
     const StyledTableCell = withStyles(() => ({
         head: {
             backgroundColor: "#2BA837",
-
         }
     }))(TableCell);
     const onSubmit = async (data) => {
@@ -739,7 +738,7 @@ function CheckEligibility(){
             <StepperStyled activeStep={activeStep} >
                 {steps.map((label, index) => {
                     return(
-                        <Step key={label}>
+                        <Step key={label} >
                             <StepLabel>{label}</StepLabel>
                         </Step>
                     );
