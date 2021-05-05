@@ -116,7 +116,7 @@ function Help() {
     const a11p1 = "What are the differences between community housing and public housing? Community housing is delivered by community organisations. " +
         "If you accept an offer of community housing, your tenancy will be managed by a community housing organisation. Public housing is delivered by Housing ACT.";
     const a12p1 = "Eligibility check is a screening and assessment method that assesses the identity, income, family status, health status, financial savings, housing needs, etc. of groups applying for free housing provided by the government in order to provide free housing to the applicants who need it most.";
-    const a13p1 = "Our 'ROOF4ALL' will provide support to the homeless community:";
+    const a13p1 = "Our 'ROOF4VIC' will provide support to the homeless community:";
     const a13p2 = "1. By setting the filter, we will provide you with the housing intermediary information that most meets your requirements, so as to obtain the right housing.";
     const a13p3 = "2. Provide users with the list information of Melbourne hospitals.";
     const a13p4 = "3. According to the user's query information in the search box, we will provide the user with a list of registered housing intermediary information and display it on the map.";

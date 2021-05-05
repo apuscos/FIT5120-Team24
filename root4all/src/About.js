@@ -157,9 +157,9 @@ function About() {
             <Navbar />
             <AreaWrapper>
                 <ProductDesc>
-                    <Title>Roof4All</Title>
+                    <Title>Roof4Vic</Title>
                     <Content>
-                        Roof 4 All strives to provide a consolidated form of the integration of all necessary information on available social housing options aiding to the needs, the eligibility in availing certain housing services and other support options for the homeless or people at the risk of homelessness due to the difficult situations stemmed from the fallout of the Covid pandemic
+                        Roof4Vic strives to provide a consolidated form of the integration of all necessary information on available social housing options aiding to the needs, the eligibility in availing certain housing services and other support options for the homeless or people at the risk of homelessness due to the difficult situations stemmed from the fallout of the Covid pandemic
                     </Content>
                 </ProductDesc>
                 <ProductImg/>
