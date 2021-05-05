@@ -12,7 +12,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import {StepLabel, Step, Stepper, Typography, withStyles} from "@material-ui/core";
+import {StepLabel, Step, Stepper, Typography, withStyles, Checkbox} from "@material-ui/core";
 import BackgroundImage from "./Image/checkEligibilityBackground.webp"
 
 const ButtonNextStyled = styled(Button)`
@@ -125,6 +125,7 @@ const ResultArea = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  padding-bottom: 60px;
   
 `;
 
@@ -144,7 +145,7 @@ const ResultContent = styled.div`
 const TableContainerStyled = styled(TableContainer)`
   margin-bottom: 20px;
   &&{
-    width: 50%;
+    width: 60%;
   }
 `;
 
@@ -152,7 +153,8 @@ const WrapperPage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 60px;
+  width: 100%;
+  padding-top: 20px;
   padding-bottom: 60px;
 `;
 
@@ -250,41 +252,65 @@ function CheckEligibility(){
                     <TableBody>
                         <TableRow key={"Documents Name"}>
                             <TableCell component="th" scope="row" >
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"Registered of interest application form"}
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Documents Name"}>
                             <TableCell component="th" scope="row" >
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"Proof of identity – Passport, driving licence or any government issued proof of identity."}
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Additional adult household member form"}>
                             <TableCell component="th" scope="row">
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"Bank statement of past four weeks if not receiving payments from Centerlink"}
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Additional dependent children form"}>
                             <TableCell component="th" scope="row">
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"Letter from a solicitor stating your property’s market value(if applicable)."}
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Special accommodation requirements form"}>
                             <TableCell component="th" scope="row">
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"If the property stated above is on sale or under dispute, show the documents stating your ownership of the property."}
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Proof of assets owned – like shares, businesses."}>
                             <TableCell component="th" scope="row">
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"Proof of assets owned – like shares, businesses."}
                             </TableCell>
                         </TableRow>
                         <TableRow key={"If expecting a child or adopting a child, provide proof of the same."}>
                             <TableCell component="th" scope="row">
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"If expecting a child or adopting a child, provide proof of the same."}
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Australian Citizenship Certificate"}>
                             <TableCell component="th" scope="row">
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"Australian Citizenship Certificate, immigration visa, passport or a letter from the Department of Immigration and Border Protection for each resident of household not born in India."}
                             </TableCell>
                         </TableRow>
@@ -292,6 +318,9 @@ function CheckEligibility(){
                             <>
                                 <TableRow key={"link2"}>
                                     <TableCell component="th" scope="row" >
+                                        <Checkbox
+                                            color="secondary"
+                                        />
                                         Additional dependent form
                                     </TableCell>
                                 </TableRow>
@@ -313,36 +342,57 @@ function CheckEligibility(){
                             <TableBody>
                                 <TableRow key={"Documents Name"}>
                                     <TableCell component="th" scope="row" >
+                                        <Checkbox
+                                            color="secondary"
+                                        />
                                         {"Proof of identity – Passport, driving licence or any government issued proof of identity."}
                                     </TableCell>
                                 </TableRow>
                                 <TableRow key={"Additional adult household member form"}>
                                     <TableCell component="th" scope="row">
+                                        <Checkbox
+                                            color="secondary"
+                                        />
                                         {"Bank statement of past four weeks if not receiving payments from Centerlink"}
                                     </TableCell>
                                 </TableRow>
                                 <TableRow key={"Additional dependent children form"}>
                                     <TableCell component="th" scope="row">
+                                        <Checkbox
+                                            color="secondary"
+                                        />
                                         {"Letter from a solicitor stating your property’s market value(if applicable)."}
                                     </TableCell>
                                 </TableRow>
                                 <TableRow key={"Special accommodation requirements form"}>
                                     <TableCell component="th" scope="row">
+                                        <Checkbox
+                                            color="secondary"
+                                        />
                                         {"If the property stated above is on sale or under dispute, show the documents stating your ownership of the property."}
                                     </TableCell>
                                 </TableRow>
                                 <TableRow key={"Proof of assets owned – like shares, businesses."}>
                                     <TableCell component="th" scope="row">
+                                        <Checkbox
+                                            color="secondary"
+                                        />
                                         {"Proof of assets owned – like shares, businesses."}
                                     </TableCell>
                                 </TableRow>
                                 <TableRow key={"If expecting a child or adopting a child, provide proof of the same."}>
                                     <TableCell component="th" scope="row">
+                                        <Checkbox
+                                            color="secondary"
+                                        />
                                         {"If expecting a child or adopting a child, provide proof of the same."}
                                     </TableCell>
                                 </TableRow>
                                 <TableRow key={"Australian Citizenship Certificate"}>
                                     <TableCell component="th" scope="row">
+                                        <Checkbox
+                                            color="secondary"
+                                        />
                                         {"Medicare card/ birth certificate of each dependent child."}
                                     </TableCell>
                                 </TableRow>
@@ -405,56 +455,89 @@ function CheckEligibility(){
                     <TableBody>
                         <TableRow key={"Documents Name"}>
                             <TableCell component="th" scope="row" >
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"Registered of priority access application form"}
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Documents Name"}>
                             <TableCell component="th" scope="row" >
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"Support letter from your tenancy worker or community support agency, if staying in a community housing"}
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Additional adult household member form"}>
                             <TableCell component="th" scope="row">
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"If at risk if family violence, you need to provide an intervention order or an interim intervention order, or an application for one of these – a Family Court restraining order – a letter from a solicitor confirming that criminal proceedings have commenced against the alleged perpetrator of the violence."}
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Additional dependent children form"}>
                             <TableCell component="th" scope="row">
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"An intervention order or an interim intervention order, or an application for one of these or a verbal or written report from a member of a federal, state or territory police service or a report from a community support worker(if subjected to physical violence by person not living with you)"}
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Special accommodation requirements form"}>
                             <TableCell component="th" scope="row">
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"If you require major or full modifications, a detailed report about the modifications required by the occupational therapist."}
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Proof of assets owned – like shares, businesses."}>
                             <TableCell component="th" scope="row">
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"Complete an Application for Special Accommodation Requirements, if you need major/minor modifications due to medical reasons."}
                             </TableCell>
                         </TableRow>
                         <TableRow key={"If expecting a child or adopting a child, provide proof of the same."}>
                             <TableCell component="th" scope="row">
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"Letter from a community support worker or statutory declarations from you and the person with whom the children are residing will be required for family reunification situation or inappropriate condition of the current house where the children cannot reside."}
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Australian Citizenship Certificate"}>
                             <TableCell component="th" scope="row">
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"Written confirmation from the housing worker or the person you are staying with currently and would not be able to continue with them."}
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Australian Citizenship Certificate"}>
                             <TableCell component="th" scope="row">
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"A letter from the service that helped you to get alternative housing options(if applicable)"}
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Australian Citizenship Certificate"}>
                             <TableCell component="th" scope="row">
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"If not been helped with alternative housing then a written history of accommodation and attempts to get alternative housing options."}
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Australian Citizenship Certificate"}>
                             <TableCell component="th" scope="row">
+                                <Checkbox
+                                    color="secondary"
+                                />
                                 {"If not registered already with Victorian housing, needs to be filled along with Register of Interest form"}
                             </TableCell>
                         </TableRow>
@@ -462,6 +545,9 @@ function CheckEligibility(){
                             <>
                                 <TableRow key={"Australian Citizenship Certificate"}>
                                     <TableCell component="th" scope="row">
+                                        <Checkbox
+                                            color="secondary"
+                                        />
                                         {"Special accommodation for modification"}
                                     </TableCell>
                                 </TableRow>
@@ -520,163 +606,167 @@ function CheckEligibility(){
     const getStepContent = (step) => {
         switch (step){
             case 0:
-                return (<FormArea onSubmit={handleSubmit(onSubmit)}>
-                    <Label>Citizenship</Label>
-                    <Wrapper>
-                        <SelectionBox {...register("citizenship", {required: true })} onChange={(e) => {
-                            setResult(-1);
-                            if (e.target.value === ""){
-                                setShowError(true);
-                            } else {
-                                setShowError(false);
-                            }
-                            if (e.target.value === "Others"){
-                                setDisabled(true);
-                            } else {
-                                setDisabled(false);
-                            }
-                            if (e.target.value === "Others" || e.target.value === ""){
-                                setDisplay(false);
-                            } else {
-                                setDisplay(true);
-                            }
-                        }}>
-                            <SelectionOption value="">Select...</SelectionOption>
-                            <SelectionOption value="Australian_citizen">Australian citizen</SelectionOption>
-                            <SelectionOption value="Permanent_resident">Permanent resident</SelectionOption>
-                            <SelectionOption value="Others">Others</SelectionOption>
-                        </SelectionBox>
-                        {(showError && submitClicked) && <WarningMsg>This field is required</WarningMsg>}
-                        {disabled && <WarningMsg>Only Australian Citizen can apply for government housing</WarningMsg>}
-                    </Wrapper>
-
-
-
-                    <HiddenSection displayContent={display}>
-                        <Label>Residentship</Label>
+                return (
+                    <WrapperPage>
+                        <FormArea onSubmit={handleSubmit(onSubmit)}>
+                        <Label>Citizenship</Label>
                         <Wrapper>
-                            <SelectionBox {...register("residenship" , {require: true})} onChange={e => {
+                            <SelectionBox {...register("citizenship", {required: true })} onChange={(e) => {
                                 setResult(-1);
-                                if (e.target.value === "Others"){
-                                    setResidentshipDisable(true);
+                                if (e.target.value === ""){
+                                    setShowError(true);
                                 } else {
-                                    setResidentshipDisable(false);
+                                    setShowError(false);
                                 }
-                                if (!valid(e.target.value)){
-                                    setShowResidentError(true);
+                                if (e.target.value === "Others"){
+                                    setDisabled(true);
                                 } else {
-                                    setShowResidentError(false);
+                                    setDisabled(false);
+                                }
+                                if (e.target.value === "Others" || e.target.value === ""){
+                                    setDisplay(false);
+                                } else {
+                                    setDisplay(true);
                                 }
                             }}>
                                 <SelectionOption value="">Select...</SelectionOption>
-                                <SelectionOption value="Victorian_resident">Victorian resident</SelectionOption>
+                                <SelectionOption value="Australian_citizen">Australian citizen</SelectionOption>
+                                <SelectionOption value="Permanent_resident">Permanent resident</SelectionOption>
                                 <SelectionOption value="Others">Others</SelectionOption>
                             </SelectionBox>
-                            {(showResidentError && submitClicked) && <WarningMsg>Please select the Residenship</WarningMsg>}
-                            {residentshipDisable && <WarningMsg>Only Victoria resident can apply for government housing</WarningMsg>}
+                            {(showError && submitClicked) && <WarningMsg>This field is required</WarningMsg>}
+                            {disabled && <WarningMsg>Only Australian Citizen can apply for government housing</WarningMsg>}
                         </Wrapper>
-                    </HiddenSection>
 
-                    <Label>Household Type</Label>
-                    <Wrapper>
-                        <SelectionBox {...register("household" , {required: true})} onChange={(e) => {
-                            setResult(-1);
-                            if (e.target.value === ""){
-                                setShowHouseHoldError(true);
-                            } else {
-                                setShowHouseHoldError(false);
-                            }
 
-                            if (e.target.value === "Family"){
-                                setDependentDisplay(true);
-                            } else {
-                                setDependentDisplay(false);
-                            }
-                        }}>
-                            <SelectionOption value="">Select...</SelectionOption>
-                            <SelectionOption value="Single">Single person</SelectionOption>
-                            <SelectionOption value="Couple">Couple</SelectionOption>
-                            <SelectionOption value="Family">Family with up to two dependent children</SelectionOption>
-                        </SelectionBox>
-                        {(showHouseHoldError && submitClicked) && <WarningMsg>Please select the Household type</WarningMsg>}
-                    </Wrapper>
 
-                    <HiddenSection displayContent={dependentDisplay}>
-                        <Label>Number of Dependent Children</Label>
+                        <HiddenSection displayContent={display}>
+                            <Label>Residentship</Label>
+                            <Wrapper>
+                                <SelectionBox {...register("residenship" , {require: true})} onChange={e => {
+                                    setResult(-1);
+                                    if (e.target.value === "Others"){
+                                        setResidentshipDisable(true);
+                                    } else {
+                                        setResidentshipDisable(false);
+                                    }
+                                    if (!valid(e.target.value)){
+                                        setShowResidentError(true);
+                                    } else {
+                                        setShowResidentError(false);
+                                    }
+                                }}>
+                                    <SelectionOption value="">Select...</SelectionOption>
+                                    <SelectionOption value="Victorian_resident">Victorian resident</SelectionOption>
+                                    <SelectionOption value="Others">Others</SelectionOption>
+                                </SelectionBox>
+                                {(showResidentError && submitClicked) && <WarningMsg>Please select the Residenship</WarningMsg>}
+                                {residentshipDisable && <WarningMsg>Only Victoria resident can apply for government housing</WarningMsg>}
+                            </Wrapper>
+                        </HiddenSection>
+
+                        <Label>Household Type</Label>
                         <Wrapper>
-                            <SelectionBox {...register("numChildren" , {required: true, valueAsNumber: true})} onChange={() => {setResult(-1);}} >
+                            <SelectionBox {...register("household" , {required: true})} onChange={(e) => {
+                                setResult(-1);
+                                if (e.target.value === ""){
+                                    setShowHouseHoldError(true);
+                                } else {
+                                    setShowHouseHoldError(false);
+                                }
+
+                                if (e.target.value === "Family"){
+                                    setDependentDisplay(true);
+                                } else {
+                                    setDependentDisplay(false);
+                                }
+                            }}>
+                                <SelectionOption value="">Select...</SelectionOption>
+                                <SelectionOption value="Single">Single person</SelectionOption>
+                                <SelectionOption value="Couple">Couple</SelectionOption>
+                                <SelectionOption value="Family">Family with up to two dependent children</SelectionOption>
+                            </SelectionBox>
+                            {(showHouseHoldError && submitClicked) && <WarningMsg>Please select the Household type</WarningMsg>}
+                        </Wrapper>
+
+                        <HiddenSection displayContent={dependentDisplay}>
+                            <Label>Number of Dependent Children</Label>
+                            <Wrapper>
+                                <SelectionBox {...register("numChildren" , {required: true, valueAsNumber: true})} onChange={() => {setResult(-1);}} >
+                                    <SelectionOption value="0">0</SelectionOption>
+                                    <SelectionOption value="1">1</SelectionOption>
+                                    <SelectionOption value="2">2</SelectionOption>
+                                </SelectionBox>
+                                {errors.numChildren && <WarningMsg>Please select the Number of Children</WarningMsg>}
+                            </Wrapper>
+                        </HiddenSection>
+
+
+                        <Label>Number of Additional Dependent</Label>
+                        <Wrapper>
+                            <SelectionBox {...register("numDependent" , {required: true, valueAsNumber: true})} onChange={() => {setResult(-1);}}>
                                 <SelectionOption value="0">0</SelectionOption>
                                 <SelectionOption value="1">1</SelectionOption>
                                 <SelectionOption value="2">2</SelectionOption>
+                                <SelectionOption value="3">3</SelectionOption>
+                                <SelectionOption value="4">4</SelectionOption>
                             </SelectionBox>
-                            {errors.numChildren && <WarningMsg>Please select the Number of Children</WarningMsg>}
+                            {errors.numDependent && <WarningMsg>Please select the Number of dependent</WarningMsg>}
                         </Wrapper>
-                    </HiddenSection>
-
-
-                    <Label>Number of Additional Dependent</Label>
-                    <Wrapper>
-                        <SelectionBox {...register("numDependent" , {required: true, valueAsNumber: true})} onChange={() => {setResult(-1);}}>
-                            <SelectionOption value="0">0</SelectionOption>
-                            <SelectionOption value="1">1</SelectionOption>
-                            <SelectionOption value="2">2</SelectionOption>
-                            <SelectionOption value="3">3</SelectionOption>
-                            <SelectionOption value="4">4</SelectionOption>
-                        </SelectionBox>
-                        {errors.numDependent && <WarningMsg>Please select the Number of dependent</WarningMsg>}
-                    </Wrapper>
 
 
 
 
 
-                    <Label>Weekly Income</Label>
-                    <Wrapper>
-                        <InputBox {...register("weeklyIncome", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} onChange={(e) => {
-                            setResult(-1);
-                            if (isNaN(e.target.value)){
-                                setShowWeeklyIncomeError(true);
-                            } else {
-                                setShowWeeklyIncomeError(false);
-                            }
-                        }} />
-                        {(showWeeklyIncomeError && submitClicked) && <WarningMsg>Please enter valid weekly income</WarningMsg>}
-                    </Wrapper>
+                        <Label>Weekly Income</Label>
+                        <Wrapper>
+                            <InputBox {...register("weeklyIncome", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} onChange={(e) => {
+                                setResult(-1);
+                                if (isNaN(e.target.value)){
+                                    setShowWeeklyIncomeError(true);
+                                } else {
+                                    setShowWeeklyIncomeError(false);
+                                }
+                            }} />
+                            {(showWeeklyIncomeError && submitClicked) && <WarningMsg>Please enter valid weekly income</WarningMsg>}
+                        </Wrapper>
 
-                    <Label>Asset</Label>
-                    <Wrapper>
-                        <InputBox {...register("asset", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} onChange={(e) => {
-                            setResult(-1);
-                            if (isNaN(e.target.value)){
-                                setShowAssetError(true);
-                            } else {
-                                setShowAssetError(false);
-                            }
-                        }} />
-                        {(showAssetError && submitClicked) && <WarningMsg>Please enter valid asset number</WarningMsg>}
-                    </Wrapper>
-                    <Wrapper>
-                        <CheckBoxInput {...register("check")} type={"checkbox"} onChange={() => {
-                            setResult(-1);
-                        }} />
-                        <CheckBoxLabel>Need major or full disability modifications</CheckBoxLabel>
-                    </Wrapper>
-                    <div>
-                        <Button variant="contained"  disabled={true} onClick={handleBack}>
-                            Back
-                        </Button>
-                        <ButtonNextStyled
-                            variant="contained"
-                            color="secondary"
-                            onClick={handleNext}
-                            type={"submit"}
-                            disabled={ disabled || residentshipDisable|| loading }
-                        >
-                            Next
-                        </ButtonNextStyled>
-                    </div>
+                        <Label>Asset</Label>
+                        <Wrapper>
+                            <InputBox {...register("asset", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} onChange={(e) => {
+                                setResult(-1);
+                                if (isNaN(e.target.value)){
+                                    setShowAssetError(true);
+                                } else {
+                                    setShowAssetError(false);
+                                }
+                            }} />
+                            {(showAssetError && submitClicked) && <WarningMsg>Please enter valid asset number</WarningMsg>}
+                        </Wrapper>
+                        <Wrapper>
+                            <CheckBoxInput {...register("check")} type={"checkbox"} onChange={() => {
+                                setResult(-1);
+                            }} />
+                            <CheckBoxLabel>Need major or full disability modifications</CheckBoxLabel>
+                        </Wrapper>
+                        <div>
+                            <Button variant="contained"  disabled={true} onClick={handleBack}>
+                                Back
+                            </Button>
+                            <ButtonNextStyled
+                                variant="contained"
+                                color="secondary"
+                                onClick={handleNext}
+                                type={"submit"}
+                                disabled={ disabled || residentshipDisable|| loading }
+                            >
+                                Next
+                            </ButtonNextStyled>
+                        </div>
 
-                </FormArea>);
+                    </FormArea>
+                        </WrapperPage>
+                        );
             case 1:
                 return(
                     <ResultArea>
@@ -745,9 +835,9 @@ function CheckEligibility(){
                     );
                 })}
             </StepperStyled>
-            <WrapperPage>
-                {getStepContent(activeStep)}
-            </WrapperPage>
+
+            {getStepContent(activeStep)}
+
 
 
 
