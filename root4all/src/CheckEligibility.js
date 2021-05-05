@@ -143,6 +143,9 @@ const ResultContent = styled.div`
 
 const TableContainerStyled = styled(TableContainer)`
   margin-bottom: 20px;
+  &&{
+    width: 50%;
+  }
 `;
 
 const WrapperPage = styled.div`
@@ -151,8 +154,6 @@ const WrapperPage = styled.div`
   justify-content: center;
   padding-top: 60px;
   padding-bottom: 60px;
-  padding-left: 100px;
-  padding-right: 100px;
 `;
 
 
