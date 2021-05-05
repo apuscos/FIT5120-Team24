@@ -653,10 +653,10 @@ function FindAgency(props) {
 
             <BackgroundWrapper>
                 <Search.Area>
-                    <Search.TextArea>Search agency by Postcode or Suburb name</Search.TextArea>
+                    <Search.TextArea>Search agency in Victoria</Search.TextArea>
                     <Search.SearchArea>
                         <Search.InputArea onChange={e => setInput(e.target.value)}
-                                          placeholder={"Please Enter PostCode/Suburb"}/>
+                                          placeholder={"Please Enter the PostCode/Suburb"}/>
                         <Search.SearchButton onClick={handleAgencySearch}/>
                     </Search.SearchArea>
                     <CheckBoxArea>
