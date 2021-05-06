@@ -61,15 +61,21 @@ const FormArea = styled.form`
 
 const InputBox = styled.input`
   line-height: 1;
-  width: 365px;
+  width: 360px;
   height: 40px;
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 600;
   font-size: 1.25em;
-  padding-left: 30px;
+  padding-left: 35px;
   margin-bottom: 30px;
   &:focus {
     outline: none;
+  }
+  &::after{
+    content: "before";
+    display: block;
+    width: 30px;
+    height: 30px;
   }
 `;
 
@@ -108,6 +114,7 @@ const SelectionOption = styled.option`
 
 const Wrapper = styled.div`
   display: flex;
+  position: relative;
 `;
 const WarningMsg = styled.div`
   color: red;
@@ -164,6 +171,15 @@ const WrapperPage = styled.div`
   width: 100%;
   padding-top: 20px;
   padding-bottom: 60px;
+`;
+
+const DollarSign = styled.div`
+  position: absolute;
+  top: 7px;
+  left: 10px;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 600;
+  font-size: 1.25em;
 `;
 
 
@@ -724,6 +740,7 @@ function CheckEligibility(){
 
                         <Label>Weekly Income</Label>
                         <Wrapper>
+                            <DollarSign>A$</DollarSign>
                             <InputBox {...register("weeklyIncome", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} onChange={(e) => {
                                 setResult(-1);
                                 if (isNaN(e.target.value)){
@@ -737,6 +754,7 @@ function CheckEligibility(){
 
                         <Label>Asset</Label>
                         <Wrapper>
+                            <DollarSign>A$</DollarSign>
                             <InputBox {...register("asset", {required: true, min: 0, valueAsNumber: true, validate: value => !isNaN(value)})} onChange={(e) => {
                                 setResult(-1);
                                 if (isNaN(e.target.value)){
