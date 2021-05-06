@@ -16,6 +16,21 @@ import {StepLabel, Step, Stepper, Typography, withStyles, Checkbox} from "@mater
 import BackgroundImage from "./Image/checkEligibilityBackground.webp"
 import { PDFExport } from '@progress/kendo-react-pdf';
 
+const CriteriaTitle = styled(Typography)`
+  &{
+    padding-bottom: 10px;
+  }
+`;
+
+const CriteriaArea = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+`;
 
 const ButtonNextStyled = styled(Button)`
   && {margin-left: 16px;}
@@ -351,6 +366,18 @@ function CheckEligibility(){
                                 </TableRow>
                             </>
                             :null }
+                        {userInputData["check"] ?
+                            <>
+                                <TableRow key={"Australian Citizenship Certificate"}>
+                                    <TableCell component="th" scope="row">
+                                        <Checkbox
+                                            color="secondary"
+                                        />
+                                        {"Special accommodation for modification"}
+                                    </TableCell>
+                                </TableRow>
+                            </>
+                            : null }
                     </TableBody>
                 </Table>
             </TableContainerStyled>
@@ -453,6 +480,16 @@ function CheckEligibility(){
                                 </TableRow>
                             </>
                             :null }
+
+                        {userInputData["check"] ?
+                            <>
+                                <TableRow key={"link1"}>
+                                    <TableCell component="th" scope="row" >
+                                        Special accommodation for modification, fill this form : <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf</a>
+                                    </TableCell>
+                                </TableRow>
+                            </>
+                            : null}
                     </TableBody>
                 </Table>
             </TableContainerStyled>
@@ -815,6 +852,96 @@ function CheckEligibility(){
                                 Next
                             </ButtonNextStyled>
                         </ButtonArea>
+                        <CriteriaArea>
+                            <CriteriaTitle variant={"h5"}>
+                                Income Eligibility Criteria
+                            </CriteriaTitle>
+                            <TableContainerStyled component={Paper}>
+                                <Table aria-label="simple table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <StyledTableCell align={"left"}><Typography variant={"h6"}>Household Type</Typography></StyledTableCell>
+                                            <StyledTableCell align={"left"}><Typography variant={"h6"}>Weekly limit for the Register of Interest</Typography></StyledTableCell>
+                                            <StyledTableCell align={"left"}><Typography variant={"h6"}>Weekly limit for the Priority Access housing</Typography></StyledTableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        <TableRow key={"single"}>
+                                            <TableCell component="th" scope="row" >
+                                                <Typography variant={"h6"}>Single person</Typography>
+                                            </TableCell>
+                                            <TableCell component="th" scope="row" >
+                                                <Typography>$1,059</Typography>
+                                            </TableCell>
+                                            <TableCell component="th" scope="row" >
+                                                <Typography>$593</Typography>
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow key={"Couple"}>
+                                            <TableCell component="th" scope="row" >
+                                                <Typography variant={"h6"}>Couple</Typography>
+                                            </TableCell>
+                                            <TableCell component="th" scope="row" >
+                                                <Typography>$1,621</Typography>
+                                            </TableCell>
+                                            <TableCell component="th" scope="row" >
+                                                <Typography>$1,025</Typography>
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow key={"Family"}>
+                                            <TableCell component="th" scope="row" >
+                                                <Typography variant={"h6"}>Family</Typography>
+                                            </TableCell>
+                                            <TableCell component="th" scope="row" >
+                                                <Typography>$2,186</Typography>
+                                            </TableCell>
+                                            <TableCell component="th" scope="row" >
+                                                <Typography>$1,062</Typography>
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow key={"Additional"}>
+                                            <TableCell component="th" scope="row" >
+                                                <Typography variant={"h6"}>Each additional dependant</Typography>
+                                            </TableCell>
+                                            <TableCell component="th" scope="row" >
+                                                <Typography>$335</Typography>
+                                            </TableCell>
+                                            <TableCell component="th" scope="row" >
+                                                <Typography>$37</Typography>
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                </Table>
+                            </TableContainerStyled>
+
+                            <CriteriaTitle variant={"h5"}>
+                                Asset Eligibility Criteria
+                            </CriteriaTitle>
+                            <TableContainerStyled component={Paper}>
+                                <Table aria-label="simple table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <StyledTableCell align={"left"}><Typography variant={"h6"}>Asset limit for the Register of Interest</Typography></StyledTableCell>
+                                            <StyledTableCell align={"left"}><Typography variant={"h6"}>Asset limit for the Priority Access housing</Typography></StyledTableCell>
+                                            <StyledTableCell align={"left"}><Typography variant={"h6"}>Asset limit for the major or full disability modifications</Typography></StyledTableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        <TableRow key={"single"}>
+                                            <TableCell component="th" scope="row" >
+                                                <Typography>$34,656</Typography>
+                                            </TableCell>
+                                            <TableCell component="th" scope="row" >
+                                                <Typography>$13,699</Typography>
+                                            </TableCell>
+                                            <TableCell component="th" scope="row" >
+                                                <Typography>$115,552</Typography>
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                </Table>
+                            </TableContainerStyled>
+                        </CriteriaArea>
                     </>
                 );
             case 2:
