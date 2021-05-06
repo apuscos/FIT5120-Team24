@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import Navbar from "./Navigation/NavBar";
 import styled from "styled-components";
 import {useForm} from "react-hook-form";
@@ -14,6 +14,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import {StepLabel, Step, Stepper, Typography, withStyles, Checkbox} from "@material-ui/core";
 import BackgroundImage from "./Image/checkEligibilityBackground.webp"
+import { PDFExport } from '@progress/kendo-react-pdf';
+
 
 const ButtonNextStyled = styled(Button)`
   && {margin-left: 16px;}
@@ -124,9 +126,11 @@ const ResultArea = styled.div`
   
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
-  padding-bottom: 60px;
-  
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
 `;
 
 const ResultTitle = styled.div`
@@ -144,10 +148,14 @@ const ResultContent = styled.div`
 
 const TableContainerStyled = styled(TableContainer)`
   margin-bottom: 20px;
-  &&{
-    width: 60%;
-  }
 `;
+
+const ButtonArea = styled.div`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 60px;
+    `;
 
 const WrapperPage = styled.div`
   display: flex;
@@ -177,6 +185,7 @@ function CheckEligibility(){
     const [limit2, setLimit2] = useState(0);
     const [userInputData, setUserInputData] =useState({});
     const [activeStep, setActiveStep] = useState(0);
+    const downloadRef = useRef(null);
     const steps = ['Fill in your criteria', 'Get the result', 'Get documents']
     const StyledTableCell = withStyles(() => ({
         head: {
@@ -329,7 +338,6 @@ function CheckEligibility(){
                     </TableBody>
                 </Table>
             </TableContainerStyled>
-
             {userInputData["household"] === "Family" || userInputData["household"] === "Couple" ?
                 <>
                     <TableContainerStyled component={Paper}>
@@ -432,9 +440,6 @@ function CheckEligibility(){
                     </TableBody>
                 </Table>
             </TableContainerStyled>
-
-
-
         </>
     )
     let result6Text = (
@@ -586,7 +591,6 @@ function CheckEligibility(){
                     </TableBody>
                 </Table>
             </TableContainerStyled>
-
         </>
     )
 
@@ -769,16 +773,18 @@ function CheckEligibility(){
                         );
             case 1:
                 return(
-                    <ResultArea>
-                        {result === 0 ? result0 : null}
-                        {result === 1 ? result1 : null}
-                        {result === 2 ? result2 : null}
-                        {result === 3 ? result3 : null}
-                        {result === 4 ? result4 : null}
-                        {result === 5 ? result5Text : null}
-                        {result === 6 ? result6Text : null}
-                        {result === 7 ? result7 : null}
-                        <div>
+                    <>
+                        <ResultArea>
+                            {result === 0 ? result0 : null}
+                            {result === 1 ? result1 : null}
+                            {result === 2 ? result2 : null}
+                            {result === 3 ? result3 : null}
+                            {result === 4 ? result4 : null}
+                            {result === 5 ? result5Text : null}
+                            {result === 6 ? result6Text : null}
+                            {result === 7 ? result7 : null}
+                        </ResultArea>
+                        <ButtonArea>
                             <Button variant="contained"  onClick={handleBack}>
                                 Back
                             </Button>
@@ -790,32 +796,40 @@ function CheckEligibility(){
                             >
                                 Next
                             </ButtonNextStyled>
-                        </div>
-                    </ResultArea>
+                        </ButtonArea>
+                    </>
                 );
             case 2:
                 return (
-                    <ResultArea>
-                        {result === 5 ? result5 : null}
-                        {result === 6 ? result6 : null}
-                        <div>
+                    <>
+                        <ResultArea>
+                            <PDFExport ref={downloadRef} paperSize={"A4"} fileName={"CheckList.pdf"} scale={0.8}>
+                                    {result === 5 ? result5 : null}
+                                    {result === 6 ? result6 : null}
+                            </PDFExport>
+                        </ResultArea>
+                        <ButtonArea>
                             <Button variant="contained"  onClick={handleBack}>
                                 Back
                             </Button>
                             <ButtonNextStyled
                                 variant="contained"
                                 color="secondary"
-                                onClick={handleNext}
-                                disabled={true}
+                                onClick={handleDownloadPDF}
                             >
-                                Next
+                                Download PDF
                             </ButtonNextStyled>
-                        </div>
-                    </ResultArea>
+                        </ButtonArea>
+                    </>
                 );
             default:
                 return "Unknown step"
         }
+    }
+
+
+    const handleDownloadPDF = () => {
+        downloadRef.current.save();
     }
 
 
@@ -837,17 +851,10 @@ function CheckEligibility(){
             </StepperStyled>
 
             {getStepContent(activeStep)}
-
-
-
-
-
-
-
-
-
         </div>
     );
 }
+
+
 
 export default CheckEligibility;
