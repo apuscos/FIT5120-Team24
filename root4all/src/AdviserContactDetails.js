@@ -55,6 +55,7 @@ function AdviserContactDetails(){
             <TypographStyled variant={"h6"}>If you don't have anywhere to live there are organisations that can help you find accommodation. You can apply for emergency accommodation and public housing.</TypographStyled>
             <br/>
             <TypographStyled variant={"h6"}>There are other services that can help you with legal matters, financial hardship, and family violence</TypographStyled>
+            <br/>
             <TypographStyled variant={"h4"}>Victoria Legal Aid</TypographStyled>
             <br/>
             <TypographStyled variant={"h6"}>Get help over the phone by calling Legal Help on 1300 792 387 (Monday to Friday, 8 am to 6 pm)</TypographStyled>
@@ -75,7 +76,21 @@ function AdviserContactDetails(){
             <TypographStyled variant={"h6"}>6)Human rights advocacy</TypographStyled>
             <br/>
             <TypographStyled variant={"h6"}>The clinic does not assist with family or criminal law matters.</TypographStyled>
-            <TableWrapper>
+            <br/>
+            <TypographStyled variant={"h4"}>Youth Law</TypographStyled>
+            <br/>
+            <TypographStyled variant={"h6"}><a href={'http://youthlaw.asn.au/free-legal-advice-for-young-people/'}>Youth law</a>provides free and confidential legal information and advice to young people up to the age of 25.</TypographStyled>
+            <br/>
+            <TypographStyled variant={"h4"}>Tenants Victoria</TypographStyled>
+            <br/>
+            <TypographStyled variant={"h6"}>If you are at risk of becoming homeless, contact <a href={'https://tenantsvic.org.au/'}>Tenants Victoria.</a></TypographStyled>
+            <br/>
+            <TypographStyled variant={"h4"}>Other Programs</TypographStyled>
+            <TypographStyled variant={"h4"}>Healthy Ageing Program</TypographStyled>
+            <br/>
+            <TypographStyled variant={"h6"}>The department funds a small number of active and healthy ageing advisers (AHAAs) across the state to help with healthy ageing in Victoria. They aim to improve the health and well-being of the aged community of Melbourne. They work on strategies to improve the same.</TypographStyled>
+            <br/>
+                <TableWrapper>
                 <Typography variant={"h4"}>Active and Healthy ageing Advisers contact details</Typography>
                 <TableContainerStyled component={Paper}>
                     <Table aria-label="simple table">
