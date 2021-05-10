@@ -129,7 +129,6 @@ function MoreInfo(){
                             </Grid>
                             <Grid item md={12} lg={12} xl={12}>
                                 <Paper elevation={0} className={classes.serviceIntro}>
-                                    {/*<Typography align={"center"} variant={"h4"} >Looking for a Government Housing Agency?</Typography>*/}
                                     <Typography variant={"h5"}>The youth are the foundation of any society. Find out more about the various programs to support the young people who are homeless or are at risk.</Typography>
                                 </Paper>
                             </Grid>
@@ -153,9 +152,7 @@ function MoreInfo(){
                             </Grid>
                             <Grid item md={12} lg={12} xl={12}>
                                 <Paper elevation={0} className={classes.serviceIntro}>
-                                    <Typography variant={"h4"} >Is your agency legit?</Typography>
-                                    <br/>
-                                    <Typography variant={"h5"}>Let us save you from the scams surrounding the public housing area. Type in the agency name, and check if it is registered with the government.</Typography>
+                                    <Typography variant={"h5"}>We must promote, build, and support the health of the older generation. There are old age care programs to help, find more details here.</Typography>
                                 </Paper>
                             </Grid>
                         </Paper>
@@ -175,9 +172,7 @@ function MoreInfo(){
                             </Grid>
                             <Grid item md={12} lg={12} xl={12}>
                                 <Paper elevation={0} className={classes.serviceIntro}>
-                                    <Typography variant={"h4"} >Are you eligible for Social Housing?</Typography>
-                                    <br/>
-                                    <Typography variant={"h5"} >Check your eligibility and the options available to you. Don’t you stress about the tiresome job of finding the required documents. We provide you with information on the forms and the supplementary documents you require for your application.</Typography>
+                                    <Typography variant={"h5"} >Do you need legal advices for your homeless situations? You have options to move forward legally, for FREE. Find out more here</Typography>
                                 </Paper>
                             </Grid>
                         </Paper>
@@ -196,8 +191,6 @@ function MoreInfo(){
                             </Grid>
                             <Grid item md={12} lg={12} xl={12}>
                                 <Paper elevation={0} className={classes.serviceIntro}>
-                                    <Typography variant={"h4"} >Are you eligible for Social Housing?</Typography>
-                                    <br/>
                                     <Typography variant={"h5"} >Check your eligibility and the options available to you. Don’t you stress about the tiresome job of finding the required documents. We provide you with information on the forms and the supplementary documents you require for your application.</Typography>
                                 </Paper>
                             </Grid>
