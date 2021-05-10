@@ -39,7 +39,6 @@ const MoreInfoTitle = styled.div`
 
 const TableContainerStyled = styled(TableContainer)`
   margin-bottom: 20px;
-  width: 60%;
 `;
 
 const TableWrapper = styled.div`
@@ -47,6 +46,9 @@ const TableWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 
