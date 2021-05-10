@@ -111,6 +111,7 @@ const StatArea = styled.div`
   
   background-color: #fafafa;
   display: flex;
+  flex-direction: column;
   padding-left: calc(15% + 40px);
   padding-right: calc(15% + 40px);
   padding-bottom: 70px;
@@ -241,6 +242,18 @@ const ServiceCover = styled.div`
   }
 `;
 
+
+const TypoMoreInfo = styled(Typography)`
+  color: black;
+`;
+
+const LinkStyled = styled(Link)`
+  color: black;
+  margin-left: auto;
+`;
+
+
+
 function LegendPage () {
     return (
         <>
@@ -368,6 +381,9 @@ function Home() {
                         </StateSection>
                     </StatLink>
                 </PaperWrapper>
+                <LinkStyled to={"moreInfo"}>
+                    <TypoMoreInfo variant={"h6"}>More information</TypoMoreInfo>
+                </LinkStyled>
             </StatArea>
         </div>
     );

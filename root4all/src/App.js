@@ -6,6 +6,7 @@ import About from "./About"
 import FindAgency from "./FindAgency";
 import Footer from "./Footer/Footer"
 import CheckEligibility from "./CheckEligibility";
+import MoreInfo from "./MoreInfo"
 import { ThemeProvider } from '@material-ui/core/styles'
 import Theme from "./Theme";
 
@@ -33,6 +34,7 @@ function App() {
                     <Route path='/help' exact component={Help} />
                     <Route path='/about' exact component={About} />
                     <Route path='/checkEligibility' exact component={CheckEligibility} />
+                    <Route path='/moreInfo' exact component={MoreInfo} />
                 </Switch>
                 <Footer />
             </Router>

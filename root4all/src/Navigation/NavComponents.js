@@ -5,7 +5,7 @@ import logo from "../Image/logo.png";
 
 
 export const Nav = styled.nav`
-  background-color: ${props => props.position ? "rgba(0, 0, 0, 0.9)" :"rgba(0, 0, 0)" };;
+  background-color: ${props => props.position ? "rgba(0, 0, 0, 0.9)" :"rgba(0, 0, 0)" };
   height: 85px;
   width: 70%;
   display: flex;
