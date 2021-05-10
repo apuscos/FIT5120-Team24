@@ -122,7 +122,7 @@ function MoreInfo(){
                                 <LinkNoUnderline to={"/CHSs"}>
                                     <ServiceCover url={HealthCare} >
                                         <SquareBlur>
-                                            Community Health Services
+                                            Health Services for Youth
                                         </SquareBlur>
                                     </ServiceCover>
                                 </LinkNoUnderline>
