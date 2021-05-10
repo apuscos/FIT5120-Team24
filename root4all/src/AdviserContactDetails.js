@@ -50,7 +50,7 @@ function AdviserContactDetails(){
 
             <TableWrapper>
                 <Typography variant={"h6"}>If you don’t have anywhere to live there are organisations that can help you find accommodation. You can apply for emergency accommodation and public housing.</Typography>
-                </br>
+                <br/>
                 <Typography variant={"h6"}>There are other services that can help you with legal matters, financial hardship, and family violence</Typography>
                 <Typography variant={"h4"}>Active and Healthy ageing Advisers contact details</Typography>
                 <TableContainerStyled component={Paper}>
