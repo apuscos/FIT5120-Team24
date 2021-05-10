@@ -182,6 +182,27 @@ function MoreInfo(){
                             </Grid>
                         </Paper>
                     </Grid>
+
+                    <Grid  item md={12} lg={12} xl={12}>
+                        <Paper className={classes.service}>
+                            <Grid item >
+                                <LinkNoUnderline to={"/AdviserContactDetails"}>
+                                    <ServiceCover url={LegalService}>
+                                        <SquareBlur>
+                                            Ageing Advisers
+                                        </SquareBlur>
+                                    </ServiceCover>
+                                </LinkNoUnderline>
+                            </Grid>
+                            <Grid item md={12} lg={12} xl={12}>
+                                <Paper elevation={0} className={classes.serviceIntro}>
+                                    <Typography variant={"h4"} >Are you eligible for Social Housing?</Typography>
+                                    <br/>
+                                    <Typography variant={"h5"} >Check your eligibility and the options available to you. Don’t you stress about the tiresome job of finding the required documents. We provide you with information on the forms and the supplementary documents you require for your application.</Typography>
+                                </Paper>
+                            </Grid>
+                        </Paper>
+                    </Grid>
                 </Grid>
 
             </ServiceArea>
