@@ -35,6 +35,11 @@ const TableContainerStyled = styled(TableContainer)`
   margin-bottom: 20px;
 `;
 
+const TypographStyled = styled(Typography)`
+  padding-left: 10%;
+  padding-right: 10%;
+`;
+
 
 function AdviserContactDetails(){
     const StyledTableCell = withStyles(() => ({
@@ -47,11 +52,12 @@ function AdviserContactDetails(){
             <Navbar/>
             <BlankArea/>
             <LinkNoUnderline to={"/moreInfo"}><Button variant="contained" color="secondary">Back</Button></LinkNoUnderline>
-
+            <br/>
+            <br/>
+            <TypographStyled variant={"h6"}>If you don’t have anywhere to live there are organisations that can help you find accommodation. You can apply for emergency accommodation and public housing.</TypographStyled>
+            <br/>
+            <TypographStyled variant={"h6"}>There are other services that can help you with legal matters, financial hardship, and family violence</TypographStyled>
             <TableWrapper>
-                <Typography variant={"h6"}>If you don’t have anywhere to live there are organisations that can help you find accommodation. You can apply for emergency accommodation and public housing.</Typography>
-                </br>
-                <Typography variant={"h6"}>There are other services that can help you with legal matters, financial hardship, and family violence</Typography>
                 <Typography variant={"h4"}>Active and Healthy ageing Advisers contact details</Typography>
                 <TableContainerStyled component={Paper}>
                     <Table aria-label="simple table">
