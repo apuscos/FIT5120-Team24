@@ -13,7 +13,7 @@ import Navbar from "./Navigation/NavBar";
 import Button from "@material-ui/core/Button";
 const LinkNoUnderline = styled(Link)`
   text-decoration: none;
-  margin-left: 20%;
+  margin-left: 10%;
 `
 
 const BlankArea = styled.div`
@@ -25,7 +25,7 @@ const TableWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 60%;
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
   padding-top: 10px;
