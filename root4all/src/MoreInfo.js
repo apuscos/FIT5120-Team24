@@ -129,9 +129,8 @@ function MoreInfo(){
                             </Grid>
                             <Grid item md={12} lg={12} xl={12}>
                                 <Paper elevation={0} className={classes.serviceIntro}>
-                                    <Typography align={"center"} variant={"h4"} >Looking for a Government Housing Agency?</Typography>
-                                    <br/>
-                                    <Typography variant={"h5"}>Let us help you. Type in your postal code or your suburb to find the agencies that are nearby.</Typography>
+                                    {/*<Typography align={"center"} variant={"h4"} >Looking for a Government Housing Agency?</Typography>*/}
+                                    <Typography variant={"h5"}>The youth are the foundation of any society. Find out more about the various programs to support the young people who are homeless or are at risk.</Typography>
                                 </Paper>
                             </Grid>
                         </Paper>
