@@ -47,8 +47,11 @@ function AdviserContactDetails(){
             <Navbar/>
             <BlankArea/>
             <LinkNoUnderline to={"/moreInfo"}><Button variant="contained" color="secondary">Back</Button></LinkNoUnderline>
-            <Typography variant={"h6"}>It is considered the responsibility of the Government to provide programs that keep young people safe and healthy, to teach them new skills, and give them a voice in shaping what happens in their communities. The youth should not be deprived of that just because of they cannot afford a house, or their family could not take care of them any longer.</Typography>
+
             <TableWrapper>
+                <Typography variant={"h6"}>If you don’t have anywhere to live there are organisations that can help you find accommodation. You can apply for emergency accommodation and public housing.</Typography>
+                </br>
+                <Typography variant={"h6"}>There are other services that can help you with legal matters, financial hardship, and family violence</Typography>
                 <Typography variant={"h4"}>Active and Healthy ageing Advisers contact details</Typography>
                 <TableContainerStyled component={Paper}>
                     <Table aria-label="simple table">
