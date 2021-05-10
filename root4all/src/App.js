@@ -7,6 +7,9 @@ import FindAgency from "./FindAgency";
 import Footer from "./Footer/Footer"
 import CheckEligibility from "./CheckEligibility";
 import MoreInfo from "./MoreInfo"
+import CHSs from "./CHSs"
+import AgedProgram from "./AgedProgram";
+import AdviserContactDetails from "./AdviserContactDetails";
 import { ThemeProvider } from '@material-ui/core/styles'
 import Theme from "./Theme";
 
@@ -35,6 +38,9 @@ function App() {
                     <Route path='/about' exact component={About} />
                     <Route path='/checkEligibility' exact component={CheckEligibility} />
                     <Route path='/moreInfo' exact component={MoreInfo} />
+                    <Route path='/CHSs' exact component={CHSs} />
+                    <Route path='/AgedProgram' exact component={AgedProgram} />
+                    <Route path='/AdviserContactDetails' exact component={AdviserContactDetails} />
                 </Switch>
                 <Footer />
             </Router>
