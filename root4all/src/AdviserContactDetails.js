@@ -47,7 +47,8 @@ function AdviserContactDetails(){
             <Navbar/>
             <BlankArea/>
             <LinkNoUnderline to={"/moreInfo"}><Button variant="contained" color="secondary">Back</Button></LinkNoUnderline>
-
+            <br/>
+            <br/>
             <TableWrapper>
                 <Typography variant={"h6"}>If you don’t have anywhere to live there are organisations that can help you find accommodation. You can apply for emergency accommodation and public housing.</Typography>
                 </br>
