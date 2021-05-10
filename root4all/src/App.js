@@ -10,6 +10,7 @@ import MoreInfo from "./MoreInfo"
 import CHSs from "./CHSs"
 import AgedProgram from "./AgedProgram";
 import AdviserContactDetails from "./AdviserContactDetails";
+import HelpLine from "./HelpLine";
 import { ThemeProvider } from '@material-ui/core/styles'
 import Theme from "./Theme";
 
@@ -41,6 +42,7 @@ function App() {
                     <Route path='/CHSs' exact component={CHSs} />
                     <Route path='/AgedProgram' exact component={AgedProgram} />
                     <Route path='/AdviserContactDetails' exact component={AdviserContactDetails} />
+                    <Route path='/HelpLine' exact component={HelpLine}/>
                 </Switch>
                 <Footer />
             </Router>
