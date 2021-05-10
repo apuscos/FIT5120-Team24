@@ -55,6 +55,26 @@ function AdviserContactDetails(){
             <TypographStyled variant={"h6"}>If you don't have anywhere to live there are organisations that can help you find accommodation. You can apply for emergency accommodation and public housing.</TypographStyled>
             <br/>
             <TypographStyled variant={"h6"}>There are other services that can help you with legal matters, financial hardship, and family violence</TypographStyled>
+            <TypographStyled variant={"h4"}>Victoria Legal Aid</TypographStyled>
+            <br/>
+            <TypographStyled variant={"h6"}>Get help over the phone by calling Legal Help on 1300 792 387 (Monday to Friday, 8 am to 6 pm)</TypographStyled>
+            <TypographStyled variant={"h6"}>The free legal services include:</TypographStyled>
+            <TypographStyled variant={"h6"}>1)<a href={'https://www.legalaid.vic.gov.au/get-legal-services-and-advice/free-legal-advice/see-lawyer'}>seeing a lawyer</a> for legal advice</TypographStyled>
+            <TypographStyled variant={"h6"}>2)<a href={'https://www.legalaid.vic.gov.au/get-legal-services-and-advice/free-legal-advice/get-help-court'}>help at courts</a> depending on your income, circumstances, and the nature of your charges.</TypographStyled>
+            <br/>
+            <TypographStyled variant={"h4"}>Justice Connect</TypographStyled>
+            <br/>
+            <TypographStyled variant={"h6"}><a href={'https://help.justiceconnect.org.au/homelesslaw/'}>Justice Connect's Homeless Law program</a>provides free legal advice to, and acts on behalf of, people who are homeless or at risk of homelessness. This includes people in transition, emergency or social housing.</TypographStyled>
+            <br/>
+            <TypographStyled variant={"h6"}>The clinic will assist with:</TypographStyled>
+            <TypographStyled variant={"h6"}>1)housing and tenancy matters</TypographStyled>
+            <TypographStyled variant={"h6"}>2)fines and infringement notices connected to homelessness</TypographStyled>
+            <TypographStyled variant={"h6"}>3)guardianship and administration orders</TypographStyled>
+            <TypographStyled variant={"h6"}>4)credit and debt problems</TypographStyled>
+            <TypographStyled variant={"h6"}>5)Centrelink matters</TypographStyled>
+            <TypographStyled variant={"h6"}>6)Human rights advocacy</TypographStyled>
+            <br/>
+            <TypographStyled variant={"h6"}>The clinic does not assist with family or criminal law matters.</TypographStyled>
             <TableWrapper>
                 <Typography variant={"h4"}>Active and Healthy ageing Advisers contact details</Typography>
                 <TableContainerStyled component={Paper}>
