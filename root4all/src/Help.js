@@ -140,7 +140,6 @@ function Help() {
             const qa = questionList[idx]
             const questionUpper = qa[0].toUpperCase();
             const answerUpper = renderToStaticMarkup(qa[1]).toUpperCase();
-            console.log(answerUpper);
             if(questionUpper.includes(upperInput) || answerUpper.includes(upperInput)){
                 idxResult.push(idx);
             }
