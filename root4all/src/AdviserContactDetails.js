@@ -60,20 +60,20 @@ function AdviserContactDetails(){
             <br/>
             <TypographStyled variant={"h6"}>Get help over the phone by calling Legal Help on 1300 792 387 (Monday to Friday, 8 am to 6 pm)</TypographStyled>
             <TypographStyled variant={"h6"}>The free legal services include:</TypographStyled>
-            <TypographStyled variant={"h6"}>1)<a href={'https://www.legalaid.vic.gov.au/get-legal-services-and-advice/free-legal-advice/see-lawyer'}>seeing a lawyer</a> for legal advice</TypographStyled>
-            <TypographStyled variant={"h6"}>2)<a href={'https://www.legalaid.vic.gov.au/get-legal-services-and-advice/free-legal-advice/get-help-court'}>help at courts</a> depending on your income, circumstances, and the nature of your charges.</TypographStyled>
+            <TypographStyled variant={"h6"}>1) <a href={'https://www.legalaid.vic.gov.au/get-legal-services-and-advice/free-legal-advice/see-lawyer'}>seeing a lawyer</a> for legal advice</TypographStyled>
+            <TypographStyled variant={"h6"}>2) <a href={'https://www.legalaid.vic.gov.au/get-legal-services-and-advice/free-legal-advice/get-help-court'}>help at courts</a> depending on your income, circumstances, and the nature of your charges.</TypographStyled>
             <br/>
             <TypographStyled variant={"h4"}>Justice Connect</TypographStyled>
             <br/>
             <TypographStyled variant={"h6"}><a href={'https://help.justiceconnect.org.au/homelesslaw/'}>Justice Connect's Homeless Law program</a>provides free legal advice to, and acts on behalf of, people who are homeless or at risk of homelessness. This includes people in transition, emergency or social housing.</TypographStyled>
             <br/>
             <TypographStyled variant={"h6"}>The clinic will assist with:</TypographStyled>
-            <TypographStyled variant={"h6"}>1)housing and tenancy matters</TypographStyled>
-            <TypographStyled variant={"h6"}>2)fines and infringement notices connected to homelessness</TypographStyled>
-            <TypographStyled variant={"h6"}>3)guardianship and administration orders</TypographStyled>
-            <TypographStyled variant={"h6"}>4)credit and debt problems</TypographStyled>
-            <TypographStyled variant={"h6"}>5)Centrelink matters</TypographStyled>
-            <TypographStyled variant={"h6"}>6)Human rights advocacy</TypographStyled>
+            <TypographStyled variant={"h6"}>1) housing and tenancy matters</TypographStyled>
+            <TypographStyled variant={"h6"}>2) fines and infringement notices connected to homelessness</TypographStyled>
+            <TypographStyled variant={"h6"}>3) guardianship and administration orders</TypographStyled>
+            <TypographStyled variant={"h6"}>4) credit and debt problems</TypographStyled>
+            <TypographStyled variant={"h6"}>5) Centrelink matters</TypographStyled>
+            <TypographStyled variant={"h6"}>6) Human rights advocacy</TypographStyled>
             <br/>
             <TypographStyled variant={"h6"}>The clinic does not assist with family or criminal law matters.</TypographStyled>
             <br/>
@@ -86,6 +86,7 @@ function AdviserContactDetails(){
             <TypographStyled variant={"h6"}>If you are at risk of becoming homeless, contact <a href={'https://tenantsvic.org.au/'}>Tenants Victoria.</a></TypographStyled>
             <br/>
             <TypographStyled variant={"h4"}>Other Programs</TypographStyled>
+            <br/>
             <TypographStyled variant={"h4"}>Healthy Ageing Program</TypographStyled>
             <br/>
             <TypographStyled variant={"h6"}>The department funds a small number of active and healthy ageing advisers (AHAAs) across the state to help with healthy ageing in Victoria. They aim to improve the health and well-being of the aged community of Melbourne. They work on strategies to improve the same.</TypographStyled>
