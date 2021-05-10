@@ -6,9 +6,9 @@ import {makeStyles, Typography} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import {NavLink as Link} from "react-router-dom";
-import AgedCare from "./Image/ageCare.jpeg"
-import LegalService from "./Image/LegalService.jpeg"
-import HealthCare from "./Image/healthCare.jpeg"
+import AgedCare from "./Image/ageCare.jpg"
+import LegalService from "./Image/LegalService.jpg"
+import HealthCare from "./Image/healthCare.jpg"
 
 const BackGroundSquareBlur = styled.div`
   width: 100%;

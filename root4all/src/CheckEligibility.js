@@ -15,12 +15,17 @@ import Paper from '@material-ui/core/Paper';
 import {StepLabel, Step, Stepper, Typography, withStyles, Checkbox} from "@material-ui/core";
 import BackgroundImage from "./Image/checkEligibilityBackground.webp"
 import { PDFExport } from '@progress/kendo-react-pdf';
+import {NavLink as Link} from "react-router-dom";
 
 const CriteriaTitle = styled(Typography)`
   &{
     padding-bottom: 10px;
   }
 `;
+
+const LinkNoUnderline = styled(Link)`
+  text-decoration: none;
+`
 
 const CriteriaArea = styled.div`
   display: flex;
@@ -195,6 +200,10 @@ const DollarSign = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 600;
   font-size: 1.25em;
+`;
+
+const VerticalButtonArea = styled(ButtonArea)`
+  flex-direction: column;
 `;
 
 
@@ -965,6 +974,10 @@ function CheckEligibility(){
                                 Download PDF
                             </ButtonNextStyled>
                         </ButtonArea>
+                        <VerticalButtonArea>
+                            <Typography>If you want to find the agency, click this button</Typography>
+                            <LinkNoUnderline to={"/findAgency"}><Button variant="contained" color="secondary">Find Agency</Button></LinkNoUnderline>
+                        </VerticalButtonArea>
                     </>
                 );
             default:
