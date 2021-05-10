@@ -9,6 +9,7 @@ import {NavLink as Link} from "react-router-dom";
 import AgedCare from "./Image/ageCare.jpg"
 import LegalService from "./Image/LegalService.jpg"
 import HealthCare from "./Image/healthCare.jpg"
+import Helpline from "./Image/Helpline.jpg"
 
 const BackGroundSquareBlur = styled.div`
   width: 100%;
@@ -187,9 +188,9 @@ function MoreInfo(){
                         <Paper className={classes.service}>
                             <Grid item >
                                 <LinkNoUnderline to={"/AdviserContactDetails"}>
-                                    <ServiceCover url={LegalService}>
+                                    <ServiceCover url={Helpline}>
                                         <SquareBlur>
-                                            Ageing Advisers
+                                            Helpline numbers
                                         </SquareBlur>
                                     </ServiceCover>
                                 </LinkNoUnderline>
