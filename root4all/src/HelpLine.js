@@ -55,70 +55,52 @@ function HelpLine(){
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell align={"left"}><Typography variant={"h6"}>Name</Typography></StyledTableCell>
-                                <StyledTableCell align={"left"}><Typography variant={"h6"}>Division</Typography></StyledTableCell>
-                                <StyledTableCell align={"left"}><Typography variant={"h6"}>Former health region</Typography></StyledTableCell>
-                                <StyledTableCell align={"left"}><Typography variant={"h6"}>Location</Typography></StyledTableCell>
+                                <StyledTableCell align={"left"}><Typography variant={"h6"}>Address</Typography></StyledTableCell>
+                                <StyledTableCell align={"left"}><Typography variant={"h6"}>Phone</Typography></StyledTableCell>
+                                <StyledTableCell align={"left"}><Typography variant={"h6"}>Operating Hours</Typography></StyledTableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             <TableRow key={"single"}>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>Karen Cameron</Typography>
+                                    <Typography>safe steps Family Violence Response Centre - women and children experiencing family violence only</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>West</Typography>
+                                    <Typography>Available only on phone</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>Barwon and South West</Typography>
+                                    <Typography>(03) 9322 3555 or toll free 1800 015 188 (not free from mobile)</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>Geelong</Typography>
-                                </TableCell>
-                                <TableCell component="th" scope="row" >
-                                    <Typography>5226 4890</Typography>
-                                </TableCell>
-                                <TableCell component="th" scope="row" >
-                                    <Typography>karen.cameron@dhhs.vic.gov.au</Typography>
+                                    <Typography>24 hours</Typography>
                                 </TableCell>
                             </TableRow>
                             <TableRow key={"single"}>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>Karen Cameron</Typography>
+                                    <Typography>Women's Housing Ltd - women and children</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>West</Typography>
+                                    <Typography>Suite 1, Level 1, 21 Cremorne Street, Cremorne</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>Barwon and South West</Typography>
+                                    <Typography>(03) 9412 6868</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>Geelong</Typography>
-                                </TableCell>
-                                <TableCell component="th" scope="row" >
-                                    <Typography>5226 4890</Typography>
-                                </TableCell>
-                                <TableCell component="th" scope="row" >
-                                    <Typography>karen.cameron@dhhs.vic.gov.au</Typography>
+                                    <Typography>Monday - Friday 9am to 5pm</Typography>
                                 </TableCell>
                             </TableRow>
                             <TableRow key={"single"}>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>Karen Cameron</Typography>
+                                    <Typography>Melbourne Youth Support Services - Frontyard Youth Services</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>West</Typography>
+                                    <Typography>19 King Street, Melbourne</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>Barwon and South West</Typography>
+                                    <Typography>(03) 9614 3688</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>Geelong</Typography>
-                                </TableCell>
-                                <TableCell component="th" scope="row" >
-                                    <Typography>5226 4890</Typography>
-                                </TableCell>
-                                <TableCell component="th" scope="row" >
-                                    <Typography>karen.cameron@dhhs.vic.gov.au</Typography>
+                                    <Typography>Monday - Friday 8am to 5pm, Weekends and Public Holidays 10am to 6pm</Typography>
                                 </TableCell>
                             </TableRow>
                         </TableBody>
