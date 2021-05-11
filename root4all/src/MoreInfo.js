@@ -165,7 +165,7 @@ function MoreInfo(){
                                 <LinkNoUnderline to={"/AdviserContactDetails"}>
                                     <ServiceCover url={LegalService}>
                                         <SquareBlur>
-                                            Ageing Advisers
+                                            Legal Advices
                                         </SquareBlur>
                                     </ServiceCover>
                                 </LinkNoUnderline>
