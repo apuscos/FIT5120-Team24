@@ -163,13 +163,13 @@ const ResultArea = styled.div`
 const ResultTitle = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 500;
-  font-size: 24px;
+  font-size: 36px;
 `;
 
 const ResultContent = styled.div`
   font-family: 'Baloo Bhai 2', cursive;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 24px;
   margin-bottom: 16px;
 `;
 
