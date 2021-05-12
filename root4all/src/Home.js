@@ -261,7 +261,7 @@ function LegendPage () {
                 <Trapezoid>
                     <SloganTextArea> <HorizontalLine/>  <SubTitle>Victoria</SubTitle> Experiencing homelessness or rough sleeping?</SloganTextArea>
                     <SloganTextArea2> Social Housing agencies are there to help and we can help you find one</SloganTextArea2>
-                    <FindAgencyButton to={"/findAgency"}>Find Agency</FindAgencyButton>
+                    <FindAgencyButton to={"/checkEligibility"}>Check Eligibility</FindAgencyButton>
                 </Trapezoid>
                 <ArrowDown style={{ color:  '#2BA837', height: 50, width: 50}}/>
             </Slogan>
