@@ -44,7 +44,8 @@ const ButtonNextStyled = styled(Button)`
 
 const ButtonDownload = styled(Button)`
   &&{
-    margin-left: 20%;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 16px;
   }
 `;
