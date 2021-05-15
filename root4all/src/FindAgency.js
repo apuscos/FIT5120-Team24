@@ -244,7 +244,7 @@ async function checkEligibility(inputVal, callback, setScrollbarHidden, setLoadi
     if (inputVal.length <= 0) {
         callback(`Please enter the agency name`);
         setEligibleValid(false);
-        setWarningMsgOpen(true);
+        setWarningMsgOpen(false);
         return
     }
     try {
@@ -258,11 +258,11 @@ async function checkEligibility(inputVal, callback, setScrollbarHidden, setLoadi
         if (data["found"]) {
             callback(`${inputVal} agency is a government registered agency`)
             setEligibleValid(true);
-            setWarningMsgOpen(true);
+            setWarningMsgOpen(false);
         } else {
             callback(`${inputVal} agency is not a government registered agency`)
             setEligibleValid(false);
-            setWarningMsgOpen(true);
+            setWarningMsgOpen(false);
         }
     } catch (err) {
         console.log("Error:", err)
@@ -507,7 +507,6 @@ function FindAgency(props) {
 
     const closeCheckAgree = () => {
         setEligibleValid(false);
-        setCheckEligibilityDialog(false);
         checkEligibility(eligibleInput, setWarningMsg, setScrollbarHidden, setLoading, setEligibleValid, setWarningMsgOpen).then(_ => {
             //Blank
         })
@@ -534,6 +533,7 @@ function FindAgency(props) {
 
     const handleCheckAgencyRegistered = () => {
         setWarningMsgOpen(false);
+        setWarningMsg("");
         setCheckEligibilityDialog(true);
     }
 
@@ -628,10 +628,12 @@ function FindAgency(props) {
                         fullWidth
                         onChange={e => setEligibleInput(e.target.value)}
                     />
+                    {warningMsg !== "" ? <Typography color={eligibleValid ? "secondary" : "error"}>{warningMsg}</Typography> : null}
+
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={closeCheckDisagree} color="secondary">
-                        Cancel
+                        Close
                     </Button>
                     <Button onClick={closeCheckAgree} color="secondary" autoFocus>
                         Submit
