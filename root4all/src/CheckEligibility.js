@@ -42,6 +42,13 @@ const ButtonNextStyled = styled(Button)`
 
 `;
 
+const ButtonDownload = styled(Button)`
+  &&{
+    margin-left: 20%;
+    margin-bottom: 16px;
+  }
+`;
+
 const StepperStyled = styled(Stepper)`
   width: 40%;
   margin-left: auto;
@@ -201,11 +208,6 @@ const DollarSign = styled.div`
   font-weight: 600;
   font-size: 1.25em;
 `;
-
-const VerticalButtonArea = styled(ButtonArea)`
-  flex-direction: column;
-`;
-
 
 function CheckEligibility(){
     const { register, handleSubmit, formState: { errors } } = useForm({});
@@ -956,6 +958,15 @@ function CheckEligibility(){
             case 2:
                 return (
                     <>
+
+                        <ButtonDownload
+                            variant="contained"
+                            color="secondary"
+                            onClick={handleDownloadPDF}
+                        >
+                            Download PDF
+                        </ButtonDownload>
+
                         <ResultArea>
                             <PDFExport ref={downloadRef} paperSize={"A4"} fileName={"CheckList.pdf"} scale={0.8}>
                                     {result === 5 ? result5 : null}
@@ -966,18 +977,8 @@ function CheckEligibility(){
                             <Button variant="contained"  onClick={handleBack}>
                                 Back
                             </Button>
-                            <ButtonNextStyled
-                                variant="contained"
-                                color="secondary"
-                                onClick={handleDownloadPDF}
-                            >
-                                Download PDF
-                            </ButtonNextStyled>
+                            <LinkNoUnderline to={"/findAgency"}><ButtonNextStyled variant="contained" color="secondary">Find Agency</ButtonNextStyled></LinkNoUnderline>
                         </ButtonArea>
-                        <VerticalButtonArea>
-                            <Typography>If you want to find the agency, click this button</Typography>
-                            <LinkNoUnderline to={"/findAgency"}><Button variant="contained" color="secondary">Find Agency</Button></LinkNoUnderline>
-                        </VerticalButtonArea>
                     </>
                 );
             default:
