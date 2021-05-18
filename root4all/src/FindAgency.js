@@ -29,6 +29,19 @@ import {Alert, Skeleton} from "@material-ui/lab";
 
 mapboxgl.workerClass = MapboxWorker;
 mapboxgl.accessToken = 'pk.eyJ1IjoiZ2Fvd2FuZyIsImEiOiJja215anpwaDIwMTcwMnZvMm8xcDU5eXcyIn0.FmAr1bkX7r19ygBIqsySUQ';
+const ScrollDownArea = styled.div`
+  margin-top: 50px;
+  margin-bottom: -50px;
+  font-family: 'Baloo Bhai 2', cursive;
+  font-weight: 600;
+  line-height: 30px;
+  font-size: 1.5em;
+`;
+
+const ClickHereText = styled.span`
+  cursor: pointer;
+  text-decoration: underline;
+`;
 
 const AllResultButton = styled(Button)`
   &&{
@@ -92,6 +105,13 @@ const CheckBoxLabel = styled.div`
   font-weight: 600;
   line-height: 30px;
   font-size: 1.5em;
+`;
+
+const ScrollButton = styled(Button)`
+  &&{
+    margin-left: calc(-50% + 50px);
+    margin-top: 20px;
+  }
 `;
 
 const MapArea = styled.div`
@@ -548,6 +568,10 @@ function FindAgency(props) {
         setShowAll(true);
     }
 
+    const handleScrollDown = () => {
+        checkAgencyRef.current.scrollIntoView({behavior: "smooth"});
+    }
+
 
     return (
         <div>
@@ -655,7 +679,7 @@ function FindAgency(props) {
 
             <BackgroundWrapper>
                 <Search.Area>
-                    <Search.TextArea>Search agency in Victoria</Search.TextArea>
+                    <Search.TextArea>Find your agency in Victoria</Search.TextArea>
                     <Search.SearchArea>
                         <Search.InputArea onChange={e => setInput(e.target.value)}
                                           placeholder={"Please Enter the PostCode/Suburb"}/>
@@ -667,6 +691,9 @@ function FindAgency(props) {
                         }}/>
                         <CheckBoxLabel>Near Hospital</CheckBoxLabel>
                     </CheckBoxArea>
+                    <ScrollDownArea>
+                      Or know your agency? <ClickHereText onClick={handleScrollDown}>Click here</ClickHereText>
+                    </ScrollDownArea>
                 </Search.Area>
             </BackgroundWrapper>
             <MapWrapper>
