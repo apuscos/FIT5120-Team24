@@ -5,12 +5,16 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import TableContainer from "@material-ui/core/TableContainer";
 import Navbar from "./Navigation/NavBar";
 import Button from "@material-ui/core/Button";
 import {NavLink as Link} from "react-router-dom"
+import InputBase from "@material-ui/core/InputBase";
+import * as Search from "./SearchBar/searchBarComponents";
+import {makeStyles} from "@material-ui/core/styles";
+import Highlighter from "react-highlight-words";
 const LinkNoUnderline = styled(Link)`
   text-decoration: none;
   margin-left: 10%;
@@ -38,12 +42,37 @@ const AStyled = styled.a`
   color: black;
 `;
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        alignItems: 'center',
+        width: 800,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        height: "auto",
+        marginBottom: 50,
+        marginTop: 50,
+    },
+    input: {
+        flex: 1,
+        marginLeft: 20,
+        fontFamily: theme.typography.fontFamily,
+    },
+}));
+
 function CHSs(){
+    const classes = useStyles();
+    const [input, setInput] = useState("");
+    const [highlightText, setHighlightText] = useState("");
     const StyledTableCell = withStyles(() => ({
         head: {
             backgroundColor: "#2BA837",
         }
     }))(TableCell);
+
+    const searchContent = () => {
+        setHighlightText(input);
+    }
     return(
         <>
             <Navbar/>
@@ -51,6 +80,20 @@ function CHSs(){
             <LinkNoUnderline to={"/moreInfo"}><Button variant="contained" color="secondary">Back</Button></LinkNoUnderline>
             <TableWrapper>
                 <Typography variant={"h4"}>Community Health Services(CHSs)</Typography>
+
+                <Paper className={classes.root}>
+                    <InputBase
+                        className={classes.input}
+                        placeholder="Search for address"
+                        inputProps={{ 'aria-label': 'Search for address' }}
+                        onChange={
+                            (e) => {
+                                setInput(e.target.value);
+                            }
+                        }
+                    />
+                    <Search.SearchButton onClick={searchContent}/>
+                </Paper>
                 <TableContainerStyled component={Paper}>
                     <Table aria-label="simple table">
                         <TableHead>
@@ -67,7 +110,14 @@ function CHSs(){
                                     <Typography>Ballarat CHS (Participation, Access, Research and Training on Homelessness)</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>3 Cargo Way, Mitchell Park VIC 3355</Typography>
+                                    <Typography>
+                                        <Highlighter
+                                            highlightClassName="YourHighlightClass"
+                                            searchWords={[highlightText]}
+                                            autoEscape={true}
+                                            textToHighlight={"3 Cargo Way, Mitchell Park VIC 3355"}
+                                        />
+                                    </Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     <Typography>(03) 4313 6770</Typography>
@@ -81,7 +131,14 @@ function CHSs(){
                                     <Typography>Barwon Health (Jigsaw Young Person’s Health Service)</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>Level 1/126 Little Malop St, Geelong VIC 3220</Typography>
+                                    <Typography>
+                                        <Highlighter
+                                            highlightClassName="YourHighlightClass"
+                                            searchWords={[highlightText]}
+                                            autoEscape={true}
+                                            textToHighlight={"Level 1/126 Little Malop St, Geelong VIC 3220"}
+                                        />
+                                    </Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     <Typography>(03) 4215 8300</Typography>
@@ -95,7 +152,14 @@ function CHSs(){
                                     <Typography>Bentleigh Bayside Community Health</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>2a Gardeners Rd, Bentleigh East VIC 3165</Typography>
+                                    <Typography>
+                                        <Highlighter
+                                            highlightClassName="YourHighlightClass"
+                                            searchWords={[highlightText]}
+                                            autoEscape={true}
+                                            textToHighlight={"2a Gardeners Rd, Bentleigh East VIC 3165"}
+                                        />
+                                    </Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     <Typography>(03) 9575 5333</Typography>
@@ -109,7 +173,14 @@ function CHSs(){
                                     <Typography>Bendigo CHS</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>165-171 Hargreaves St, Bendigo VIC 3550</Typography>
+                                    <Typography>
+                                        <Highlighter
+                                            highlightClassName="YourHighlightClass"
+                                            searchWords={[highlightText]}
+                                            autoEscape={true}
+                                            textToHighlight={"165-171 Hargreaves St, Bendigo VIC 3550"}
+                                        />
+                                    </Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     <Typography>(03) 5406 1200</Typography>
@@ -123,7 +194,14 @@ function CHSs(){
                                     <Typography>Centre for Adolescent Health (Young People’s Health Service)</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>Level 1/126 Little Malop St, Geelong VIC 3220</Typography>
+                                    <Typography>
+                                        <Highlighter
+                                            highlightClassName="YourHighlightClass"
+                                            searchWords={[highlightText]}
+                                            autoEscape={true}
+                                            textToHighlight={"Level 1/126 Little Malop St, Geelong VIC 3220"}
+                                        />
+                                    </Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     <Typography>(03) 4215 8300</Typography>
@@ -137,7 +215,14 @@ function CHSs(){
                                     <Typography>Your Community Health (East Reservoir)</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>125 Blake StreetEast Reservoir VIC 3073</Typography>
+                                    <Typography>
+                                        <Highlighter
+                                            highlightClassName="YourHighlightClass"
+                                            searchWords={[highlightText]}
+                                            autoEscape={true}
+                                            textToHighlight={"125 Blake StreetEast Reservoir VIC 3073"}
+                                        />
+                                    </Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     <Typography>(03) 8470 1111</Typography>
@@ -165,7 +250,14 @@ function CHSs(){
                                     <Typography>Eastern Centre Against Sexual Assault (ECASA)</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>17 Ware Cres, Ringwood East VIC 3135</Typography>
+                                    <Typography>
+                                        <Highlighter
+                                            highlightClassName="YourHighlightClass"
+                                            searchWords={[highlightText]}
+                                            autoEscape={true}
+                                            textToHighlight={"17 Ware Cres, Ringwood East VIC 3135"}
+                                        />
+                                    </Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     <Typography>1300 342 255</Typography>
@@ -179,7 +271,14 @@ function CHSs(){
                                     <Typography>Frankston Community Health Service (Peninsula Innovative Health Services for Homeless Youth)</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>2 Hastings Rd, Frankston VIC 3199</Typography>
+                                    <Typography>
+                                        <Highlighter
+                                            highlightClassName="YourHighlightClass"
+                                            searchWords={[highlightText]}
+                                            autoEscape={true}
+                                            textToHighlight={"2 Hastings Rd, Frankston VIC 3199"}
+                                        />
+                                    </Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     <Typography>1300 665 781</Typography>
@@ -193,7 +292,14 @@ function CHSs(){
                                     <Typography>Greater Dandenong Community Health Service (Homeless Youth LINKS Project)</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>122 Thomas St, Dandenong VIC 3175</Typography>
+                                    <Typography>
+                                        <Highlighter
+                                            highlightClassName="YourHighlightClass"
+                                            searchWords={[highlightText]}
+                                            autoEscape={true}
+                                            textToHighlight={"122 Thomas St, Dandenong VIC 3175"}
+                                        />
+                                    </Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     <Typography>(03) 9792 8100</Typography>
@@ -207,7 +313,14 @@ function CHSs(){
                                     <Typography>Inner South Community Health Service</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>18 Mitford Street St Kilda VIC 3182</Typography>
+                                    <Typography>
+                                        <Highlighter
+                                            highlightClassName="YourHighlightClass"
+                                            searchWords={[highlightText]}
+                                            autoEscape={true}
+                                            textToHighlight={"18 Mitford Street St Kilda VIC 3182"}
+                                        />
+                                    </Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     <Typography>03 9525 3180</Typography>
@@ -221,7 +334,14 @@ function CHSs(){
                                     <Typography>Latrobe Community Health Services</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>81-87 Buckley St. Morwell, VIC 3840</Typography>
+                                    <Typography>
+                                        <Highlighter
+                                            highlightClassName="YourHighlightClass"
+                                            searchWords={[highlightText]}
+                                            autoEscape={true}
+                                            textToHighlight={"81-87 Buckley St. Morwell, VIC 3840"}
+                                        />
+                                    </Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     <Typography>+61 351365400</Typography>
@@ -235,7 +355,14 @@ function CHSs(){
                                     <Typography>Ngwala Willumbong Co-operative Ltd</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>93 Wellington St, St Kilda VIC 3182</Typography>
+                                    <Typography>
+                                        <Highlighter
+                                            highlightClassName="YourHighlightClass"
+                                            searchWords={[highlightText]}
+                                            autoEscape={true}
+                                            textToHighlight={"93 Wellington St, St Kilda VIC 3182"}
+                                        />
+                                    </Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     <Typography>(03) 9510 3233</Typography>
@@ -249,7 +376,14 @@ function CHSs(){
                                     <Typography>Mildura Aboriginal Corporation</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>120 Madden Ave, Mildura VIC 3500</Typography>
+                                    <Typography>
+                                        <Highlighter
+                                            highlightClassName="YourHighlightClass"
+                                            searchWords={[highlightText]}
+                                            autoEscape={true}
+                                            textToHighlight={"120 Madden Ave, Mildura VIC 3500"}
+                                        />
+                                    </Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     <Typography>(03) 5018 4100</Typography>
@@ -263,7 +397,14 @@ function CHSs(){
                                     <Typography>Portland District Health (Portland and District Homeless Youth Project)</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>141-151 Bentinck St, Portland VIC 3305</Typography>
+                                    <Typography>
+                                        <Highlighter
+                                            highlightClassName="YourHighlightClass"
+                                            searchWords={[highlightText]}
+                                            autoEscape={true}
+                                            textToHighlight={"141-151 Bentinck St, Portland VIC 3305"}
+                                        />
+                                    </Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     <Typography>(03) 5521 0333</Typography>
@@ -277,7 +418,14 @@ function CHSs(){
                                     <Typography>Royal District Nursing Homeless Persons Program</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>973 Nepean Hwy, Bentleigh VIC 3204</Typography>
+                                    <Typography>
+                                        <Highlighter
+                                            highlightClassName="YourHighlightClass"
+                                            searchWords={[highlightText]}
+                                            autoEscape={true}
+                                            textToHighlight={"973 Nepean Hwy, Bentleigh VIC 3204"}
+                                        />
+                                    </Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     <Typography>1300 334 455</Typography>
@@ -291,7 +439,14 @@ function CHSs(){
                                     <Typography>Rumbalara Aboriginal Co-operative Ltd</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>31 Wyndham St, Shepparton VIC 3630</Typography>
+                                    <Typography>
+                                        <Highlighter
+                                            highlightClassName="YourHighlightClass"
+                                            searchWords={[highlightText]}
+                                            autoEscape={true}
+                                            textToHighlight={"31 Wyndham St, Shepparton VIC 3630"}
+                                        />
+                                    </Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     <Typography>(03) 5820 0000</Typography>
@@ -305,7 +460,14 @@ function CHSs(){
                                     <Typography>Victorian Foundation for Survivors of Torture Inc.</Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
-                                    <Typography>4 Gardiner St, Brunswick VIC 3056</Typography>
+                                    <Typography>
+                                        <Highlighter
+                                            highlightClassName="YourHighlightClass"
+                                            searchWords={[highlightText]}
+                                            autoEscape={true}
+                                            textToHighlight={"4 Gardiner St, Brunswick VIC 3056"}
+                                        />
+                                    </Typography>
                                 </TableCell>
                                 <TableCell component="th" scope="row" >
                                     <Typography>(03) 9388 0022</Typography>
