@@ -33,6 +33,7 @@ export const NavLink = styled(Link)`
   &:hover{
     text-decoration: underline;
   }
+  text-decoration: ${props => props.current ? "underline" : "none"};
 `;
 
 export const Logo = styled.div`

@@ -998,7 +998,7 @@ function CheckEligibility(){
     return(
         <div>
             {loading ? <LinearProgressStyled color="secondary"/> : null}
-            <Navbar/>
+            <Navbar />
             <CheckEligibilityTitle>Check Eligibility</CheckEligibilityTitle>
             <StepperStyled activeStep={activeStep} >
                 {steps.map((label, index) => {
