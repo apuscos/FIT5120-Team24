@@ -27,6 +27,10 @@ const LinkNoUnderline = styled(Link)`
   text-decoration: none;
 `
 
+const ATagStyled = styled.a`
+  color: black;
+`;
+
 const CriteriaArea = styled.div`
   display: flex;
   align-items: center;
@@ -307,7 +311,7 @@ function CheckEligibility(){
                                 <Checkbox
                                     color="secondary"
                                 />
-                                {"Registered of interest application form"}
+                                Registered of interest application form. <ATagStyled target="_blank" rel="noreferrer" href={"https://www.housing.vic.gov.au/register-interest-application-pdf"}>Click here</ATagStyled> for the form
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Documents Name"}>
@@ -332,6 +336,7 @@ function CheckEligibility(){
                                     color="secondary"
                                 />
                                 {"Letter from a solicitor stating your property’s market value(if applicable)."}
+
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Special accommodation requirements form"}>
@@ -347,7 +352,7 @@ function CheckEligibility(){
                                 <Checkbox
                                     color="secondary"
                                 />
-                                {"Proof of assets owned – like shares, businesses."}
+                                Proof of assets owned – like shares, businesses. <ATagStyled target="_blank" rel="noreferrer" href={"https://templatelab.com/proof-funds-letters/"}>Click here</ATagStyled> for the example
                             </TableCell>
                         </TableRow>
                         <TableRow key={"If expecting a child or adopting a child, provide proof of the same."}>
@@ -363,7 +368,7 @@ function CheckEligibility(){
                                 <Checkbox
                                     color="secondary"
                                 />
-                                {"Australian Citizenship Certificate, immigration visa, passport or a letter from the Department of Immigration and Border Protection for each resident of household not born in India."}
+                                Australian Citizenship Certificate, immigration visa, passport or a letter from the Department of Immigration and Border Protection for each resident of household not born in India. <ATagStyled target="_blank" rel="noreferrer" href={"https://immi.homeaffairs.gov.au/citizenship/certificate"}>Click here</ATagStyled> for the example
                             </TableCell>
                         </TableRow>
                         {userInputData["numDependent"] > 0 ?
@@ -373,7 +378,7 @@ function CheckEligibility(){
                                         <Checkbox
                                             color="secondary"
                                         />
-                                        Additional dependent form
+                                        Additional dependent children, <ATagStyled target="_blank" rel="noreferrer" href={"https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf"}>Click here </ATagStyled> for the form. Additional dependent adult, <ATagStyled target="_blank" rel="noreferrer" href={"https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf"}>Click here</ATagStyled> for the form.
                                     </TableCell>
                                 </TableRow>
                             </>
@@ -385,7 +390,7 @@ function CheckEligibility(){
                                         <Checkbox
                                             color="secondary"
                                         />
-                                        {"Special accommodation for modification"}
+                                        Special accommodation for modification. <ATagStyled target="_blank" rel="noreferrer" href={"https://www.housing.vic.gov.au/special-accommodation-requirements-form"}>Click here</ATagStyled> for the example
                                     </TableCell>
                                 </TableRow>
                             </>
@@ -424,7 +429,7 @@ function CheckEligibility(){
                                         <Checkbox
                                             color="secondary"
                                         />
-                                        {"Letter from a solicitor stating your property’s market value(if applicable)."}
+                                        Letter from a solicitor stating your property’s market value(if applicable). <ATagStyled target="_blank" rel="noreferrer" href={"https://svensonbarristers.com.au/wp-content/uploads/2018/07/The-solicitors-letter-2018.pdf"}>Click here</ATagStyled> for the form
                                     </TableCell>
                                 </TableRow>
                                 <TableRow key={"Special accommodation requirements form"}>
@@ -433,14 +438,6 @@ function CheckEligibility(){
                                             color="secondary"
                                         />
                                         {"If the property stated above is on sale or under dispute, show the documents stating your ownership of the property."}
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow key={"Proof of assets owned – like shares, businesses."}>
-                                    <TableCell component="th" scope="row">
-                                        <Checkbox
-                                            color="secondary"
-                                        />
-                                        {"Proof of assets owned – like shares, businesses."}
                                     </TableCell>
                                 </TableRow>
                                 <TableRow key={"If expecting a child or adopting a child, provide proof of the same."}>
@@ -456,7 +453,7 @@ function CheckEligibility(){
                                         <Checkbox
                                             color="secondary"
                                         />
-                                        {"Medicare card/ birth certificate of each dependent child."}
+                                        Medicare card/ birth certificate of each dependent child. <ATagStyled target="_blank" rel="noreferrer" href={"https://www.usi.gov.au/students/identification/medicare-card/"}>Click here</ATagStyled> for the example
                                     </TableCell>
                                 </TableRow>
                             </TableBody>
@@ -464,47 +461,6 @@ function CheckEligibility(){
                     </TableContainerStyled>
                 </>
                 : null}
-
-            <TableContainerStyled component={Paper}>
-                <Table aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell align={"left"}><Typography variant={"h5"}>Useful links</Typography></StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <TableRow key={"link1"}>
-                            <TableCell component="th" scope="row" >
-                                Registered of interest application form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/register-interest-application-pdf">https://www.housing.vic.gov.au/register-interest-application-pdf</a>
-                            </TableCell>
-                        </TableRow>
-                        {userInputData["numDependent"] > 0 ?
-                            <>
-                                <TableRow key={"link2"}>
-                                    <TableCell component="th" scope="row" >
-                                        Additional dependent children, please fill this form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-dependent-children-form.pdf</a>
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow key={"link3"}>
-                                    <TableCell component="th" scope="row" >
-                                        Additional dependent adult, please fill this form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/additional-adult-household-member-form.pdf</a>
-                                    </TableCell>
-                                </TableRow>
-                            </>
-                            :null }
-
-                        {userInputData["check"] ?
-                            <>
-                                <TableRow key={"link1"}>
-                                    <TableCell component="th" scope="row" >
-                                        Special accommodation for modification, fill this form : <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf</a>
-                                    </TableCell>
-                                </TableRow>
-                            </>
-                            : null}
-                    </TableBody>
-                </Table>
-            </TableContainerStyled>
         </>
     )
     let result6Text = (
@@ -528,7 +484,7 @@ function CheckEligibility(){
                                 <Checkbox
                                     color="secondary"
                                 />
-                                {"Registered of priority access application form"}
+                                Registered of priority access application form. <ATagStyled target="_blank" rel="noreferrer" href={"https://www.housing.vic.gov.au/sites/default/files/documents/201808/Priority-access-application.pdf"}>Click here</ATagStyled> for the form
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Documents Name"}>
@@ -536,7 +492,7 @@ function CheckEligibility(){
                                 <Checkbox
                                     color="secondary"
                                 />
-                                {"Support letter from your tenancy worker or community support agency, if staying in a community housing"}
+                                Support letter from your tenancy worker or community support agency, if staying in a community housing. <ATagStyled target="_blank" rel="noreferrer" href={"https://chiavic.com.au/wp-content/uploads/2019/06/Example-letter-of-support-for-use-by-Tenancy-Workers-and-Community-Housing-Organisations.docx"}>Click here</ATagStyled> for the form
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Additional adult household member form"}>
@@ -544,7 +500,7 @@ function CheckEligibility(){
                                 <Checkbox
                                     color="secondary"
                                 />
-                                {"If at risk if family violence, you need to provide an intervention order or an interim intervention order, or an application for one of these – a Family Court restraining order – a letter from a solicitor confirming that criminal proceedings have commenced against the alleged perpetrator of the violence."}
+                                If at risk if family violence, you need to provide an intervention order or an interim intervention order, or an application for one of these – a Family Court restraining order – a letter from a solicitor confirming that criminal proceedings have commenced against the alleged perpetrator of the violence. <ATagStyled target="_blank" rel="noreferrer" href={"https://fvio.mcv.vic.gov.au/"}>Click here</ATagStyled> for the example
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Additional dependent children form"}>
@@ -552,7 +508,7 @@ function CheckEligibility(){
                                 <Checkbox
                                     color="secondary"
                                 />
-                                {"An intervention order or an interim intervention order, or an application for one of these or a verbal or written report from a member of a federal, state or territory police service or a report from a community support worker(if subjected to physical violence by person not living with you)"}
+                                An intervention order or an interim intervention order, or an application for one of these or a verbal or written report from a member of a federal, state or territory police service or a report from a community support worker(if subjected to physical violence by person not living with you). <ATagStyled target="_blank" rel="noreferrer" href={"https://www.mcv.vic.gov.au/intervention-orders/family-violence-intervention-orders/applying-intervention-order-fvio"}>Click here</ATagStyled> for the example
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Special accommodation requirements form"}>
@@ -560,7 +516,7 @@ function CheckEligibility(){
                                 <Checkbox
                                     color="secondary"
                                 />
-                                {"If you require major or full modifications, a detailed report about the modifications required by the occupational therapist."}
+                                If you require major or full modifications, a detailed report about the modifications required by the occupational therapist. <ATagStyled target="_blank" rel="noreferrer" href={"https://www.aota.org/-/media/corporate/files/practice/aging/rebuilding-together/louisiana-state-university-home-modification-report.pdf"}>Click here</ATagStyled> for the form
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Proof of assets owned – like shares, businesses."}>
@@ -568,7 +524,7 @@ function CheckEligibility(){
                                 <Checkbox
                                     color="secondary"
                                 />
-                                {"Complete an Application for Special Accommodation Requirements, if you need major/minor modifications due to medical reasons."}
+                                Complete an Application for Special Accommodation Requirements, if you need major/minor modifications due to medical reasons. <ATagStyled target="_blank" rel="noreferrer" href={"https://www.housing.vic.gov.au/special-accommodation-requirements-form"}>Click here</ATagStyled> for the example
                             </TableCell>
                         </TableRow>
                         <TableRow key={"If expecting a child or adopting a child, provide proof of the same."}>
@@ -576,7 +532,7 @@ function CheckEligibility(){
                                 <Checkbox
                                     color="secondary"
                                 />
-                                {"Letter from a community support worker or statutory declarations from you and the person with whom the children are residing will be required for family reunification situation or inappropriate condition of the current house where the children cannot reside."}
+                                Letter from a community support worker or statutory declarations from you and the person with whom the children are residing will be required for family reunification situation or inappropriate condition of the current house where the children cannot reside. <ATagStyled target="_blank" rel="noreferrer" href={"https://www.justice.vic.gov.au/sites/default/files/embridge_cache/emshare/original/public/2020/06/ae/5f1a7472a/statutory-declaration-form.DOC"}>Click here</ATagStyled> for the form
                             </TableCell>
                         </TableRow>
                         <TableRow key={"Australian Citizenship Certificate"}>
@@ -608,7 +564,7 @@ function CheckEligibility(){
                                 <Checkbox
                                     color="secondary"
                                 />
-                                {"If not registered already with Victorian housing, needs to be filled along with Register of Interest form"}
+                                If not registered already with Victorian housing, needs to be filled along with Register of Interest form. <ATagStyled target="_blank" rel="noreferrer" href={"https://www.housing.vic.gov.au/register-interest-application-pdf"}>Click here</ATagStyled> for the form
                             </TableCell>
                         </TableRow>
                         {userInputData["check"] ?
@@ -618,41 +574,11 @@ function CheckEligibility(){
                                         <Checkbox
                                             color="secondary"
                                         />
-                                        {"Special accommodation for modification"}
+                                        Special accommodation for modification. <ATagStyled target="_blank" rel="noreferrer" href={"https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf"}>Click here</ATagStyled> for the form
                                     </TableCell>
                                 </TableRow>
                             </>
                             : null }
-                    </TableBody>
-                </Table>
-            </TableContainerStyled>
-            <TableContainerStyled component={Paper}>
-                <Table aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell align={"left"}><Typography variant={"h5"}>Useful links</Typography></StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <TableRow key={"link1"}>
-                            <TableCell component="th" scope="row" >
-                                Registered of priority access application form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201808/Priority-access-application.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201808/Priority-access-application.pdf</a>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow key={"link1"}>
-                            <TableCell component="th" scope="row" >
-                                Register of Interest form: <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/register-interest-application-pdf">https://www.housing.vic.gov.au/register-interest-application-pdf</a>
-                            </TableCell>
-                        </TableRow>
-                        {userInputData["check"] ?
-                            <>
-                                <TableRow key={"link1"}>
-                                    <TableCell component="th" scope="row" >
-                                        Special accommodation for modification, fill this form : <a target="_blank"  rel="noreferrer" href="https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf">https://www.housing.vic.gov.au/sites/default/files/documents/201907/Special%20Accommodation%20Requirements_0.pdf</a>
-                                    </TableCell>
-                                </TableRow>
-                            </>
-                            : null}
                     </TableBody>
                 </Table>
             </TableContainerStyled>
@@ -959,16 +885,14 @@ function CheckEligibility(){
             case 2:
                 return (
                     <>
-
-                        <ButtonDownload
-                            variant="contained"
-                            color="secondary"
-                            onClick={handleDownloadPDF}
-                        >
-                            Download PDF
-                        </ButtonDownload>
-
                         <ResultArea>
+                            <ButtonDownload
+                                variant="contained"
+                                color="secondary"
+                                onClick={handleDownloadPDF}
+                            >
+                                Download PDF
+                            </ButtonDownload>
                             <PDFExport ref={downloadRef} paperSize={"A4"} fileName={"CheckList.pdf"} scale={0.8}>
                                     {result === 5 ? result5 : null}
                                     {result === 6 ? result6 : null}

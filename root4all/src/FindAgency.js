@@ -107,13 +107,6 @@ const CheckBoxLabel = styled.div`
   font-size: 1.5em;
 `;
 
-const ScrollButton = styled(Button)`
-  &&{
-    margin-left: calc(-50% + 50px);
-    margin-top: 20px;
-  }
-`;
-
 const MapArea = styled.div`
   display: flex;
   margin-left: auto;
