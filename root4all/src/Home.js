@@ -121,6 +121,7 @@ const StatArea = styled.div`
 const PaperWrapper = styled(Paper)`
   display: flex;
   height: calc((70vw - 80px)/3);
+  overflow: hidden;
 `;
 
 const StateSection = styled.div`
